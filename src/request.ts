@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import Debug from 'debug';
+import { AbortError } from 'node-fetch';
 import { RequestInit } from 'node-fetch';
 import { URL } from 'node:url';
 import { M_TEAM_API_URL } from './constant.js';
@@ -46,11 +47,11 @@ class Request {
    * @param path
    * @param body
    * @param headers
-   * @return { Promise<BunResponse<T>> }
+   * @return { Promise<T> }
    */
   public async post<T = Record<any, any>>(
     path: string, body: { [key: string]: any } = {}, headers: { [key: string]: string } = {}
-  ): Promise<BunResponse<T>> {
+  ): Promise<T> {
     if (!path) {
       throw new Error('path is required');
     }
@@ -69,11 +70,19 @@ class Request {
     options.signal = controller.signal;
     const timeout = this.options.timeout || DEFAULT_TIMEOUT;
     const timeoutId = setTimeout(() => controller.abort(), timeout);
-    debug('POST %s', this.combineUrl(path));
+
+    const url = this.combineUrl(path);
+    debug('POST %s', url);
     debug('OPTIONS %j', options);
-    const response = await fetch(this.combineUrl(path), options);
+    const response = await fetch(url, options).catch(err => {
+      if (err instanceof AbortError) {
+        throw new Error('Request aborted');
+      }
+      throw err;
+    });
+    const resp = await response.json() as BunResponse<T>;
     clearTimeout(timeoutId);
-    return await response.json() as BunResponse<T>;
+    return this.unwrap<T>(resp) as T;
   }
 
   /**
@@ -101,6 +110,10 @@ class Request {
     return new URL(path, this.options.url).toString();
   }
 
+
+  protected unwrap<R>(resp: BunResponse<R>): R {
+    return resp.data;
+  }
 }
 
 export default Request;

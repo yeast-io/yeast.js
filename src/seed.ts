@@ -19,7 +19,9 @@ class Seed extends Base {
     return this.request.post<IBunCategoryListResponse>(def.path, {}, { 'Content-Type': def.contentType });
   }
 
-  public async collection() {
+  public async collection(id: number, make: boolean) {
+    const def = this.builder.find('collection');
+    return this.request.post(def.path, { id, make }, { 'Content-Type': def.contentType });
   }
 
   public async createOredit() {
