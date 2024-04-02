@@ -1,0 +1,31 @@
+{
+  "name": "m-bun",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "types": "dist/main.d.ts",
+  "main": "dist/main.mjs",
+  "scripts": {
+    "test": "node --loader tsx --test ./src/**.spec.ts",
+    "build": "rm -rf ./dist/* && tsc -p tsconfig.json",
+    "start": "DEBUG=m:bun:* node_modules/.bin/ts-node --esm src/main.ts"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.14",
+    "@types/debug": "^4.1.12",
+    "@types/node": "^20.12.2",
+    "chai": "^5.1.0",
+    "debug": "^4.3.4",
+    "eslint": "^8.57.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.3",
+    "typescript-eslint": "^7.4.0"
+  },
+  "keywords": [],
+  "author": "danielsss",
+  "license": "MIT"
+}
