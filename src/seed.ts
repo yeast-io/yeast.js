@@ -1,7 +1,10 @@
 import Base from './base.js';
-import { IBunAudioCodecListResponse } from './interfaces/seed.type.js';
-import { IBunCategoryListResponse } from './interfaces/seed.type.js';
-import { IBunSeedSearchOptions, IBunSeedSearchResponse } from './interfaces/seed.type.js';
+import {
+  IBunAudioCodecListOutput, IBunCategoryListOutput, IBunSearchOutput
+} from './interfaces/seed/output.type.js';
+import {
+  IBunTorrentSearchInput, IBunTorrentUploadFormInput
+} from './interfaces/seed/input.type.js';
 
 
 class Seed extends Base {
@@ -10,24 +13,36 @@ class Seed extends Base {
    * To get a list of audio codecs
    */
   public async audioCodecList() {
-    const def = this.builder.find('audioCodecList');
-    return this.request.post<IBunAudioCodecListResponse[]>(def.path, {}, { 'Content-Type': def.contentType });
+    return this.request.post<IBunAudioCodecListOutput[]>({ method: 'audioCodecList' });
   }
 
   public async categoryList() {
-    const def = this.builder.find('categoryList');
-    return this.request.post<IBunCategoryListResponse>(def.path, {}, { 'Content-Type': def.contentType });
+    return this.request.post<IBunCategoryListOutput>({ method: 'categoryList' });
   }
 
-  public async collection(id: number, make: boolean) {
-    const def = this.builder.find('collection');
-    return this.request.post(def.path, { id, make }, { 'Content-Type': def.contentType });
+  /**
+   * @description To get a collection
+   *
+   * @param { number } id
+   * @param { boolean } [make=false] - Whether to make the collection
+   */
+  public async collection(id: number, make: boolean = false) {
+    if (!id) {
+      throw new Error('id is required');
+    }
+
+    return this.request.post({ method: 'collection', body: { id, make }, requestType: 'query' });
   }
 
-  public async createOredit() {
+  public async createOredit(torrentUploadForm: IBunTorrentUploadFormInput) {
+    return this.request.post({ method: 'createOredit', body: torrentUploadForm });
   }
 
-  public async detail() {
+  public async detail(id: number, origin: string = 'web') {
+    if (!id) {
+      throw new Error('id is required');
+    }
+    return this.request.post({ method: 'detail', body: { id, origin }, requestType: 'query' });
   }
 
   public async doubanInfo() {
@@ -66,10 +81,16 @@ class Seed extends Base {
 
   /**
    * To search seeds through M-team's API
-   * @param { IBunSeedSearchOptions } options
+   * @param { IBunTorrentSearch } options
+   * @param { string } options.mode - The mode of the search
+   * @param { number } [options.pageSize=100] - The page size of the search
+   * @param { number } [options.pageNumber=1] - The page number of the search
+   * @param { string } [options.sortDirection='desc'] - The sort direction of the search
    */
-  public async search(options?: IBunSeedSearchOptions) {
-    options = options || {};
+  public async search(options: IBunTorrentSearchInput) {
+    if (!options) {
+      throw new Error('options is required');
+    }
     if (!options.mode) {
       throw new Error('options.mode is required');
     }
@@ -77,8 +98,7 @@ class Seed extends Base {
     options.pageNumber = options.pageNumber || 1;
     options.sortDirection = options.sortDirection || 'desc';
     options.visible = options.visible || 1;
-    const def = this.builder.find('search');
-    return this.request.post<IBunSeedSearchResponse>(def.path, options, {'Content-Type': def.contentType});
+    return this.request.post<IBunSearchOutput>({ method: 'search', body: options });
   }
 
   public async sendReward() {}

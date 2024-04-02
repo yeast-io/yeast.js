@@ -18,4 +18,11 @@ describe('# Seed Unit Test', () => {
     expect(Object.keys(obj).length).to.be.greaterThan(0);
   });
 
+
+  it('- should be able to get a collection', async () => {
+    const obj = await bun.seed.collection(1, true);
+    // TODO: figure out the response of this method
+    expect(obj).to.be.null;
+  });
+
 });

@@ -2,39 +2,38 @@
 interface IBunAPI {
   name: string;
   path: string;
-  contentType: string;
+  contentType?: string;
 }
 
-const DEFAULT_CONTENT_TYPE = 'application/x-www-form-urlencoded';
 
 const SEED_DEFINITIONS: IBunAPI[] = [
   /**
    * Seed related methods
    */
-  { name: 'audioCodecList', path: '/api/torrent/audioCodecList', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'categoryList', path: '/api/torrent/categoryList', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'collection', path: '/api/torrent/collection', contentType: DEFAULT_CONTENT_TYPE },
+  { name: 'audioCodecList', path: '/api/torrent/audioCodecList' },
+  { name: 'categoryList', path: '/api/torrent/categoryList' },
+  { name: 'collection', path: '/api/torrent/collection' },
   { name: 'createOredit', path: '/api/torrent/createOredit', contentType: 'application/json' },
-  { name: 'detail', path: '/api/torrent/detail', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'doubanInfo', path: '/api/torrent/doubanInfo', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'files', path: '/api/torrent/files', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'genDlToken', path: '/api/torrent/genDlToken', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'imdbInfo', path: '/api/torrent/imdbInfo', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'mediumList', path: '/api/torrent/mediumList', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'peers', path: '/api/torrent/peers', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'processingList', path: '/api/torrent/processingList', contentType: DEFAULT_CONTENT_TYPE },
+  { name: 'detail', path: '/api/torrent/detail' },
+  { name: 'doubanInfo', path: '/api/torrent/doubanInfo' },
+  { name: 'files', path: '/api/torrent/files' },
+  { name: 'genDlToken', path: '/api/torrent/genDlToken' },
+  { name: 'imdbInfo', path: '/api/torrent/imdbInfo' },
+  { name: 'mediumList', path: '/api/torrent/mediumList' },
+  { name: 'peers', path: '/api/torrent/peers' },
+  { name: 'processingList', path: '/api/torrent/processingList' },
   { name: 'queryTorrentTrackerHistory', path: '/api/torrent/queryTorrentTrackerHistory', contentType: 'application/json' },
-  { name: 'requestReseed', path: '/api/torrent/requestReseed', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'rewardStatus', path: '/api/torrent/rewardStatus', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'sayThank', path: '/api/torrent/sayThank', contentType: DEFAULT_CONTENT_TYPE },
+  { name: 'requestReseed', path: '/api/torrent/requestReseed' },
+  { name: 'rewardStatus', path: '/api/torrent/rewardStatus' },
+  { name: 'sayThank', path: '/api/torrent/sayThank' },
   { name: 'search', path: '/api/torrent/search', contentType: 'application/json' },
-  { name: 'sendReward', path: '/api/torrent/sendReward', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'sourceList', path: '/api/torrent/sourceList', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'standardList', path: '/api/torrent/standardList', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'teamList', path: '/api/torrent/teamList', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'thanksStatus', path: '/api/torrent/thanksStatus', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'videoCodecList', path: '/api/torrent/videoCodecList', contentType: DEFAULT_CONTENT_TYPE },
-  { name: 'viewHits', path: '/api/torrent/viewHits', contentType: DEFAULT_CONTENT_TYPE },
+  { name: 'sendReward', path: '/api/torrent/sendReward' },
+  { name: 'sourceList', path: '/api/torrent/sourceList' },
+  { name: 'standardList', path: '/api/torrent/standardList' },
+  { name: 'teamList', path: '/api/torrent/teamList' },
+  { name: 'thanksStatus', path: '/api/torrent/thanksStatus' },
+  { name: 'videoCodecList', path: '/api/torrent/videoCodecList' },
+  { name: 'viewHits', path: '/api/torrent/viewHits' },
 ];
 
 export type BunSeedMethods =
