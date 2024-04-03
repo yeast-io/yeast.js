@@ -25,4 +25,18 @@ describe('# Seed Unit Test', () => {
     expect(obj).to.be.null;
   });
 
+  it('- should be able to get douban info by url', async () => {
+    const url = 'https://movie.douban.com/subject/26608246/';
+    const obj = await bun.seed.doubanInfo(url);
+    expect(obj).to.be.an('object');
+    const parts = url.split('/').filter((part) => part !== '');
+    expect(parts[parts.length - 1]).to.be.equal(obj.id);
+  });
+
+
+  it('- should be able to get files of a torrent', async () => {
+    const obj = await bun.seed.files(766707);
+    expect(obj).to.be.an('array');
+    expect(obj.length).to.be.greaterThan(0);
+  });
 });

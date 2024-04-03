@@ -1,6 +1,7 @@
 import Base from './base.js';
 import {
-  IBunAudioCodecListOutput, IBunCategoryListOutput, IBunSearchOutput
+  IBunAudioCodecListOutput, IBunCategoryListOutput, IBunDoubanInfoOutput,
+  IBunSearchOutput, IBunFileOutput
 } from './interfaces/seed/output.type.js';
 import {
   IBunTorrentSearchInput, IBunTorrentUploadFormInput
@@ -45,10 +46,26 @@ class Seed extends Base {
     return this.request.post({ method: 'detail', body: { id, origin }, requestType: 'query' });
   }
 
-  public async doubanInfo() {
+  /**
+   * Get douban info by code
+   * @param { string } code - douban id (26608246) or douban url: https://movie.douban.com/subject/26608246/
+   */
+  public async doubanInfo(code: string) {
+    if (!code) {
+      throw new Error('code is required');
+    }
+    return this.request.post<IBunDoubanInfoOutput>({ method: 'doubanInfo', body: { code }, requestType: 'query' });
   }
 
-  public async files() {
+  /**
+   * To get files of a torrent
+   * @param { number} id - The id of the torrent
+   */
+  public async files(id: number) {
+    if (!id) {
+      throw new Error('id is required');
+    }
+    return this.request.post<IBunFileOutput[]>({ method: 'files', body: { id }, requestType: 'query' });
   }
 
   public async genDlToken() {
