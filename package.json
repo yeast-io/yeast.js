@@ -4,11 +4,13 @@
   "description": "This project aims to provide a simple and easy-to-use way to interact with the M-Team API.",
   "type": "module",
   "types": "dist/main.d.ts",
-  "main": "dist/main.mjs",
+  "main": "dist/main.js",
+  "bin": {
+    "mbun-cli": "bin/mbun.mjs"
+  },
   "scripts": {
     "test": "node --loader tsx --test ./src/**.spec.ts",
-    "build": "rm -rf ./dist/* && tsc -p tsconfig.json",
-    "start": "DEBUG=m:bun:* node_modules/.bin/ts-node --esm src/main.ts"
+    "build": "rm -rf ./dist/* && tsc -p tsconfig.json"
   },
   "dependencies": {
     "node-fetch": "^3.3.2"
