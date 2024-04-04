@@ -51,4 +51,10 @@ describe('# Seed Unit Test', () => {
     const obj = await bun.seed.imdbInfo('tt0068646');
     expect(obj).to.be.an('object');
   });
+
+
+  it('- should be able to get the peers informatioin', async () => {
+    const peers = await bun.seed.peers(766707);
+    expect(peers).to.be.an('array');
+  });
 });

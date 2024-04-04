@@ -163,3 +163,23 @@ export interface IBunIMDBInfoOutput {
   awards: unknown[];
   [key: string]: unknown;
 }
+
+
+export interface IBunTorrentPeersOutput {
+  id: string;
+  createdDate: string;
+  lastModifiedDate: string;
+  memberId: string;
+  torrentId: string;
+  ip: string;
+  box: boolean;
+  ipv6: string;
+  v6Box: boolean;
+  location: string;
+  agent: string;
+  peerId: string;
+  left: string;
+  uploaded: string;
+  downloaded: string;
+  lastAction: string;
+}

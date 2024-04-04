@@ -2,7 +2,7 @@ import Base from './base.js';
 import {
   IBunAudioCodecListOutput, IBunCategoryListOutput, IBunDoubanInfoOutput,
   IBunSearchOutput, IBunFileOutput, IBunDownloadableTorrentUrlOutput,
-  IBunIMDBInfoOutput
+  IBunIMDBInfoOutput, IBunTorrentPeersOutput
 } from './interfaces/seed/output.type.js';
 import {
   IBunTorrentSearchInput, IBunTorrentUploadFormInput
@@ -92,7 +92,13 @@ class Seed extends Base {
   public async mediumList() {
   }
 
-  public async peers() {
+  /**
+   * To get the information of peers
+   * @param { number } id - The id of the torrent
+   */
+  public async peers(id: number) {
+    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    return this.request.post<IBunTorrentPeersOutput[]>({ method: 'peers', body: { id }, requestType: 'query' });
   }
 
   public async processingList() {
