@@ -9,7 +9,7 @@
     "mbun-cli": "bin/mbun.mjs"
   },
   "scripts": {
-    "test": "node --loader tsx --test ./src/**.spec.ts",
+    "test": "NODE_NO_WARNINGS=1 node --loader tsx --test ./src/**.spec.ts",
     "build": "rm -rf ./dist/* && tsc -p tsconfig.json"
   },
   "dependencies": {

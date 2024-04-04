@@ -39,4 +39,16 @@ describe('# Seed Unit Test', () => {
     expect(obj).to.be.an('array');
     expect(obj.length).to.be.greaterThan(0);
   });
+
+  it('- should be able to get a downloadable url of the torrent', async () => {
+
+    const url = await bun.seed.genDlToken(766707);
+    expect(url).to.be.a('string');
+    expect(url.startsWith('http')).to.be.true;
+  });
+
+  it('- should be able to get the info from IMDB', async () => {
+    const obj = await bun.seed.imdbInfo('tt0068646');
+    expect(obj).to.be.an('object');
+  });
 });

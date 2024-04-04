@@ -107,7 +107,8 @@ export interface IBunDoubanInfoOutput {
   aka : string[];
   is_restrictive: boolean;
   trailer: Record<string, any>;
-  vendor_icons: unknown[]
+  vendor_icons: unknown[];
+  [key: string]: unknown;
 }
 
 
@@ -118,4 +119,47 @@ export interface IBunFileOutput {
   torrent: string,
   name: string;
   size: string;
+}
+
+export type IBunDownloadableTorrentUrlOutput = string;
+
+
+/* ========================     IMDB         ========================== */
+export interface IMDBParticipantInfo {
+  imdb: string;
+  name: string;
+  role: string;
+}
+
+export interface IMDBExtraParticipantInfo extends IMDBParticipantInfo {
+  credited: boolean;
+  role_other: string[];
+  thumb: string;
+  photo: string;
+}
+
+export interface IBunIMDBInfoOutput {
+  title: string;
+  country: string[];
+  director: IMDBParticipantInfo[];
+  creator: IMDBParticipantInfo[];
+  writing: IMDBParticipantInfo[];
+  producer: IMDBParticipantInfo[];
+  cast: IMDBExtraParticipantInfo[];
+  plot: unknown[];
+  plotoutline: string;
+  composer: {imdb: string, name: string, role: string}[];
+  genres: string[];
+  comment: string;
+  photo: { full: string, thumb: string };
+  alsoknow: unknown[],
+  tagline: string;
+  runtime: string;
+  year: string;
+  votes: string;
+  rating: number;
+  language: string;
+  languages: string[];
+  awards: unknown[];
+  [key: string]: unknown;
 }

@@ -1,12 +1,15 @@
 import Base from './base.js';
 import {
   IBunAudioCodecListOutput, IBunCategoryListOutput, IBunDoubanInfoOutput,
-  IBunSearchOutput, IBunFileOutput
+  IBunSearchOutput, IBunFileOutput, IBunDownloadableTorrentUrlOutput,
+  IBunIMDBInfoOutput
 } from './interfaces/seed/output.type.js';
 import {
   IBunTorrentSearchInput, IBunTorrentUploadFormInput
 } from './interfaces/seed/input.type.js';
 
+
+const MISSING_PARAMETER = 'missing params';
 
 class Seed extends Base {
 
@@ -28,10 +31,7 @@ class Seed extends Base {
    * @param { boolean } [make=false] - Whether to make the collection
    */
   public async collection(id: number, make: boolean = false) {
-    if (!id) {
-      throw new Error('id is required');
-    }
-
+    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
     return this.request.post({ method: 'collection', body: { id, make }, requestType: 'query' });
   }
 
@@ -40,38 +40,53 @@ class Seed extends Base {
   }
 
   public async detail(id: number, origin: string = 'web') {
-    if (!id) {
-      throw new Error('id is required');
-    }
+    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
     return this.request.post({ method: 'detail', body: { id, origin }, requestType: 'query' });
   }
 
   /**
-   * Get douban info by code
-   * @param { string } code - douban id (26608246) or douban url: https://movie.douban.com/subject/26608246/
+   * It's going to get the douban info
+   * @param { string } code - douban id (26608246)
    */
   public async doubanInfo(code: string) {
-    if (!code) {
-      throw new Error('code is required');
-    }
+    if (this.utils.isEmpty(code)) throw new Error(MISSING_PARAMETER);
     return this.request.post<IBunDoubanInfoOutput>({ method: 'doubanInfo', body: { code }, requestType: 'query' });
   }
 
   /**
-   * To get files of a torrent
+   * To get a file list which is related to the id of the torrent
    * @param { number} id - The id of the torrent
    */
   public async files(id: number) {
-    if (!id) {
-      throw new Error('id is required');
-    }
+    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
     return this.request.post<IBunFileOutput[]>({ method: 'files', body: { id }, requestType: 'query' });
   }
 
-  public async genDlToken() {
+  /**
+   * To get an available url of torrent file by id
+   * @param { number } id
+   */
+  public async genDlToken(id: number) {
+    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    return this.request.post<IBunDownloadableTorrentUrlOutput>({
+      method: 'genDlToken', body: { id }, requestType: 'query'
+    });
   }
 
-  public async imdbInfo() {
+  /**
+   * It's going to get the imdb info
+   * @param { string } code - imdb id (tt0068646)
+   */
+  public async imdbInfo(
+    /**
+     * As far as I know, the official API of m-team supports using an array of codes,
+     * but the current implementation only supports a single code.
+     * because I've tried to send an array of codes and it responds improperly.
+     */
+    code: string
+  ) {
+    if (this.utils.isEmpty(code)) throw new Error(MISSING_PARAMETER);
+    return this.request.post<IBunIMDBInfoOutput>({ method: 'imdbInfo', body: { code }, requestType: 'query' });
   }
 
   public async mediumList() {

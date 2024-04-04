@@ -3,5 +3,5 @@
 import Bun from '../dist/main.js';
 
 
-const bun = new Bun({ key: '' });
-bun.seed.doubanInfo('26608246').then(console.log);
+const bun = new Bun({ key: process.env['M_TEAM_API_KEY'] });
+bun.seed.search({ mode: 'movie' }).then(console.log);
