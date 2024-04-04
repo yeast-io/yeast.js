@@ -17,13 +17,28 @@ describe('# Utils Unit Test', () => {
     expect(isEmpty([1])).to.be.false;
     expect(isEmpty({ a: 1 })).to.be.false;
 
+    expect(isEmpty(new Map())).to.be.true;
+    expect(isEmpty(new Set())).to.be.true;
+
+    const m = new Map();
+    m.set('a', 1);
+    expect(isEmpty(m)).to.be.false;
+    expect(isEmpty(new Set([1,2,3]))).to.be.false;
+
     try {
       // @ts-ignore
-      isEmpty(new Map());
+      isEmpty(new WeakSet());
     } catch (err) {
       expect(err instanceof Error).to.be.true;
     }
 
+
+    try {
+      // @ts-ignore
+      isEmpty(new WeakMap());
+    } catch (err) {
+      expect(err instanceof Error).to.be.true;
+    }
   });
 
 });
