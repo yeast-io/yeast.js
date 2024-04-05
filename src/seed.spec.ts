@@ -52,9 +52,20 @@ describe('# Seed Unit Test', () => {
     expect(obj).to.be.an('object');
   });
 
+  it('- should be able to get a list of medium ', async () => {
+    const mediums = await bun.seed.mediumList();
+    expect(mediums).to.be.an('array');
+    expect(mediums.length).to.be.greaterThan(0);
+  });
 
-  it('- should be able to get the peers informatioin', async () => {
+  it('- should be able to get the peers information', async () => {
     const peers = await bun.seed.peers(766707);
     expect(peers).to.be.an('array');
+  });
+
+  it('- should be able to get the list of processing', async () => {
+    const list = await bun.seed.processingList();
+    expect(list).to.be.an('array');
+    expect(list.length).to.be.greaterThan(0);
   });
 });

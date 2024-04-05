@@ -2,7 +2,8 @@ import Base from './base.js';
 import {
   IBunAudioCodecListOutput, IBunCategoryListOutput, IBunDoubanInfoOutput,
   IBunSearchOutput, IBunFileOutput, IBunDownloadableTorrentUrlOutput,
-  IBunIMDBInfoOutput, IBunTorrentPeersOutput
+  IBunIMDBInfoOutput, IBunTorrentPeersOutput, IBunMediumListOutput,
+  IBunProcessingListOutput
 } from './interfaces/seed/output.type.js';
 import {
   IBunTorrentSearchInput, IBunTorrentUploadFormInput
@@ -90,6 +91,7 @@ class Seed extends Base {
   }
 
   public async mediumList() {
+    return this.request.post<IBunMediumListOutput[]>({ method: 'mediumList' });
   }
 
   /**
@@ -102,6 +104,7 @@ class Seed extends Base {
   }
 
   public async processingList() {
+    return this.request.post<IBunProcessingListOutput[]>({ method: 'processingList' });
   }
 
   public async queryTorrentTrackerHistory() {

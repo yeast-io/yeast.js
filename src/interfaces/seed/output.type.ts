@@ -183,3 +183,22 @@ export interface IBunTorrentPeersOutput {
   downloaded: string;
   lastAction: string;
 }
+
+export interface IBunMediumListOutput {
+  createdDate: string;
+  lastModifiedDate: string;
+  id: string;
+  order: string;
+  nameChs: string;
+  nameCht: string;
+  nameEng: string;
+}
+
+
+export interface IBunProcessingListOutput {
+  createdDate: string;
+  lastModifiedDate: string;
+  id: string;
+  order: string;
+  name: string;
+}
