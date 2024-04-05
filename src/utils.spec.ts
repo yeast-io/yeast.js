@@ -26,7 +26,7 @@ describe('# Utils Unit Test', () => {
     expect(isEmpty(new Set([1,2,3]))).to.be.false;
 
     try {
-      // @ts-ignore
+      // @ts-expect-error Just trusts me ...
       isEmpty(new WeakSet());
     } catch (err) {
       expect(err instanceof Error).to.be.true;
@@ -34,7 +34,7 @@ describe('# Utils Unit Test', () => {
 
 
     try {
-      // @ts-ignore
+      // @ts-expect-error Just trusts me ...
       isEmpty(new WeakMap());
     } catch (err) {
       expect(err instanceof Error).to.be.true;

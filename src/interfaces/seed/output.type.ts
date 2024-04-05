@@ -10,18 +10,18 @@ interface TimestampObject {
 }
 
 
-export interface IBunAudioCodecListOutput extends TimestampObject {
+export interface AudioCodecListOutput extends TimestampObject {
   id: string;
   order: string;
   name: string;
 }
 
-export interface IBunCategoryListOutput {
+export interface CategoryListOutput {
   [key: string]: unknown;
 }
 
 
-export interface IBunSearchOutput {
+export interface SearchOutput {
   pageNumber: number;
   pageSize: number;
   total: number;
@@ -32,9 +32,9 @@ export interface IBunSearchOutput {
 
 /**
  * @description It's all about douban info
- * @interface IBunDoubanInfoOutput
+ * @interface DoubanInfoOutput
  */
-export interface IBunDoubanInfoOutput {
+export interface DoubanInfoOutput {
   rating: {
     count: string;
     max: string;
@@ -122,7 +122,7 @@ export interface IBunDoubanInfoOutput {
 }
 
 
-export interface IBunFileOutput {
+export interface FileOutput {
   createdDate: string;
   lastModifiedDate: string;
   id: string;
@@ -131,7 +131,7 @@ export interface IBunFileOutput {
   size: string;
 }
 
-export type IBunDownloadableTorrentUrlOutput = string;
+export type DownloadableTorrentUrlOutput = string;
 
 
 /* ========================     IMDB         ========================== */
@@ -148,7 +148,7 @@ export interface IMDBExtraParticipantInfo extends IMDBParticipantInfo {
   photo: string;
 }
 
-export interface IBunIMDBInfoOutput {
+export interface IMDBInfoOutput {
   title: string;
   country: string[];
   director: IMDBParticipantInfo[];
@@ -175,7 +175,7 @@ export interface IBunIMDBInfoOutput {
 }
 
 
-export interface IBunTorrentPeersOutput extends TimestampObject {
+export interface TorrentPeersOutput extends TimestampObject {
   id: string;
   memberId: string;
   torrentId: string;
@@ -192,7 +192,7 @@ export interface IBunTorrentPeersOutput extends TimestampObject {
   lastAction: string;
 }
 
-export interface IBunMediumListOutput extends TimestampObject {
+export interface MediumListOutput extends TimestampObject {
   id: string;
   order: string;
   nameChs: string;
@@ -201,7 +201,7 @@ export interface IBunMediumListOutput extends TimestampObject {
 }
 
 
-export interface IBunProcessingListOutput extends TimestampObject {
+export interface ProcessingListOutput extends TimestampObject {
   id: string;
   order: string;
   name: string;
@@ -214,7 +214,7 @@ interface rewardContributors extends TimestampObject {
   value: string
 }
 
-export interface IBunTorrentRewardStatusOutput {
+export interface TorrentRewardStatusOutput {
   givingSeries: string[];
   rewardCount: string;
   rewardSum: string;

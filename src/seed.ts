@@ -1,12 +1,12 @@
 import Base from './base.js';
 import {
-  IBunAudioCodecListOutput, IBunCategoryListOutput, IBunDoubanInfoOutput,
-  IBunSearchOutput, IBunFileOutput, IBunDownloadableTorrentUrlOutput,
-  IBunIMDBInfoOutput, IBunTorrentPeersOutput, IBunMediumListOutput,
-  IBunProcessingListOutput, IBunTorrentRewardStatusOutput
+  AudioCodecListOutput, CategoryListOutput, DoubanInfoOutput,
+  SearchOutput, FileOutput, DownloadableTorrentUrlOutput,
+  IMDBInfoOutput, TorrentPeersOutput, MediumListOutput,
+  ProcessingListOutput, TorrentRewardStatusOutput
 } from './interfaces/seed/output.type.js';
 import {
-  IBunTorrentSearchInput, IBunTorrentUploadFormInput
+  TorrentSearchInput, TorrentUploadFormInput
 } from './interfaces/seed/input.type.js';
 
 
@@ -19,11 +19,11 @@ class Seed extends Base {
    * To get a list of audio codecs
    */
   public async audioCodecList() {
-    return this.request.post<IBunAudioCodecListOutput[]>({ method: 'audioCodecList' });
+    return this.request.post<AudioCodecListOutput[]>({ method: 'audioCodecList' });
   }
 
   public async categoryList() {
-    return this.request.post<IBunCategoryListOutput>({ method: 'categoryList' });
+    return this.request.post<CategoryListOutput>({ method: 'categoryList' });
   }
 
   /**
@@ -37,7 +37,7 @@ class Seed extends Base {
     return this.request.post({ method: 'collection', body: { id, make }, requestType: 'query' });
   }
 
-  public async createOredit(torrentUploadForm: IBunTorrentUploadFormInput) {
+  public async createOredit(torrentUploadForm: TorrentUploadFormInput) {
     return this.request.post({ method: 'createOredit', body: torrentUploadForm });
   }
 
@@ -52,7 +52,7 @@ class Seed extends Base {
    */
   public async doubanInfo(code: string) {
     if (this.utils.isEmpty(code)) throw new Error(MISSING_PARAMETER);
-    return this.request.post<IBunDoubanInfoOutput>({ method: 'doubanInfo', body: { code }, requestType: 'query' });
+    return this.request.post<DoubanInfoOutput>({ method: 'doubanInfo', body: { code }, requestType: 'query' });
   }
 
   /**
@@ -61,7 +61,7 @@ class Seed extends Base {
    */
   public async files(id: number) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
-    return this.request.post<IBunFileOutput[]>({ method: 'files', body: { id }, requestType: 'query' });
+    return this.request.post<FileOutput[]>({ method: 'files', body: { id }, requestType: 'query' });
   }
 
   /**
@@ -70,7 +70,7 @@ class Seed extends Base {
    */
   public async genDlToken(id: number) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
-    return this.request.post<IBunDownloadableTorrentUrlOutput>({
+    return this.request.post<DownloadableTorrentUrlOutput>({
       method: 'genDlToken', body: { id }, requestType: 'query'
     });
   }
@@ -88,11 +88,11 @@ class Seed extends Base {
     code: string
   ) {
     if (this.utils.isEmpty(code)) throw new Error(MISSING_PARAMETER);
-    return this.request.post<IBunIMDBInfoOutput>({ method: 'imdbInfo', body: { code }, requestType: 'query' });
+    return this.request.post<IMDBInfoOutput>({ method: 'imdbInfo', body: { code }, requestType: 'query' });
   }
 
   public async mediumList() {
-    return this.request.post<IBunMediumListOutput[]>({ method: 'mediumList' });
+    return this.request.post<MediumListOutput[]>({ method: 'mediumList' });
   }
 
   /**
@@ -101,11 +101,11 @@ class Seed extends Base {
    */
   public async peers(id: number) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
-    return this.request.post<IBunTorrentPeersOutput[]>({ method: 'peers', body: { id }, requestType: 'query' });
+    return this.request.post<TorrentPeersOutput[]>({ method: 'peers', body: { id }, requestType: 'query' });
   }
 
   public async processingList() {
-    return this.request.post<IBunProcessingListOutput[]>({ method: 'processingList' });
+    return this.request.post<ProcessingListOutput[]>({ method: 'processingList' });
   }
 
   public async queryTorrentTrackerHistory() {
@@ -129,7 +129,7 @@ class Seed extends Base {
    */
   public async rewardStatus(id: number) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
-    return this.request.post<IBunTorrentRewardStatusOutput>({
+    return this.request.post<TorrentRewardStatusOutput>({
       method: 'rewardStatus', body: { id }, requestType: 'query'
     });
   }
@@ -140,13 +140,13 @@ class Seed extends Base {
 
   /**
    * To search seeds through M-team's API
-   * @param { IBunTorrentSearch } options
+   * @param { TorrentSearch } options
    * @param { string } options.mode - The mode of the search
    * @param { number } [options.pageSize=100] - The page size of the search
    * @param { number } [options.pageNumber=1] - The page number of the search
    * @param { string } [options.sortDirection='desc'] - The sort direction of the search
    */
-  public async search(options: IBunTorrentSearchInput) {
+  public async search(options: TorrentSearchInput) {
     if (!options) {
       throw new Error('options is required');
     }
@@ -157,7 +157,7 @@ class Seed extends Base {
     options.pageNumber = options.pageNumber || 1;
     options.sortDirection = options.sortDirection || 'desc';
     options.visible = options.visible || 1;
-    return this.request.post<IBunSearchOutput>({ method: 'search', body: options });
+    return this.request.post<SearchOutput>({ method: 'search', body: options });
   }
 
   public async sendReward() {}

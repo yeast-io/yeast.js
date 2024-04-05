@@ -1,14 +1,15 @@
 {
-  "name": "m-bun",
+  "name": "bread",
   "version": "1.0.10",
   "description": "This project aims to provide a simple and easy-to-use way to interact with the M-Team API.",
   "type": "module",
   "types": "dist/main.d.ts",
   "main": "dist/main.js",
   "bin": {
-    "mbun-cli": "bin/mbun.mjs"
+    "bread": "bin/cli.mjs"
   },
   "scripts": {
+    "lint": "eslint .",
     "test": "NODE_NO_WARNINGS=1 node --loader tsx --test ./src/**.spec.ts",
     "build": "rm -rf ./dist/* && tsc -p tsconfig.json"
   },
@@ -19,6 +20,8 @@
     "@types/chai": "^4.3.14",
     "@types/debug": "^4.1.12",
     "@types/node": "^20.12.2",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
     "chai": "^5.1.0",
     "debug": "^4.3.4",
     "eslint": "^8.57.0",

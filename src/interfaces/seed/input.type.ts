@@ -1,6 +1,6 @@
 /**
  * @description Torrent upload form input
- * @interface IBunTorrentUploadFormInput
+ * @interface TorrentUploadFormInput
  * @property {string} name
  * @property {string} descr
  * @property {number} category
@@ -26,7 +26,7 @@
  * @property {string} [nfo]
  * @property {string} [mediainfo]
  */
-export interface IBunTorrentUploadFormInput {
+export interface TorrentUploadFormInput {
   name: string;
   descr: string;
   category: number;
@@ -56,14 +56,14 @@ export interface IBunTorrentUploadFormInput {
 
 /**
  * @description Torrent search input
- * @interface IBunTorrentSearchInput
+ * @interface TorrentSearchInput
  * @property { 'normal' | 'adult' | 'movie' | 'music' | 'tvshow' | 'waterfall' | 'rss' | 'rankings' } mode
  * @property {number} [pageSize]
  * @property {number} [pageNumber]
  * @property {number} [visible]
  * @property { 'asc' | 'desc' } [sortDirection]
  */
-export interface IBunTorrentSearchInput {
+export interface TorrentSearchInput {
   mode: 'normal' | 'adult' | 'movie' | 'music' | 'tvshow' | 'waterfall' | 'rss' | 'rankings';
   pageSize?: number;
   pageNumber?: number;

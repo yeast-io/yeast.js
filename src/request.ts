@@ -72,7 +72,10 @@ class Request {
    * @return { Promise<T> }
    */
   public async post<T = Record<any, any>>(options: QueryOptions): Promise<T> {
-    options.unwrap = !options.hasOwnProperty('unwrap') ? true : options.unwrap;
+    if (Object.keys(options).length <= 0) {
+      throw new Error('options must be an object of type QueryOptions');
+    }
+    options.unwrap = !Object.prototype.hasOwnProperty.call(options, 'unwrap') ? true : options.unwrap;
     const iba = this.builder.find(options.method);
     if (!iba) {
       throw new Error(`Method ${options.method} not found`);

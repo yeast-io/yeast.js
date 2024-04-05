@@ -1,12 +1,12 @@
 
-interface IBunAPI {
+interface BreadAPI {
   name: string;
   path: string;
   contentType?: string;
 }
 
 
-const SEED_DEFINITIONS: IBunAPI[] = [
+const SEED_DEFINITIONS: BreadAPI[] = [
   /**
    * Seed related methods
    */
@@ -36,7 +36,7 @@ const SEED_DEFINITIONS: IBunAPI[] = [
   { name: 'viewHits', path: '/api/torrent/viewHits' },
 ];
 
-export type BunSeedMethods =
+export type SeedMethods =
   'audioCodecList' | 'search'  | 'categoryList' | 'collection' |
   'createOredit' | 'detail'| 'doubanInfo' | 'files' |
   'genDlToken' | 'imdbInfo' | 'mediumList' | 'peers' |
@@ -44,13 +44,13 @@ export type BunSeedMethods =
   'sayThank' | 'sendReward' | 'sourceList' | 'standardList' |
   'teamList' | 'thanksStatus' | 'videoCodecList' | 'viewHits';
 
-export type Methods = BunSeedMethods;
+export type Methods = SeedMethods;
 
-const CONCRETED_DEFINITIONS: IBunAPI[] = Array.of<IBunAPI>(...SEED_DEFINITIONS);
+const CONCRETED_DEFINITIONS: BreadAPI[] = Array.of<BreadAPI>(...SEED_DEFINITIONS);
 
 class Builder {
 
-  protected collection: Map<string, IBunAPI> = new Map();
+  protected collection: Map<string, BreadAPI> = new Map();
 
   constructor() {
     for (const api of CONCRETED_DEFINITIONS) {
@@ -58,11 +58,11 @@ class Builder {
     }
   }
 
-  public find(name: Methods): IBunAPI {
+  public find(name: Methods): BreadAPI {
     if (!this.collection.has(name)) {
       throw new Error(`Method ${name} not found`);
     }
-    return this.collection.get(name) as IBunAPI;
+    return this.collection.get(name) as BreadAPI;
   }
 }
 
