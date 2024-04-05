@@ -43,6 +43,7 @@ export interface QueryOptions {
   requestType?: 'query' | 'body';
   body?: { [key: string]: any };
   headers?: { [key: string]: string };
+  unwrap?: boolean;
 }
 
 const DEFAULT_TIMEOUT = 10000;
@@ -71,6 +72,7 @@ class Request {
    * @return { Promise<T> }
    */
   public async post<T = Record<any, any>>(options: QueryOptions): Promise<T> {
+    options.unwrap = !options.hasOwnProperty('unwrap') ? true : options.unwrap;
     const iba = this.builder.find(options.method);
     if (!iba) {
       throw new Error(`Method ${options.method} not found`);
@@ -106,7 +108,7 @@ class Request {
     });
     const resp = await response.json() as BunResponse<T>;
     clearTimeout(timeoutId);
-    return this.unwrap<T>(resp) as T;
+    return (options.unwrap ? this.unwrap<T>(resp) : resp) as T;
   }
 
   /**

@@ -68,4 +68,19 @@ describe('# Seed Unit Test', () => {
     expect(list).to.be.an('array');
     expect(list.length).to.be.greaterThan(0);
   });
+
+
+  it('- should be able to make a request to ask someone to reseed', async () => {
+    const asked = await bun.seed.requestReseed(766435);
+    expect(asked).to.be.true;
+    // It's been asked, should return false
+    const again = await bun.seed.requestReseed(766435);
+    expect(again).to.be.false;
+  });
+
+  it('- should be able to get the reward status of the torrent', async () => {
+    const status = await bun.seed.rewardStatus(766590);
+    expect(status).to.be.an('object');
+    expect(status.rewardList).to.be.an('array');
+  });
 });

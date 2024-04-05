@@ -1,6 +1,16 @@
-export interface IBunAudioCodecListOutput {
+/**
+ * @description It is a timestamp object which is related to the createdDate and lastModifiedDate
+ * @interface TimestampObject
+ * @property { string } createdDate - For example, '2024-04-05 22:19:31'
+ * @property { string } lastModifiedDate - For example, '2024-04-05 22:19:31'
+ */
+interface TimestampObject {
   createdDate: string;
   lastModifiedDate: string;
+}
+
+
+export interface IBunAudioCodecListOutput extends TimestampObject {
   id: string;
   order: string;
   name: string;
@@ -165,10 +175,8 @@ export interface IBunIMDBInfoOutput {
 }
 
 
-export interface IBunTorrentPeersOutput {
+export interface IBunTorrentPeersOutput extends TimestampObject {
   id: string;
-  createdDate: string;
-  lastModifiedDate: string;
   memberId: string;
   torrentId: string;
   ip: string;
@@ -184,9 +192,7 @@ export interface IBunTorrentPeersOutput {
   lastAction: string;
 }
 
-export interface IBunMediumListOutput {
-  createdDate: string;
-  lastModifiedDate: string;
+export interface IBunMediumListOutput extends TimestampObject {
   id: string;
   order: string;
   nameChs: string;
@@ -195,10 +201,23 @@ export interface IBunMediumListOutput {
 }
 
 
-export interface IBunProcessingListOutput {
-  createdDate: string;
-  lastModifiedDate: string;
+export interface IBunProcessingListOutput extends TimestampObject {
   id: string;
   order: string;
   name: string;
+}
+
+interface rewardContributors extends TimestampObject {
+  id: string;
+  torrent: string;
+  userid: string;
+  value: string
+}
+
+export interface IBunTorrentRewardStatusOutput {
+  givingSeries: string[];
+  rewardCount: string;
+  rewardSum: string;
+  rewarded: boolean;
+  rewardList: rewardContributors[];
 }

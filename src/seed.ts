@@ -3,7 +3,7 @@ import {
   IBunAudioCodecListOutput, IBunCategoryListOutput, IBunDoubanInfoOutput,
   IBunSearchOutput, IBunFileOutput, IBunDownloadableTorrentUrlOutput,
   IBunIMDBInfoOutput, IBunTorrentPeersOutput, IBunMediumListOutput,
-  IBunProcessingListOutput
+  IBunProcessingListOutput, IBunTorrentRewardStatusOutput
 } from './interfaces/seed/output.type.js';
 import {
   IBunTorrentSearchInput, IBunTorrentUploadFormInput
@@ -11,6 +11,7 @@ import {
 
 
 const MISSING_PARAMETER = 'missing params';
+
 
 class Seed extends Base {
 
@@ -56,7 +57,7 @@ class Seed extends Base {
 
   /**
    * To get a file list which is related to the id of the torrent
-   * @param { number} id - The id of the torrent
+   * @param { number} id - TorrentId
    */
   public async files(id: number) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
@@ -96,7 +97,7 @@ class Seed extends Base {
 
   /**
    * To get the information of peers
-   * @param { number } id - The id of the torrent
+   * @param { number } id - TorrentId
    */
   public async peers(id: number) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
@@ -110,10 +111,27 @@ class Seed extends Base {
   public async queryTorrentTrackerHistory() {
   }
 
-  public async requestReseed() {
+  /**
+   * To make a request to reseed for the torrent, and it only allows to request once in 15 minutes.
+   * @param { number } id - TorrentId
+   */
+  public async requestReseed(id: number) {
+    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    return this.request.post<{
+      code: string, message: string
+    }>({ method: 'requestReseed', body: { id }, requestType: 'query', unwrap: false })
+      .then(res => res.code === '0' && res.message === 'SUCCESS');
   }
 
-  public async rewardStatus() {
+  /**
+   * To get the reward status of the torrent
+   * @param { number } id - TorrentId
+   */
+  public async rewardStatus(id: number) {
+    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    return this.request.post<IBunTorrentRewardStatusOutput>({
+      method: 'rewardStatus', body: { id }, requestType: 'query'
+    });
   }
 
   public async sayThank() {
