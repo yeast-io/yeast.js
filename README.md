@@ -1,2 +1,17 @@
-# m-bun
-This project aims to provide the public APIs as same as m-team.cc
+# bread
+
+...
+
+
+# Not allowed to access for third-party
+
+The APIs below are not allowed to access for third-party which means we wouldn't implement them at all.
+
+- /admin/**
+- /login
+- /apikey/**
+- /member/updateLastBrowse
+- /member/getSessionList
+- /member/revokeSession
+- /member/queryUserLoginHistory
+- /msg/**
