@@ -1,6 +1,6 @@
 import { describe, it } from 'bun:test';
 import { expect } from 'chai';
-import { isEmpty } from './utils.js';
+import { isEmpty, has } from './utils.js';
 
 
 describe('🌭 Utils', () => {
@@ -26,6 +26,12 @@ describe('🌭 Utils', () => {
     expect(isEmpty(new Set([1,2,3]))).to.be.false;
 
     try {
+      isEmpty(Buffer.from('123'));
+    } catch (err) {
+      expect(err instanceof Error).to.be.true;
+    }
+
+    try {
       isEmpty(new WeakSet());
     } catch (err) {
       expect(err instanceof Error).to.be.true;
@@ -37,6 +43,16 @@ describe('🌭 Utils', () => {
     } catch (err) {
       expect(err instanceof Error).to.be.true;
     }
+  });
+
+  it('- should be able to check whether the object has the key', () => {
+
+    // @ts-expect-error 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+    expect(has(null, 'a')).to.be.false;
+    // @ts-expect-error 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+    expect(has(undefined, 'a')).to.be.false;
+    expect(has({}, 'a')).to.be.false;
+    expect(has({ a: 1 }, 'a')).to.be.true;
   });
 
 });

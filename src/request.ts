@@ -2,12 +2,12 @@ import fetch from 'node-fetch';
 import Debug from 'debug';
 import Builder from './definition.js';
 import { Methods } from './definition.js';
-import { AbortError } from 'node-fetch';
+import { AbortError, FormData } from 'node-fetch';
 import { RequestInit, Headers } from 'node-fetch';
 import { URL } from 'node:url';
 import { M_TEAM_API_URL } from './constant.js';
 
-const debug = Debug('m:bun:request');
+const debug = Debug('bread:request');
 
 /**
  * @description This is a generic response interface of M-team's API, and you can specify the type of the data
@@ -40,7 +40,7 @@ export interface RequestOptions {
 
 export interface QueryOptions {
   method: Methods;
-  type?: 'query' | 'body';
+  type?: 'query' | 'body' | 'form';
   body?: { [key: string]: any };
   headers?: { [key: string]: string };
   unwrap?: boolean;
@@ -69,6 +69,7 @@ class Request {
    *  - [type]: We supported two types of request: query and body. In Default: body
    *  - [body]: The body of the request.
    *  - [headers]: The headers of the request.
+   *  - [unwrap]: Whether to unwrap the response. In Default: true
    * @return { Promise<T> }
    */
   public async post<T = Record<string, unknown>>(options: QueryOptions): Promise<T> {
@@ -81,10 +82,24 @@ class Request {
       throw new Error(`Method ${options.method} not found`);
     }
 
-    const headers = new Headers(Object.assign({
-      'Content-Type': iba.contentType || DEFAULT_CONTENT_TYPE,
-      'x-api-key': this.options.key
-    }, options.headers || {}));
+    const headers = new Headers(
+      Object.assign({ 'x-api-key': this.options.key }, options.headers || {})
+    );
+
+    /**
+     * @Warning:
+     * When using FormData to submit POST requests using XMLHttpRequest or the Fetch API with
+     * the multipart/form-data content type (e.g., when uploading files and blobs to the server),
+     * do not explicitly set the Content-Type header on the request.
+     *
+     * Doing so will prevent the browser from being able to set the Content-Type header with
+     * the boundary expression it will use to delimit form fields in the request body.
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
+     */
+    if (options.type !== 'form') {
+      headers.set('Content-Type', iba.contentType || DEFAULT_CONTENT_TYPE);
+    }
 
     const params: RequestInit = { method: 'POST', headers };
 
@@ -92,6 +107,12 @@ class Request {
     if (options.type === 'query') {
       const query = new URLSearchParams(options.body).toString();
       url = this.canonical(`${iba.path}?${query}`);
+    } else if (options.type === 'form') {
+      url = this.canonical(iba.path);
+      params.body = new FormData();
+      for (const key in options.body) {
+        params.body.append(key, options.body[key]);
+      }
     } else {
       url = this.canonical(iba.path);
       params.body = JSON.stringify(options.body || {});
@@ -109,6 +130,7 @@ class Request {
       }
       throw err;
     });
+    debug(response.headers.raw());
     const resp = await response.json() as Response<T>;
     clearTimeout(timeoutId);
     return (options.unwrap ? this.unwrap<T>(resp) : resp) as T;

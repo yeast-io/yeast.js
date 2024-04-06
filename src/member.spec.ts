@@ -23,4 +23,9 @@ describe('🌭 Member', () => {
     expect(bases['315125']).to.have.property('lastBrowse');
   });
 
+  it('- should be able to update security of the member', async () => {
+    const updated = await bread.member.updateSecurity({ privacy: 'LOW' });
+    expect(updated).to.be.true;
+  });
+
 });

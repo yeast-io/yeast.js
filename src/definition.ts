@@ -29,7 +29,7 @@ const MEMBER_DEFINITIONS: BreadAPI[] = [
   { name: 'sysRoleList', path: '/api/member/sysRoleList' },
   { name: 'unbindOTP', path: '/api/member/unbindOTP' },
   { name: 'updateProfile', path: '/api/member/updateProfile' },
-  { name: 'updateSecurity', path: '/api/member/updateSecurity' },
+  { name: 'updateSecurity', path: '/api/member/updateSecurity', contentType: 'multipart/form-data' },
   { name: 'verifyAccount', path: '/api/member/verifyAccount' },
   { name: 'verifyAccountByUser', path: '/api/member/verifyAccountByUser' }
 ];

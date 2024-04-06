@@ -131,4 +131,4 @@ dist
 
 .idea
 
-setup.ts
+setup.mjs
