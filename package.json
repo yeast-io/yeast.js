@@ -1,7 +1,7 @@
 {
   "name": "bread",
   "version": "1.0.10",
-  "description": "This project aims to provide a simple and easy-to-use way to interact with the M-Team API.",
+  "description": "",
   "type": "module",
   "types": "dist/main.d.ts",
   "main": "dist/main.js",
