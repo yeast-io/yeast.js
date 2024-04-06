@@ -4,7 +4,12 @@
 <h1 align="center">bread.js</h1>
 
 <p align="center">
-[![TypeScript](https://img.shields.io/badge/--3178C6?logo=typescript&logoColor=ffffff)](https://www.typescriptlang.org/)
+  <a href="https://www.typescriptlang.org/" target="_blank"><img src="https://forthebadge.com/images/badges/made-with-typescript.svg"></a>
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/bread.js" target="_blank"><img src="https://img.shields.io/npm/v/bread.js?style=for-the-badge"></a>
+  <a href="https://www.npmjs.com/package/bread.js" target="_blank"><img src="https://img.shields.io/npm/dt/bread.js?style=for-the-badge"></a>
 </p>
 
 
