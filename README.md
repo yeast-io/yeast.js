@@ -5,11 +5,12 @@
 
 ### What is bread.js?
 
-> 
-> The bread.js is a library that provides a simple way to access the `M-Team` API.
-> You can use it to get the information of the user, the torrent, the forum, and so on.
->
-> We've also provided the `cli` command to help you get what you want in an advanced way.
+ 
+The bread.js is a library that provides a simple way to access the `M-Team` API.
+You can use it to get the information of the user, the torrent, the forum, and so on.
+
+
+We've also provided the `cli` command to help you get what you want in an advanced way.
 
 
 # Usage of bread.js
