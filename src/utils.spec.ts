@@ -1,9 +1,9 @@
-import { describe, it } from 'node:test';
+import { describe, it } from 'bun:test';
 import { expect } from 'chai';
 import { isEmpty } from './utils.js';
 
 
-describe('# Utils Unit Test', () => {
+describe('🌭 Utils', () => {
 
   it('- should be able to check whether is empty or not for a variety of types', () => {
 
@@ -26,7 +26,6 @@ describe('# Utils Unit Test', () => {
     expect(isEmpty(new Set([1,2,3]))).to.be.false;
 
     try {
-      // @ts-expect-error Just trusts me ...
       isEmpty(new WeakSet());
     } catch (err) {
       expect(err instanceof Error).to.be.true;
@@ -34,7 +33,6 @@ describe('# Utils Unit Test', () => {
 
 
     try {
-      // @ts-expect-error Just trusts me ...
       isEmpty(new WeakMap());
     } catch (err) {
       expect(err instanceof Error).to.be.true;

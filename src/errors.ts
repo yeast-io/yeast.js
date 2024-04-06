@@ -6,6 +6,15 @@ class MissingArgumentError extends Error {
   }
 }
 
+
+class UnimplementedMethodError extends Error {
+  constructor(methodName: string) {
+    super(`Method ${methodName} is not implemented yet`);
+  }
+}
+
+
+
 export {
-  MissingArgumentError
+  MissingArgumentError, UnimplementedMethodError
 }

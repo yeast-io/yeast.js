@@ -1,5 +1,5 @@
 import Base from './base.js';
-import { MissingArgumentError } from './errors.js';
+import { MissingArgumentError, UnimplementedMethodError } from './errors.js';
 import {
   BaseOutput, BasesOutput
 } from './interfaces/member/output.type.js';
@@ -20,16 +20,31 @@ class Member extends Base {
     return this.request.post<BasesOutput>({ method: 'bases', body: { ids: uids } });
   }
 
+  /**
+   * The official API of M-team doesn't document properly about the parameters,
+   * So we can't implement this method.
+   * @deprecated
+   */
   public async bindOTP() {
-    return this.request.post({method: 'bindOTP'});
+    throw new UnimplementedMethodError('bindOTP');
   }
 
+  /**
+   * The official API of M-team doesn't document properly about the parameters,
+   * So we can't implement this method.
+   * @deprecated
+   */
   public async changeEmail() {
-    return this.request.post({method: 'changeEmail'});
+    throw new UnimplementedMethodError('changeEmail');
   }
 
+  /**
+   * The official API of M-team doesn't document properly about the parameters,
+   * So we can't implement this method.
+   * @deprecated
+   */
   public async changeEmailSendCode() {
-    return this.request.post({method: 'changeEmailSendCode'});
+    throw new UnimplementedMethodError('changeEmailSendCode');
   }
 
 

@@ -10,18 +10,20 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "NODE_NO_WARNINGS=1 node --loader tsx --test ./src/**.spec.ts",
+    "test": "node_modules/.bin/bun test",
     "build": "rm -rf ./dist/* && tsc -p tsconfig.json"
   },
   "dependencies": {
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
+    "@types/bun": "^1.0.12",
     "@types/chai": "^4.3.14",
     "@types/debug": "^4.1.12",
     "@types/node": "^20.12.2",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "@typescript-eslint/parser": "^7.5.0",
+    "bun": "^1.1.2",
     "chai": "^5.1.0",
     "debug": "^4.3.4",
     "eslint": "^8.57.0",
