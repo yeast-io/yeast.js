@@ -20,7 +20,7 @@ You can use it to get the information of the user, the torrent, the forum, and s
 We've also provided the `cli` command to help you get what you want in an advanced way.
 
 
-# Usage of bread.js
+## Usage of bread.js
 
 
 
@@ -47,7 +47,7 @@ const info = await bread.member.base('your user id');
 
 
 
-# Not allowed to access for third-party
+## Not allowed to access for third-party
 
 > [!IMPORTANT]
 > The APIs below are not allowed to access for third-party which means we wouldn't implement them at all.
