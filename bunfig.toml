@@ -1,9 +1,6 @@
 smol = true
 logLevel = "error"
 
-[run]
-preload = ["setup.ts"]
-
 [install]
 optional = true
 dev = true
