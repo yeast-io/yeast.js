@@ -30,7 +30,7 @@ You can import the module in your project like this(Node.js or Typescript):
 ```javascript
 import Bread from 'bread.js';
 
-const bread = new Bread({ key: 'YOUR KEY' });
+const bread = new Bread({ key: 'YOUR KEY', url: 'test enviroment will be used in default' });
 const info = await bread.member.base('your user id');
 ```
 
