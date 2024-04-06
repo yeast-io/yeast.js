@@ -5,10 +5,11 @@ import {
   IMDBInfoOutput, TorrentPeersOutput, MediumListOutput,
   ProcessingListOutput, TorrentRewardStatusOutput, SourceListOutput,
   StandardListOutput, TeamListOutput, TorrentThankStatusOutput,
-  VideoCodecListOutput
+  VideoCodecListOutput, TorrentTrackerUserHistoryOutput
 } from './interfaces/seed/output.type.js';
 import {
-  TorrentSearchInput, TorrentUploadFormInput
+  TorrentSearchInput, TorrentUploadFormInput,
+  TorrentTrackerUserHistoryInput
 } from './interfaces/seed/input.type.js';
 
 
@@ -17,16 +18,6 @@ const MISSING_PARAMETER = 'missing params';
 
 class Seed extends Base {
 
-  /**
-   * To get a list of audio codecs
-   */
-  public async audioCodecList() {
-    return this.request.post<AudioCodecListOutput[]>({ method: 'audioCodecList' });
-  }
-
-  public async categoryList() {
-    return this.request.post<CategoryListOutput>({ method: 'categoryList' });
-  }
 
   /**
    * @description To get a collection
@@ -93,10 +84,6 @@ class Seed extends Base {
     return this.request.post<IMDBInfoOutput>({ method: 'imdbInfo', body: { code }, type: 'query' });
   }
 
-  public async mediumList() {
-    return this.request.post<MediumListOutput[]>({ method: 'mediumList' });
-  }
-
   /**
    * To get the information of peers
    * @param { number } id - TorrentId
@@ -106,11 +93,29 @@ class Seed extends Base {
     return this.request.post<TorrentPeersOutput[]>({ method: 'peers', body: { id }, type: 'query' });
   }
 
-  public async processingList() {
-    return this.request.post<ProcessingListOutput[]>({ method: 'processingList' });
-  }
 
-  public async queryTorrentTrackerHistory() {
+  /**
+   * To query the torrent tracker user history
+   * @param { TorrentTrackerUserHistoryInput } options
+   * @param { number } options.torrent - TorrentId
+   * @param { number } [options.pageSize=100] - The page size of the search
+   * @param { number } [options.pageNumber=1] - The page number of the search
+   * @param { number } [options.lastId] - lastId
+   */
+  public async queryTorrentTrackerHistory(options: TorrentTrackerUserHistoryInput) {
+    if (this.utils.isEmpty(options as object)) {
+      throw new Error('options is required');
+    }
+
+    if (!this.utils.has(options, 'torrent')) {
+      throw new Error('options.torrent is required');
+    }
+
+    options.pageSize = options.pageSize || 100;
+    options.pageNumber = options.pageNumber || 1;
+    return this.request.post<TorrentTrackerUserHistoryOutput>({
+      method: 'queryTorrentTrackerHistory', body: options, type: 'query'
+    });
   }
 
   /**
@@ -183,27 +188,15 @@ class Seed extends Base {
     }).then(res => res.code === '0' && res.message === 'SUCCESS');
   }
 
-  public async sourceList() {
-    return this.request.post<SourceListOutput[]>({ method: 'sourceList' });
-  }
-
-  public async standardList() {
-    return this.request.post<StandardListOutput[]>({ method: 'standardList' });
-  }
-
-  public async teamList() {
-    return this.request.post<TeamListOutput[]>({ method: 'teamList' });
-  }
-
+  /**
+   * You can check the status of thanks
+   * @param { number } id - TorrentId
+   */
   public async thanksStatus(id: number) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
     return this.request.post<TorrentThankStatusOutput>({
       method: 'thanksStatus', body: { id }, type: 'query'
     });
-  }
-
-  public async videoCodecList() {
-    return this.request.post<VideoCodecListOutput[]>({ method: 'videoCodecList' });
   }
 
   /**
@@ -216,6 +209,44 @@ class Seed extends Base {
       method: 'viewHits', body: { id }, type: 'query'
     });
   }
+
+
+  /*
+   * ===========================  List Interfaces =============================
+   * @description These interfaces are used to get the list which you can use the outcome as a filter for searching torrents.
+   */
+  public async mediumList() {
+    return this.request.post<MediumListOutput[]>({ method: 'mediumList' });
+  }
+
+  public async sourceList() {
+    return this.request.post<SourceListOutput[]>({ method: 'sourceList' });
+  }
+
+  public async standardList() {
+    return this.request.post<StandardListOutput[]>({ method: 'standardList' });
+  }
+
+  public async teamList() {
+    return this.request.post<TeamListOutput[]>({ method: 'teamList' });
+  }
+
+  public async videoCodecList() {
+    return this.request.post<VideoCodecListOutput[]>({ method: 'videoCodecList' });
+  }
+
+  public async processingList() {
+    return this.request.post<ProcessingListOutput[]>({ method: 'processingList' });
+  }
+
+  public async audioCodecList() {
+    return this.request.post<AudioCodecListOutput[]>({ method: 'audioCodecList' });
+  }
+
+  public async categoryList() {
+    return this.request.post<CategoryListOutput>({ method: 'categoryList' });
+  }
+  /* =========================================  End  ======================================= */
 }
 
 export default Seed;

@@ -104,3 +104,19 @@ export interface TorrentSearchInput extends TorrentSearchFilter {
   pageNumber?: number;
   visible?: number;
 }
+
+
+/**
+ * @description Get the history of the user torrent tracker
+ * @interface TorrentTrackerUserHistoryInput
+ * @property { number } torrent - The torrent id
+ * @property { number } [lastId]
+ * @property { number } [pageNumber=1]
+ * @property { number } [pageSize=100]
+ */
+export interface TorrentTrackerUserHistoryInput {
+  torrent: number;
+  lastId?: number;
+  pageNumber?: number;
+  pageSize?: number;
+}

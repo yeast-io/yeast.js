@@ -11,7 +11,7 @@ const debug = Debug('m:bun:request');
 
 /**
  * @description This is a generic response interface of M-team's API, and you can specify the type of the data
- * @interface BunResponse
+ * @interface Response
  * @property { Number } code - The status code of the response
  *  - 200: OK
  *  - 400: Bad Request
@@ -19,7 +19,7 @@ const debug = Debug('m:bun:request');
  * @property { String } message
  * @property { R } data
  */
-export interface BunResponse<R> {
+export interface Response<R> {
   code: string;
   message: string;
   data: R;
@@ -109,7 +109,7 @@ class Request {
       }
       throw err;
     });
-    const resp = await response.json() as BunResponse<T>;
+    const resp = await response.json() as Response<T>;
     clearTimeout(timeoutId);
     return (options.unwrap ? this.unwrap<T>(resp) : resp) as T;
   }
@@ -140,7 +140,7 @@ class Request {
   }
 
 
-  protected unwrap<R>(resp: BunResponse<R>): R {
+  protected unwrap<R>(resp: Response<R>): R {
     return resp.data;
   }
 }

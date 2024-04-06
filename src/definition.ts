@@ -22,7 +22,7 @@ const SEED_DEFINITIONS: BreadAPI[] = [
   { name: 'mediumList', path: '/api/torrent/mediumList' },
   { name: 'peers', path: '/api/torrent/peers' },
   { name: 'processingList', path: '/api/torrent/processingList' },
-  { name: 'queryTorrentTrackerHistory', path: '/api/torrent/queryTorrentTrackerHistory', contentType: 'application/json' },
+  { name: 'queryTorrentTrackerHistory', path: '/api/torrent/queryTorrentTrackerHistory' },
   { name: 'requestReseed', path: '/api/torrent/requestReseed' },
   { name: 'rewardStatus', path: '/api/torrent/rewardStatus' },
   { name: 'sayThank', path: '/api/torrent/sayThank' },

@@ -59,6 +59,33 @@ export interface SearchOutput {
 }
 
 
+// ========================     Torrent tracker history =========================
+interface TorrentTrackerUserInfo {
+  createdDate: string;
+  download: string;
+  downloadedReal: string;
+  id: string;
+  lastAction: string;
+  lastCompleteDate: string;
+  lastModifiedDate: string;
+  leechtime: string;
+  seedtime: string;
+  startDate: string;
+  timesCompleted: string;
+  torrent: string;
+  uploaded: string;
+  uploadedReal: string;
+  userid: string;
+}
+
+export interface TorrentTrackerUserHistoryOutput {
+  pageNumber: number;
+  pageSize: number;
+  total: number;
+  totalPages: number;
+  data: TorrentTrackerUserInfo[];
+}
+
 /**
  * @description It's all about douban info
  * @interface DoubanInfoOutput
