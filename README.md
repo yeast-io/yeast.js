@@ -5,6 +5,35 @@
 ...
 
 
+# Usage of bread.js
+
+> [!TIP]
+> The bread.js is a library that provides a simple way to access the `M-Team` API.
+> You can use it to get the information of the user, the torrent, the forum, and so on.
+> 
+> We've also provided the `cli` command to help you get what you want in an advanced way.
+
+### Prerequisites
+
+### Installation
+
+```bash
+pnpm install bread.js
+```
+
+### Import
+
+You can import the module in your project like this(Node.js or Typescript):
+
+```javascript
+import Bread from 'bread.js';
+
+const bread = new Bread({ key: 'YOUR KEY' });
+const info = await bread.member.base('your user id');
+```
+
+
+
 # Not allowed to access for third-party
 
 > [!IMPORTANT]
