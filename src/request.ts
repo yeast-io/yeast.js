@@ -71,7 +71,7 @@ class Request {
    *  - [headers]: The headers of the request.
    * @return { Promise<T> }
    */
-  public async post<T = Record<any, any>>(options: QueryOptions): Promise<T> {
+  public async post<T = Record<string, unknown>>(options: QueryOptions): Promise<T> {
     if (Object.keys(options).length <= 0) {
       throw new Error('options must be an object of type QueryOptions');
     }

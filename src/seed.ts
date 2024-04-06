@@ -11,9 +11,7 @@ import {
   TorrentSearchInput, TorrentUploadFormInput,
   TorrentTrackerUserHistoryInput
 } from './interfaces/seed/input.type.js';
-
-
-const MISSING_PARAMETER = 'missing params';
+import { MissingArgumentError } from './errors.js';
 
 
 class Seed extends Base {
@@ -26,7 +24,7 @@ class Seed extends Base {
    * @param { boolean } [make=false] - Whether to make the collection
    */
   public async collection(id: number, make: boolean = false) {
-    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
     return this.request.post({ method: 'collection', body: { id, make }, type: 'query' });
   }
 
@@ -35,7 +33,7 @@ class Seed extends Base {
   }
 
   public async detail(id: number, origin: string = 'web') {
-    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
     return this.request.post({ method: 'detail', body: { id, origin }, type: 'query' });
   }
 
@@ -44,7 +42,7 @@ class Seed extends Base {
    * @param { string } code - douban id (26608246)
    */
   public async doubanInfo(code: string) {
-    if (this.utils.isEmpty(code)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(code)) throw new MissingArgumentError('code');
     return this.request.post<DoubanInfoOutput>({ method: 'doubanInfo', body: { code }, type: 'query' });
   }
 
@@ -53,7 +51,7 @@ class Seed extends Base {
    * @param { number} id - TorrentId
    */
   public async files(id: number) {
-    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
     return this.request.post<FileOutput[]>({ method: 'files', body: { id }, type: 'query' });
   }
 
@@ -62,7 +60,7 @@ class Seed extends Base {
    * @param { number } id
    */
   public async genDlToken(id: number) {
-    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
     return this.request.post<DownloadableTorrentUrlOutput>({
       method: 'genDlToken', body: { id }, type: 'query'
     });
@@ -80,7 +78,7 @@ class Seed extends Base {
      */
     code: string
   ) {
-    if (this.utils.isEmpty(code)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(code)) throw new MissingArgumentError('code');
     return this.request.post<IMDBInfoOutput>({ method: 'imdbInfo', body: { code }, type: 'query' });
   }
 
@@ -89,7 +87,7 @@ class Seed extends Base {
    * @param { number } id - TorrentId
    */
   public async peers(id: number) {
-    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
     return this.request.post<TorrentPeersOutput[]>({ method: 'peers', body: { id }, type: 'query' });
   }
 
@@ -123,7 +121,7 @@ class Seed extends Base {
    * @param { number } id - TorrentId
    */
   public async requestReseed(id: number) {
-    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
     return this.request.post<{ code: string, message: string }>({
       method: 'requestReseed', body: { id }, type: 'query', unwrap: false
     })
@@ -135,7 +133,7 @@ class Seed extends Base {
    * @param { number } id - TorrentId
    */
   public async rewardStatus(id: number) {
-    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
     return this.request.post<TorrentRewardStatusOutput>({
       method: 'rewardStatus', body: { id }, type: 'query'
     });
@@ -146,7 +144,7 @@ class Seed extends Base {
    * @param { number } id
    */
   public async sayThank(id: number) {
-    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
     return this.request.post<{ code: string, message: string }>({
       method: 'sayThank', body: { id }, type: 'query', unwrap: false
     })
@@ -180,7 +178,7 @@ class Seed extends Base {
   }
 
   public async sendReward(id: number, reward: number) {
-    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
     reward = parseInt(reward as any, 10);
     if (reward <= 0) throw new Error('reward must be greater than 0');
     return this.request.post({
@@ -193,7 +191,7 @@ class Seed extends Base {
    * @param { number } id - TorrentId
    */
   public async thanksStatus(id: number) {
-    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
     return this.request.post<TorrentThankStatusOutput>({
       method: 'thanksStatus', body: { id }, type: 'query'
     });
@@ -204,7 +202,7 @@ class Seed extends Base {
    * @param { number } id
    */
   public async viewHits(id: number) {
-    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
     return this.request.post<string>({
       method: 'viewHits', body: { id }, type: 'query'
     });

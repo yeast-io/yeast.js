@@ -1,9 +1,38 @@
-
 interface BreadAPI {
   name: string;
   path: string;
   contentType?: string;
 }
+
+
+const MEMBER_DEFINITIONS: BreadAPI[] = [
+  /**
+   * Member related methods
+   */
+  { name: 'base', path: '/api/member/base' },
+  { name: 'bases', path: '/api/member/bases', contentType: 'application/json' },
+  { name: 'bindOTP', path: '/api/member/bindOTP' },
+  { name: 'changeEmail', path: '/api/member/changeEmail' },
+  { name: 'changeEmailSendCode', path: '/api/member/changeEmailSendCode' },
+  { name: 'checkInviteCode', path: '/api/member/checkInviteCode' },
+  { name: 'forgotPwd', path: '/api/member/forgotPwd' },
+  { name: 'forgotPwdTow', path: '/api/member/forgotPwdTow' },
+  { name: 'genOTPUrl', path: '/api/member/genOTPUrl' },
+  { name: 'getCrimeRecords', path: '/api/member/getCrimeRecords' },
+  { name: 'getUserTorrentList', path: '/api/member/getUserTorrentList' },
+  { name: 'logout', path: '/api/member/logout' },
+  { name: 'profile', path: '/api/member/profile' },
+  { name: 'register', path: '/api/member/register' },
+  { name: 'sendEmailVerifyCode', path: '/api/member/sendEmailVerifyCode' },
+  { name: 'sendLoginEmailVerifyCode', path: '/api/member/sendLoginEmailVerifyCode' },
+  { name: 'sendPasskey', path: '/api/member/sendPasskey' },
+  { name: 'sysRoleList', path: '/api/member/sysRoleList' },
+  { name: 'unbindOTP', path: '/api/member/unbindOTP' },
+  { name: 'updateProfile', path: '/api/member/updateProfile' },
+  { name: 'updateSecurity', path: '/api/member/updateSecurity' },
+  { name: 'verifyAccount', path: '/api/member/verifyAccount' },
+  { name: 'verifyAccountByUser', path: '/api/member/verifyAccountByUser' }
+];
 
 
 const SEED_DEFINITIONS: BreadAPI[] = [
@@ -44,9 +73,19 @@ export type SeedMethods =
   'sayThank' | 'sendReward' | 'sourceList' | 'standardList' |
   'teamList' | 'thanksStatus' | 'videoCodecList' | 'viewHits';
 
-export type Methods = SeedMethods;
+export type MemberMethods =
+  'base' | 'bases' | 'bindOTP' | 'changeEmail' | 'changeEmailSendCode' | 'checkInviteCode' |
+  'forgotPwd' | 'forgotPwdTow' | 'genOTPUrl' | 'getCrimeRecords' | 'getUserTorrentList' |
+  'logout' | 'profile' | 'register' | 'sendEmailVerifyCode' | 'sendLoginEmailVerifyCode' |
+  'sendPasskey' | 'sysRoleList' | 'unbindOTP' | 'updateProfile' | 'updateSecurity' |
+  'verifyAccount' | 'verifyAccountByUser';
 
-const CONCRETED_DEFINITIONS: BreadAPI[] = Array.of<BreadAPI>(...SEED_DEFINITIONS);
+export type Methods = SeedMethods | MemberMethods;
+
+const CONCRETED_DEFINITIONS: BreadAPI[] = Array.of<BreadAPI>(
+  ...SEED_DEFINITIONS,
+  ...MEMBER_DEFINITIONS
+);
 
 class Builder {
 

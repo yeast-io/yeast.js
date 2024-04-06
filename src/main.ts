@@ -1,4 +1,5 @@
 import Seed from './seed.js';
+import Member from './member.js';
 
 export interface BreadOptions {
   // To generate an api key, visit m-team's Laboratory page.
@@ -10,6 +11,7 @@ export interface BreadOptions {
 class Bread {
 
   public seed: Seed;
+  public member: Member;
 
   constructor(protected options: BreadOptions) {
     if (typeof options !== 'object') {
@@ -21,6 +23,7 @@ class Bread {
     }
 
     this.seed = new Seed(options);
+    this.member = new Member(options);
   }
 }
 
