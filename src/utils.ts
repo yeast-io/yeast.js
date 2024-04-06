@@ -1,11 +1,25 @@
 /**
+ * Check if the object has the key
+ * @param { object } obj
+ * @param { string } key
+ */
+export const has = (obj: object, key: string) => {
+  if (obj === null || typeof obj !== 'object') {
+    return false;
+  }
+
+  return Object.prototype.hasOwnProperty.call(obj, key);
+};
+
+
+/**
  * Check if the value is empty
  * @param value
  */
 export const isEmpty = (
   value:
     null | undefined | string | unknown[] |
-    Record<any, unknown> | number |
+    object | number |
     Map<any, any> | Set<any>
 ): boolean => {
   if (value === null || value === undefined) {

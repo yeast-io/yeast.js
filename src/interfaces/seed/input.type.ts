@@ -53,20 +53,54 @@ export interface TorrentUploadFormInput {
   mediainfo?: string;
 }
 
+/* ===============================  Search ================================= */
+
+type Mode = 'normal' | 'adult' | 'movie' | 'music' | 'tvshow' | 'waterfall' | 'rss' | 'rankings';
+type Discounts = 'NORMAL' | 'PERCENT_70' | 'PERCENT_50' | 'FREE' | '_2X_FREE' | '_2X,_2X_PERCENT_50';
+type SortFields = 'CREATED_DATE' | 'SIZE' | 'SEEDERS' | 'LEECHERS' | 'TIMES_COMPLETED';
+type SortDirections = 'ASC' | 'DESC';
+
+/**
+ * @description Torrent search filter
+ * @interface TorrentSearchFilter
+ * @property { Discounts } [discount] - The discount of the search. for example, 'NORMAL'
+ * @property { string } [labels] - The labels of the search.
+ * @property { SortFields } [sortField] - The sort field of the search. for example, 'CREATED_DATE'
+ * @property { SortDirections } [sortDirection] - The sort direction of the search. for example, 'ASC'
+ * @property { string[] } [categories] - The Ids of the category.
+ * @property { string[] } [audioCodecs] - The Ids of the audio codecs.
+ * @property { string[] } [videoCodecs] - The Ids of the video codecs.
+ * @property { string[] } [processings] - The Ids of the processings.
+ * @property { string[] } [standards] - The Ids of the standards.
+ * @property { string[] } [teams] - The Ids of the teams.
+ */
+export interface TorrentSearchFilter {
+  discount?: Discounts;
+  labels?: string;
+  sortField?: SortFields;
+  sortDirection?: SortDirections;
+  categories?: string[];
+  audioCodecs?: string[];
+  videoCodecs?: string[];
+  processings?: string[];
+  standards?: string[];
+  teams?: string[];
+}
 
 /**
  * @description Torrent search input
  * @interface TorrentSearchInput
- * @property { 'normal' | 'adult' | 'movie' | 'music' | 'tvshow' | 'waterfall' | 'rss' | 'rankings' } mode
- * @property {number} [pageSize]
- * @property {number} [pageNumber]
- * @property {number} [visible]
- * @property { 'asc' | 'desc' } [sortDirection]
+ * @extends { TorrentSearchFilter }
+ * @property { Mode } mode
+ * @property { string } [keyword] - The keyword of the search. for example, 'The Matrix'
+ * @property { number } [pageSize]
+ * @property { number } [pageNumber]
+ * @property { number } [visible]
  */
-export interface TorrentSearchInput {
-  mode: 'normal' | 'adult' | 'movie' | 'music' | 'tvshow' | 'waterfall' | 'rss' | 'rankings';
+export interface TorrentSearchInput extends TorrentSearchFilter {
+  mode: Mode;
+  keyword?: string;
   pageSize?: number;
   pageNumber?: number;
   visible?: number;
-  sortDirection?: 'asc' | 'desc';
 }

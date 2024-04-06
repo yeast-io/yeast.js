@@ -40,7 +40,7 @@ export interface RequestOptions {
 
 export interface QueryOptions {
   method: Methods;
-  requestType?: 'query' | 'body';
+  type?: 'query' | 'body';
   body?: { [key: string]: any };
   headers?: { [key: string]: string };
   unwrap?: boolean;
@@ -66,7 +66,7 @@ class Request {
    * @description Send a POST request
    * @param { QueryOptions } options
    *  - method: The method name of the request.
-   *  - [requestType]: We supported two types of request: query and body. In Default: body
+   *  - [type]: We supported two types of request: query and body. In Default: body
    *  - [body]: The body of the request.
    *  - [headers]: The headers of the request.
    * @return { Promise<T> }
@@ -89,7 +89,7 @@ class Request {
     const params: RequestInit = { method: 'POST', headers };
 
     let url;
-    if (options.requestType === 'query') {
+    if (options.type === 'query') {
       const query = new URLSearchParams(options.body).toString();
       url = this.canonical(`${iba.path}?${query}`);
     } else {

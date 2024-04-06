@@ -3,7 +3,9 @@ import {
   AudioCodecListOutput, CategoryListOutput, DoubanInfoOutput,
   SearchOutput, FileOutput, DownloadableTorrentUrlOutput,
   IMDBInfoOutput, TorrentPeersOutput, MediumListOutput,
-  ProcessingListOutput, TorrentRewardStatusOutput
+  ProcessingListOutput, TorrentRewardStatusOutput, SourceListOutput,
+  StandardListOutput, TeamListOutput, TorrentThankStatusOutput,
+  VideoCodecListOutput
 } from './interfaces/seed/output.type.js';
 import {
   TorrentSearchInput, TorrentUploadFormInput
@@ -34,7 +36,7 @@ class Seed extends Base {
    */
   public async collection(id: number, make: boolean = false) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
-    return this.request.post({ method: 'collection', body: { id, make }, requestType: 'query' });
+    return this.request.post({ method: 'collection', body: { id, make }, type: 'query' });
   }
 
   public async createOredit(torrentUploadForm: TorrentUploadFormInput) {
@@ -43,7 +45,7 @@ class Seed extends Base {
 
   public async detail(id: number, origin: string = 'web') {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
-    return this.request.post({ method: 'detail', body: { id, origin }, requestType: 'query' });
+    return this.request.post({ method: 'detail', body: { id, origin }, type: 'query' });
   }
 
   /**
@@ -52,7 +54,7 @@ class Seed extends Base {
    */
   public async doubanInfo(code: string) {
     if (this.utils.isEmpty(code)) throw new Error(MISSING_PARAMETER);
-    return this.request.post<DoubanInfoOutput>({ method: 'doubanInfo', body: { code }, requestType: 'query' });
+    return this.request.post<DoubanInfoOutput>({ method: 'doubanInfo', body: { code }, type: 'query' });
   }
 
   /**
@@ -61,7 +63,7 @@ class Seed extends Base {
    */
   public async files(id: number) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
-    return this.request.post<FileOutput[]>({ method: 'files', body: { id }, requestType: 'query' });
+    return this.request.post<FileOutput[]>({ method: 'files', body: { id }, type: 'query' });
   }
 
   /**
@@ -71,7 +73,7 @@ class Seed extends Base {
   public async genDlToken(id: number) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
     return this.request.post<DownloadableTorrentUrlOutput>({
-      method: 'genDlToken', body: { id }, requestType: 'query'
+      method: 'genDlToken', body: { id }, type: 'query'
     });
   }
 
@@ -88,7 +90,7 @@ class Seed extends Base {
     code: string
   ) {
     if (this.utils.isEmpty(code)) throw new Error(MISSING_PARAMETER);
-    return this.request.post<IMDBInfoOutput>({ method: 'imdbInfo', body: { code }, requestType: 'query' });
+    return this.request.post<IMDBInfoOutput>({ method: 'imdbInfo', body: { code }, type: 'query' });
   }
 
   public async mediumList() {
@@ -101,7 +103,7 @@ class Seed extends Base {
    */
   public async peers(id: number) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
-    return this.request.post<TorrentPeersOutput[]>({ method: 'peers', body: { id }, requestType: 'query' });
+    return this.request.post<TorrentPeersOutput[]>({ method: 'peers', body: { id }, type: 'query' });
   }
 
   public async processingList() {
@@ -117,9 +119,9 @@ class Seed extends Base {
    */
   public async requestReseed(id: number) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
-    return this.request.post<{
-      code: string, message: string
-    }>({ method: 'requestReseed', body: { id }, requestType: 'query', unwrap: false })
+    return this.request.post<{ code: string, message: string }>({
+      method: 'requestReseed', body: { id }, type: 'query', unwrap: false
+    })
       .then(res => res.code === '0' && res.message === 'SUCCESS');
   }
 
@@ -130,49 +132,90 @@ class Seed extends Base {
   public async rewardStatus(id: number) {
     if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
     return this.request.post<TorrentRewardStatusOutput>({
-      method: 'rewardStatus', body: { id }, requestType: 'query'
+      method: 'rewardStatus', body: { id }, type: 'query'
     });
   }
 
-  public async sayThank() {
+  /**
+   * To say thanks to the uploader
+   * @param { number } id
+   */
+  public async sayThank(id: number) {
+    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    return this.request.post<{ code: string, message: string }>({
+      method: 'sayThank', body: { id }, type: 'query', unwrap: false
+    })
+      .then(res => res.code === '0' && res.message === 'SUCCESS');
   }
 
 
   /**
    * To search seeds through M-team's API
    * @param { TorrentSearch } options
-   * @param { string } options.mode - The mode of the search
-   * @param { number } [options.pageSize=100] - The page size of the search
-   * @param { number } [options.pageNumber=1] - The page number of the search
-   * @param { string } [options.sortDirection='desc'] - The sort direction of the search
+   * @param { string } options.mode The mode of the search
+   * @param { string } [options.keyword=null] The keyword of the search
+   * @param { number } [options.pageSize=100] The page size of the search
+   * @param { number } [options.pageNumber=1] The page number of the search
+   * @param { string } [options.sortDirection='DESC'] The sort direction of the search
    */
   public async search(options: TorrentSearchInput) {
-    if (!options) {
+    if (this.utils.isEmpty(options as object)) {
       throw new Error('options is required');
     }
+
     if (!options.mode) {
       throw new Error('options.mode is required');
     }
+
     options.pageSize = options.pageSize || 100;
     options.pageNumber = options.pageNumber || 1;
-    options.sortDirection = options.sortDirection || 'desc';
+    options.sortDirection = options.sortDirection || 'DESC';
     options.visible = options.visible || 1;
     return this.request.post<SearchOutput>({ method: 'search', body: options });
   }
 
-  public async sendReward() {}
+  public async sendReward(id: number, reward: number) {
+    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    reward = parseInt(reward as any, 10);
+    if (reward <= 0) throw new Error('reward must be greater than 0');
+    return this.request.post({
+      method: 'sendReward', body: { id, reward }, type: 'query', unwrap: false
+    }).then(res => res.code === '0' && res.message === 'SUCCESS');
+  }
 
-  public async sourceList() {}
+  public async sourceList() {
+    return this.request.post<SourceListOutput[]>({ method: 'sourceList' });
+  }
 
-  public async standardList() {}
+  public async standardList() {
+    return this.request.post<StandardListOutput[]>({ method: 'standardList' });
+  }
 
-  public async teamList() {}
+  public async teamList() {
+    return this.request.post<TeamListOutput[]>({ method: 'teamList' });
+  }
 
-  public async thanksStatus() {}
+  public async thanksStatus(id: number) {
+    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    return this.request.post<TorrentThankStatusOutput>({
+      method: 'thanksStatus', body: { id }, type: 'query'
+    });
+  }
 
-  public async videoCodecList() {}
+  public async videoCodecList() {
+    return this.request.post<VideoCodecListOutput[]>({ method: 'videoCodecList' });
+  }
 
-  public async viewHits() {}
+  /**
+   * To view the hits of the torrent
+   * @param { number } id
+   */
+  public async viewHits(id: number) {
+    if (this.utils.isEmpty(id)) throw new Error(MISSING_PARAMETER);
+    return this.request.post<string>({
+      method: 'viewHits', body: { id }, type: 'query'
+    });
+  }
 }
 
 export default Seed;

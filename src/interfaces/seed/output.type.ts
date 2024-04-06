@@ -16,8 +16,37 @@ export interface AudioCodecListOutput extends TimestampObject {
   name: string;
 }
 
+export interface VideoCodecListOutput extends TimestampObject {
+  id: string;
+  order: string;
+  name: string;
+}
+
+export interface StandardListOutput extends TimestampObject {
+  id: string;
+  order: string;
+  name: string;
+}
+
+export interface TeamListOutput extends TimestampObject {
+  id: string;
+  order: string;
+  name: string;
+  leader: string;
+  members: string[];
+  freeOffer: boolean;
+}
+
 export interface CategoryListOutput {
   [key: string]: unknown;
+}
+
+export interface SourceListOutput extends TimestampObject {
+  id: string;
+  order: string;
+  nameChs: string;
+  nameCht: string;
+  nameEng: string;
 }
 
 
@@ -220,4 +249,17 @@ export interface TorrentRewardStatusOutput {
   rewardSum: string;
   rewarded: boolean;
   rewardList: rewardContributors[];
+}
+
+
+interface Contributors extends TimestampObject {
+  id: string;
+  torrent: string;
+  userid: string;
+}
+
+export interface TorrentThankStatusOutput {
+  thanksCount: string;
+  thanksList: Contributors[],
+  thanked: boolean;
 }

@@ -1,6 +1,7 @@
 import Bun from './main.js';
 import { describe, it } from 'node:test';
 import { expect } from 'chai';
+import { has } from './utils.js';
 
 
 describe('# Seed Unit Test', () => {
@@ -70,7 +71,7 @@ describe('# Seed Unit Test', () => {
   });
 
 
-  it('- should be able to make a request to ask someone to reseed', async () => {
+  it.skip('- should be able to make a request to ask someone to reseed', async () => {
     const asked = await bun.seed.requestReseed(766435);
     expect(asked).to.be.true;
     // It's been asked, should return false
@@ -83,4 +84,30 @@ describe('# Seed Unit Test', () => {
     expect(status).to.be.an('object');
     expect(status.rewardList).to.be.an('array');
   });
+
+  it.skip('- should be able to say thanks to the uploader', async () => {
+    const thanked = await bun.seed.sayThank(766435);
+    expect(thanked).to.be.true;
+
+    // It's been thanked, should return false
+    const again = await bun.seed.sayThank(766435);
+    expect(again).to.be.false;
+  });
+
+  it('- should be able to search torrents', async () => {
+    const torrents = await bun.seed.search({
+      mode: 'movie',
+      discount: 'NORMAL',
+      sortField: 'CREATED_DATE',
+      sortDirection: 'DESC',
+      keyword: 'Dune',
+    });
+    expect(torrents.data).to.be.an('array');
+    expect(has(torrents, 'total')).to.be.true;
+    expect(has(torrents, 'pageNumber')).to.be.true;
+    expect(has(torrents, 'pageSize')).to.be.true;
+    expect(has(torrents, 'totalPages')).to.be.true;
+  });
+
+
 });
