@@ -1,6 +1,6 @@
-[!image](./docs/images/logo.png)
+![Alt text](./docs/images/logo.png)
 
-# bread
+# bread.js
 
 ...
 
