@@ -1,5 +1,5 @@
 <p align="center">
-  ![Alt text](./docs/images/logo.png)
+  <img src="https://github.com/danielsss/bread/blob/main/docs/images/logo.png">
 </p>
 <h1 align="center">bread.js</h1>
 
