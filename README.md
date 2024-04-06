@@ -1,7 +1,13 @@
-![Alt text](./docs/images/logo.png)
+<p align="center">
+  ![Alt text](./docs/images/logo.png)
+</p>
+<h1 align="center">bread.js</h1>
 
-# bread.js
- 
+<p align="center">
+[![TypeScript](https://img.shields.io/badge/--3178C6?logo=typescript&logoColor=ffffff)](https://www.typescriptlang.org/)
+</p>
+
+
 The bread.js is a library that provides a simple way to access the `M-Team` API.
 You can use it to get the information of the user, the torrent, the forum, and so on.
 
