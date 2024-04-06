@@ -15,6 +15,8 @@ We've also provided the `cli` command to help you get what you want in an advanc
 
 ### Prerequisites
 
+- Node.js 19.x or later
+
 ### Installation
 
 ```bash
