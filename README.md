@@ -55,7 +55,8 @@ try {
 
 > [!TIP]
 > 
-> The APIs below are not implemented yet for some reason. 
+> The APIs below are not implemented yet for some reason.
+> 
 > The `UnimplementedMethodError` error will be thrown when you call them.
 
  
