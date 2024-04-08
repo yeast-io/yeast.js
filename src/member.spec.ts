@@ -28,4 +28,13 @@ describe('🌭 Member', () => {
     expect(updated).to.be.true;
   });
 
+  it('- should be able to update the profile of the member', async () => {
+    const updated = await bread.member.updateProfile({
+      avatarUrl: 'https://example.com/avatar.png',
+      info: 'This is a post request from the test suite.',
+      gender: 'MALE'
+    });
+    expect(updated).to.be.true;
+  });
+
 });
