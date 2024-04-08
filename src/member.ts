@@ -1,7 +1,7 @@
 import Base from './base.js';
-import { MissingArgumentError } from './errors.js';
+import { MissingArgumentError, UnimplementedMethodError } from './errors.js';
 import {
-  BaseOutput, BasesOutput
+  BaseOutput, BasesOutput, SystemRoleOutput
 } from './interfaces/member/output.type.js';
 import {
   UpdateProfileInput, UpdateSecurityInput
@@ -21,6 +21,33 @@ class Member extends Base {
   public async bases(uids: number[] | string[]) {
     if (this.utils.isEmpty(uids)) throw new MissingArgumentError('uids');
     return this.request.post<BasesOutput>({ method: 'bases', body: { ids: uids } });
+  }
+
+  /**
+   * @unimplemented This method is not implemented yet for some reason.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
+  public async bindOTP() {
+    throw new UnimplementedMethodError('bindOTP');
+  }
+
+  /**
+   * @unimplemented This method is not implemented yet for some reason.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
+  public async changeEmail() {
+    throw new UnimplementedMethodError('changeEmail');
+  }
+
+  /**
+   * @unimplemented This method is not implemented yet for some reason.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
+  public async changeEmailSendCode() {
+    throw new UnimplementedMethodError('changeEmailSendCode');
   }
 
   public async checkInviteCode() {
@@ -57,16 +84,38 @@ class Member extends Base {
     return this.request.post({method: 'sendLoginEmailVerifyCode'});
   }
 
+  /**
+   * @description To send the passkey to the member's email
+   */
   public async sendPasskey() {
-    return this.request.post({ method: 'sendPasskey' });
+    return this.request.post<Response<null>>({ method: 'sendPasskey', unwrap: false })
+      .then(this.isSuccessful.bind(this));
   }
 
+
+  /**
+   * @description To get the system roles
+   */
   public async sysRoleList() {
-    return this.request.post({method: 'sysRoleList'});
+    return this.request.post<SystemRoleOutput[]>({ method: 'sysRoleList' });
   }
 
+  /**
+   * @unimplemented This method is not implemented yet for some reason.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
   public async unbindOTP() {
-    return this.request.post({method: 'unbindOTP'});
+    throw new UnimplementedMethodError('unbindOTP');
+  }
+
+  /**
+   * @unimplemented This method is not implemented yet for some reason.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
+  public async updateLastBrowse() {
+    throw new UnimplementedMethodError('updateLastBrowse');
   }
 
   /**
@@ -116,12 +165,14 @@ class Member extends Base {
   /**
    * @description To update the security of the member.
    *
-   * You must provide one field of the following options at a time unless you want to reset the password.
+   * 1. You must provide one field of the following options at a time.
+   * 2. If you want to reset the password, then you must provide the old password and the new password.
+   *
    * @param { UpdateSecurityInput } options
-   * @param { boolean } options.resetpasskey
-   * @param { string } options.oldPwd
-   * @param { string } options.chpassword
-   * @param { 'STRONG' | 'NORMAL' | 'LOW' } options.privacy
+   * @param { boolean } options.resetpasskey - Whether to reset the passkey
+   * @param { string } options.oldPwd - The old password
+   * @param { string } options.chpassword - The new password
+   * @param { 'STRONG' | 'NORMAL' | 'LOW' } options.privacy - The privacy level
    */
   public async updateSecurity(options: UpdateSecurityInput) {
     if (this.utils.isEmpty(options)) throw new MissingArgumentError('options');

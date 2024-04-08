@@ -21,3 +21,26 @@ export interface BaseOutput {
 export interface BasesOutput {
   [key: string]: BaseOutput;
 }
+
+
+export interface SystemRoleOutput {
+  createdDate: string;
+  lastModifiedDate: string;
+  id: string;
+  nameChs: string;
+  nameCht: string;
+  nameEng: string;
+  image: string;
+  color: string;
+  roleType: string;
+  admin: boolean;
+  descritpion: string;
+  permissions: string[];
+  readAccess: number;
+  classUp: number;
+  registerWeek: number;
+  downloaded: string;
+  shareRate: number;
+  shareRateLimit: number;
+  sortPoint: number;
+}

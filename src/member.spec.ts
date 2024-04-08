@@ -37,4 +37,15 @@ describe('🌭 Member', () => {
     expect(updated).to.be.true;
   });
 
+  it('- should be able to get the system roles', async () => {
+    const roles = await bread.member.sysRoleList();
+    expect(roles).to.be.an('array');
+    expect(roles).to.have.length.greaterThan(0);
+  });
+
+  it('- should be able to send the passkey to the member\'s email', async () => {
+    const sent = await bread.member.sendPasskey();
+    expect(sent).to.be.true;
+  });
+
 });
