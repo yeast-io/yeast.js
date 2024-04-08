@@ -4,11 +4,11 @@ import { expect } from 'chai';
 import { has } from './utils.js';
 
 
-describe('🌭 Seed', () => {
+describe('🌻 Seed', () => {
 
   const bread = new Bread({ key: process.env.M_TEAM_API_KEY as string });
 
-  describe('🌭 Search filter', () => {
+  describe('🐍 Search filter', () => {
     it('- should be able to get a list of audio codec', async () => {
       const list = await bread.seed.audioCodecList();
       expect(list).to.be.an('array');

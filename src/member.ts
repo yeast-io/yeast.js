@@ -1,7 +1,7 @@
 import Base from './base.js';
 import { MissingArgumentError, UnimplementedMethodError } from './errors.js';
 import {
-  BaseOutput, BasesOutput, SystemRoleOutput
+  BaseOutput, BasesOutput, SystemRoleOutput, MemberProfileOutput
 } from './interfaces/member/output.type.js';
 import {
   UpdateProfileInput, UpdateSecurityInput
@@ -66,10 +66,13 @@ class Member extends Base {
     return this.request.post({method: 'getUserTorrentList'});
   }
 
-
-
-  public async profile() {
-    return this.request.post({method: 'profile'});
+  /**
+   * @description To get the member's profile
+   * @param { number | string } uid
+   */
+  public async profile(uid: number | string) {
+    if (this.utils.isEmpty(uid)) throw new MissingArgumentError('uid');
+    return this.request.post<MemberProfileOutput>({ method: 'profile' , body: { uid }, type: 'form' });
   }
 
   public async register() {

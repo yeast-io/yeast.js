@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { isEmpty, has } from './utils.js';
 
 
-describe('🌭 Utils', () => {
+describe('🔩 Utils', () => {
 
   it('- should be able to check whether is empty or not for a variety of types', () => {
 

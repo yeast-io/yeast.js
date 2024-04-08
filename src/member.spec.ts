@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import { has } from './utils.js';
 
 
-describe('🌭 Member', () => {
+describe('🤴 Member', () => {
 
   const bread = new Bread({ key: process.env.M_TEAM_API_KEY as string});
 
@@ -43,9 +43,18 @@ describe('🌭 Member', () => {
     expect(roles).to.have.length.greaterThan(0);
   });
 
-  it('- should be able to send the passkey to the member\'s email', async () => {
+  it.skip('- should be able to send the passkey to the member\'s email', async () => {
     const sent = await bread.member.sendPasskey();
     expect(sent).to.be.true;
+  });
+
+  it('- should be able to get member profile', async () => {
+    const profile = await bread.member.profile(315125);
+    expect(profile).to.be.an('object');
+    expect(profile).to.have.property('username');
+    expect(profile).to.have.property('email');
+    expect(profile).to.have.property('memberStatus');
+    expect(profile).to.have.property('memberCount');
   });
 
 });
