@@ -45,6 +45,7 @@ const bread = new Bread({ key: 'YOUR KEY', url: 'test enviroment will be used in
 
 try {
   const info = await bread.member.base('your user id');
+  await bread.member.bindOTP(); // The unImplemented error will be thrown
 } catch (err) {
   console.error(err);
 }
