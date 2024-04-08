@@ -55,11 +55,15 @@ try {
 
 > [!TIP]
 > 
-> * bread.member.bindOTP
-> * bread.member.unbindOTP
-> * bread.member.changeEmail
-> * bread.member.changeEmailSendCode
-> * updateLastBrowse
+> The APIs below are not implemented yet for some reason. 
+> The `UnimplementedMethodError` error will be thrown when you call them.
+
+ 
+* bread.member.bindOTP
+* bread.member.unbindOTP
+* bread.member.changeEmail
+* bread.member.changeEmailSendCode
+* updateLastBrowse
 
 
 ## Not allowed to access for third-party
