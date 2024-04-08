@@ -28,10 +28,22 @@ We've also provided the `cli` command to help you get what you want in an advanc
 
 - Node.js 19.x or later
 
-### Installation
+### Install
+
+You can install the module via `bun` or `pnpm` and so on:
 
 ```bash
-pnpm install bread.js
+pnpm i bread.js
+```
+
+Or you can install it globally to use the `cli` command:
+
+```bash
+pnpm i -g bread.js
+
+
+# Then you can use the `bread` command to get the information you want.
+bread member base 1
 ```
 
 ### Import
@@ -41,7 +53,8 @@ You can import the module in your project like this(Node.js or Typescript):
 ```javascript
 import Bread from 'bread.js';
 
-const bread = new Bread({ key: 'YOUR KEY', url: 'test enviroment will be used in default' });
+// The https://test2.m-team.* is the default value of the url if you don't provide it.
+const bread = new Bread({ key: 'YOUR KEY', url: '' });
 
 try {
   const info = await bread.member.base('your user id');
