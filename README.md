@@ -51,6 +51,15 @@ try {
 }
 ```
 
+## Unimplemented APIs
+
+> [!TIP]
+> 
+> * bread.member.bindOTP
+> * bread.member.unbindOTP
+> * bread.member.changeEmail
+> * bread.member.changeEmailSendCode
+> * updateLastBrowse
 
 
 ## Not allowed to access for third-party
