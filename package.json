@@ -6,12 +6,12 @@
   "types": "dist/main.d.ts",
   "main": "dist/main.js",
   "bin": {
-    "bread": "bin/cli.mjs"
+    "bread": "cli/bin/bread.js"
   },
   "scripts": {
     "lint": "eslint .",
     "test": "node_modules/.bin/bun test",
-    "build": "rm -rf ./dist/* && tsc -p tsconfig.json"
+    "build": "rm -rf ./dist/* ./cli/* && tsc -p tsconfig.json && tsc -p tsconfig.cli.json"
   },
   "dependencies": {
     "node-fetch": "^3.3.2"
