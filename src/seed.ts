@@ -12,6 +12,7 @@ import {
   TorrentTrackerUserHistoryInput
 } from './interfaces/seed/input.type.js';
 import { MissingArgumentError } from './errors.js';
+import { Response } from './request.js';
 
 
 class Seed extends Base {
@@ -122,10 +123,9 @@ class Seed extends Base {
    */
   public async requestReseed(id: number) {
     if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
-    return this.request.post<{ code: string, message: string }>({
+    return this.request.post<Response<null>>({
       method: 'requestReseed', body: { id }, type: 'query', unwrap: false
-    })
-      .then(res => res.code === '0' && res.message === 'SUCCESS');
+    }).then(this.isSuccessful.bind(this));
   }
 
   /**
@@ -145,10 +145,9 @@ class Seed extends Base {
    */
   public async sayThank(id: number) {
     if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
-    return this.request.post<{ code: string, message: string }>({
+    return this.request.post<Response<null>>({
       method: 'sayThank', body: { id }, type: 'query', unwrap: false
-    })
-      .then(res => res.code === '0' && res.message === 'SUCCESS');
+    }).then(this.isSuccessful.bind(this));
   }
 
 
@@ -181,9 +180,9 @@ class Seed extends Base {
     if (this.utils.isEmpty(id)) throw new MissingArgumentError('id');
     reward = parseInt(reward as any, 10);
     if (reward <= 0) throw new Error('reward must be greater than 0');
-    return this.request.post({
+    return this.request.post<Response<null>>({
       method: 'sendReward', body: { id, reward }, type: 'query', unwrap: false
-    }).then(res => res.code === '0' && res.message === 'SUCCESS');
+    }).then(this.isSuccessful.bind(this));
   }
 
   /**
