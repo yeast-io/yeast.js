@@ -2,7 +2,7 @@
 
 import BuildInternalCommands from './commands/builder.js';
 import { Command } from 'commander';
-import { initialize } from './lib/config.js';
+import { initialize } from './commands/config.js';
 
 async function boostrap (): Promise<void> {
   await initialize();

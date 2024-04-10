@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { loadConfig, addConfig, updateConfig, outputConfig } from '../lib/config.js';
+import { loadConfig, addConfig, updateConfig, outputConfig } from './config.js';
 import { Buffer } from 'node:buffer';
 
 
