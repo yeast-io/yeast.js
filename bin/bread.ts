@@ -1,19 +1,20 @@
 #!/usr/bin/env node
 
-import { Command } from 'commander';
 import BuildInternalCommands from './commands/builder.js';
-
-
-const builder = new BuildInternalCommands();
+import { Command } from 'commander';
+import { initialize } from './lib/config.js';
 
 async function boostrap (): Promise<void> {
+  await initialize();
   const program = new Command();
+  const builder = new BuildInternalCommands();
 
   program.name('bread');
   program.description('bread.js is an easy-to-use tool for M-Team.');
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   program.version(require('../package.json').version);
 
+  builder.config(program);
   // to build commands for the navigated tabs
   builder.normal(program);
 
@@ -22,4 +23,7 @@ async function boostrap (): Promise<void> {
 }
 
 
-boostrap().then(() => process.exit(0)).catch(() => process.exit(1));
+boostrap().then(() => process.exit(0)).catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
