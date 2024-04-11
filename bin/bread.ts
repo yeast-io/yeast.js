@@ -14,12 +14,12 @@ async function boostrap (): Promise<void> {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   program.version(require('../package.json').version);
 
-  builder.config(program);
+  await builder.config(program);
   // to build commands for the navigated tabs
-  builder.normal(program);
+  await builder.normal(program);
 
 
-  program.parse(process.argv);
+  await program.parseAsync(process.argv);
 }
 
 

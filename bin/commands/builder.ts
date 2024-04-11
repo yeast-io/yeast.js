@@ -1,13 +1,14 @@
 import { Command } from 'commander';
 import { loadConfig, addConfig, updateConfig, outputConfig } from './config.js';
 import { Buffer } from 'node:buffer';
+import Search from './search.js';
 
 
 const DEFAULT_URL = Buffer.from('aHR0cHM6Ly90cC5tLXRlYW0uY2M=', 'base64').toString('utf-8');
 
 class BuildInternalCommands {
 
-  public config(program: Command) {
+  public async config(program: Command) {
 
     const config = program
       .command('config')
@@ -46,16 +47,16 @@ class BuildInternalCommands {
       .action(() => outputConfig(loadConfig()));
   }
 
-  public normal(program: Command) {
+  public async normal(program: Command) {
     program
       .command('4k')
       .description('To list the latest movies which is under 4k tab')
-      .arguments('<limit> [order]')
-      .action((limit, order) => {
-        console.info(limit, order);
+      .option('-l, --limit [limit]', 'To set a limitation of how many movies that you want to list','50')
+      .action(async (options) => {
+        const search = new Search();
+        const movies = await search.movies('normal', parseInt(options.limit));
+        search.output(movies);
       });
-
-    return this;
   }
 }
 
