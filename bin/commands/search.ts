@@ -19,11 +19,11 @@ class Search {
 
 
   public output(movies: Record<string, any>) {
-    const headers = ['ID', 'Chinese Name', 'Created Time', 'Size', 'Seeder', 'Leecher'];
+    const headers = ['ID', 'Chinese Name', 'Created Time', 'Size/Discount', 'Seeder', 'Leecher'];
     const body = movies.data.map((movie: Record<string, any>) => {
       return [
         movie.id, movie.smallDescr, movie.createdDate,
-        (bytes(parseInt(movie.size, 10), { unit: 'gb'})).toUpperCase(),
+        ((bytes(parseInt(movie.size, 10), { unit: 'gb'})).toUpperCase() + '/' + (movie.status.discount || 'N/A')),
         movie.status.seeders, movie.status.leechers
       ];
     });
@@ -36,7 +36,7 @@ class Search {
         { alignment: 'center', width: 8 },
         { alignment: 'center', width: 50 },
         { alignment: 'center', width: 22 },
-        { alignment: 'center', width: 10 },
+        { alignment: 'center', width: 16 },
         { alignment: 'center', width: 8 },
         { alignment: 'center', width: 8 },
       ]
