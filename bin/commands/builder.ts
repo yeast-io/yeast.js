@@ -47,7 +47,7 @@ class BuildInternalCommands {
       .action(() => outputConfig(loadConfig()));
   }
 
-  public async normal(program: Command) {
+  public async search(program: Command) {
     program
       .command('search')
       .description('To list the latest movies of M-Team')

@@ -15,8 +15,7 @@ async function boostrap (): Promise<void> {
   program.version(require('../package.json').version);
 
   await builder.config(program);
-  // to build commands for the navigated tabs
-  await builder.normal(program);
+  await builder.search(program);
   await builder.peers(program);
 
   await program.parseAsync(process.argv);
