@@ -12,13 +12,29 @@ class Search {
     this.seed = new Seed(loadConfig());
   }
 
+  public async peers(torrentId: number) {
+    const peers = await this.seed.peers(torrentId);
+    const headers = [ 'Seeder', 'Leecher' ];
+    let seeder = 0, leecher = 0;
+    for (const peer of peers) {
+      if (peer.left === '0') {
+        seeder++;
+        continue
+      }
 
-  public async movies(mode: 'normal', limit?: number) {
-    return await this.seed.search({ mode, pageSize: limit, standards: ['6'] });
+      leecher++;
+    }
+
+    console.info(table([ headers, [ seeder, leecher ] ], {
+      columns: [
+        { alignment: 'center', width: 8 },
+        { alignment: 'center', width: 8 }
+      ]
+    }));
   }
 
-
-  public output(movies: Record<string, any>) {
+  public async movies(mode: 'normal', limit?: number) {
+    const movies = await this.seed.search({ mode, pageSize: limit, standards: ['6'] });
     const headers = ['ID', 'Chinese Name', 'Created Time', 'Size/Discount', 'Seeder', 'Leecher'];
     const body = movies.data.map((movie: Record<string, any>) => {
       return [

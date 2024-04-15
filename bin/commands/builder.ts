@@ -49,13 +49,34 @@ class BuildInternalCommands {
 
   public async normal(program: Command) {
     program
-      .command('4k')
-      .description('To list the latest movies which is under 4k tab')
+      .command('search')
+      .description('To list the latest movies of M-Team')
+      .option('-t, --tag <tag>', 'Only 4K | Movies | TV | Adult are supported', '4K')
       .option('-l, --limit [limit]', 'To set a limitation of how many movies that you want to list','50')
       .action(async (options) => {
+        const tags = {
+          '4k': 'normal', 'movie': 'movie',
+          'tv': 'tvshow', 'adult': 'adult'
+        };
+        const tag = String((options.tag || '').toLowerCase());
+        if (!Object.keys(tags).includes(tag)) {
+          return program.outputHelp({ error: true });
+        }
+
+
         const search = new Search();
-        const movies = await search.movies('normal', parseInt(options.limit));
-        search.output(movies);
+        // @ts-expect-error . . . . . . . . . . . . .
+        await search.movies(tags[tag], parseInt(options.limit))
+      });
+  }
+
+  public async peers(program: Command) {
+    program
+      .command('peers <torrentId>')
+      .description('To list the peers of the torrent')
+      .action(async (torrentId) => {
+        const search = new Search();
+        await search.peers(parseInt(torrentId));
       });
   }
 }

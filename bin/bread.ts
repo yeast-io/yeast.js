@@ -17,7 +17,7 @@ async function boostrap (): Promise<void> {
   await builder.config(program);
   // to build commands for the navigated tabs
   await builder.normal(program);
-
+  await builder.peers(program);
 
   await program.parseAsync(process.argv);
 }
