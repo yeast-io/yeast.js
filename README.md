@@ -66,9 +66,9 @@ try {
 
 ## Unimplemented APIs
 
-> [!TIP]
+> [!IMPORTANT]
 > 
-> The APIs below have not been implemented yet, because the original documents from the official website are not clear enough.
+> The APIs below have not been implemented yet because the original documents from the official website are not clear enough.
 > 
 > The `UnimplementedMethodError` error will be thrown when you call them.
 
@@ -89,12 +89,11 @@ try {
 * bread.member.updateLastBrowse
 
 
-## Not allowed to access for third-party
 
 > [!IMPORTANT]
 > To comply with the regulations of the official website, 
 > the following APIs are not allowed to be accessed by third-party applications. 
-> If you use them, you may be banned from the website. Please use them with caution.
+> If you use them, you may be banned from the website.
 
 * /admin/**
 * /login
