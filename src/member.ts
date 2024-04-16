@@ -78,11 +78,13 @@ class Member extends Base {
   /**
    * @description To get the crime records of the member
    * @param { number | string } uid
-   * @notice We don't have permission to use this method, So the result can't be predicted.
+   * @notice
+   *  - We don't have permission to use this method, So the result can't be predicted.
+   *  - You can provide a generic type "CustomizedResult" to describe the results if you know that.
    */
-  public async getCrimeRecords(uid: number | string) {
+  public async getCrimeRecords<CustomizedResult>(uid: number | string) {
     if (this.utils.isEmpty(uid)) throw new MissingArgumentError('uid');
-    return this.request.post({ method: 'getCrimeRecords', type: 'query', body: { uid } });
+    return this.request.post<CustomizedResult>({ method: 'getCrimeRecords', type: 'query', body: { uid } });
   }
 
   /**
