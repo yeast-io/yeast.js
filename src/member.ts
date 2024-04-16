@@ -32,7 +32,7 @@ class Member extends Base {
   }
 
   /**
-   * @unimplemented This method is not implemented yet for some reason.
+   * @unimplemented This method has not yet been implemented for some reason.
    * @deprecated This method is deprecated for now.
    * @throws { UnimplementedMethodError }
    */
@@ -41,7 +41,7 @@ class Member extends Base {
   }
 
   /**
-   * @unimplemented This method is not implemented yet for some reason.
+   * @unimplemented This method has not yet been implemented for some reason.
    * @deprecated This method is deprecated for now.
    * @throws { UnimplementedMethodError }
    */
@@ -50,7 +50,7 @@ class Member extends Base {
   }
 
   /**
-   * @unimplemented This method is not implemented yet for some reason.
+   * @unimplemented This method has not yet been implemented for some reason.
    * @deprecated This method is deprecated for now.
    * @throws { UnimplementedMethodError }
    */
@@ -67,12 +67,38 @@ class Member extends Base {
     throw new UnimplementedMethodError('getSessionList');
   }
 
+  /**
+   * @unimplemented This method has not yet been implemented for some reason.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
   public async checkInviteCode() {
-    return this.request.post({method: 'checkInviteCode'});
+    throw new UnimplementedMethodError('checkInviteCode');
   }
 
+  /**
+   * @unimplemented This method has not yet been implemented because it is not permitted by official regulations.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
+  public async forgotPwd() {
+    throw new UnimplementedMethodError('forgotPwd');
+  }
+
+  /**
+   * @unimplemented This method has not yet been implemented because it is not permitted by official regulations.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
+  public async forgetPwdTow() {
+    throw new UnimplementedMethodError('forgetPwdTow');
+  }
+
+  /**
+   * @description To generate the OTP URL
+   */
   public async genOTPUrl() {
-    return this.request.post({ method: 'genOTPUrl' });
+    return this.request.post<string>({ method: 'genOTPUrl' });
   }
 
   /**
@@ -104,6 +130,14 @@ class Member extends Base {
   }
 
   /**
+   * @description To trigger the action of logging out
+   */
+  public async logout() {
+    return this.request.post<Response<null>>({ method: 'logout', unwrap: false })
+      .then(this.isSuccessful.bind(this));
+  }
+
+  /**
    * @description To get the member's profile
    * @param { number | string } uid
    */
@@ -121,8 +155,13 @@ class Member extends Base {
     throw new UnimplementedMethodError('queryLoginHistory');
   }
 
+  /**
+   * @unimplemented This method has not yet been implemented for some reason.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
   public async register() {
-    return this.request.post({method: 'register'});
+    throw new UnimplementedMethodError('register');
   }
 
   /**
@@ -134,22 +173,31 @@ class Member extends Base {
     throw new UnimplementedMethodError('revokeSession');
   }
 
+  /**
+   * @unimplemented This method has not yet been implemented for some reason.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
   public async sendEmailVerifyCode() {
-    return this.request.post({method: 'sendEmailVerifyCode'});
-  }
-
-  public async sendLoginEmailVerifyCode() {
-    return this.request.post({method: 'sendLoginEmailVerifyCode'});
+    throw new UnimplementedMethodError('sendEmailVerifyCode');
   }
 
   /**
-   * @description To send the passkey to the member's email
+   * @unimplemented This method has not yet been implemented for some reason.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
+  public async sendLoginEmailVerifyCode() {
+    throw new UnimplementedMethodError('sendLoginEmailVerifyCode');
+  }
+
+  /**
+   * @description Send the passkey to email of the member
    */
   public async sendPasskey() {
     return this.request.post<Response<null>>({ method: 'sendPasskey', unwrap: false })
       .then(this.isSuccessful.bind(this));
   }
-
 
   /**
    * @description To get the system roles
@@ -159,7 +207,7 @@ class Member extends Base {
   }
 
   /**
-   * @unimplemented This method is not implemented yet for some reason.
+   * @unimplemented This method has not yet been implemented for some reason.
    * @deprecated This method is deprecated for now.
    * @throws { UnimplementedMethodError }
    */
@@ -238,13 +286,22 @@ class Member extends Base {
       .then(this.isSuccessful.bind(this));
   }
 
-  public async verifyAccount(email: string, code: string) {
+  /**
+   * @description To verify the account
+   * @param { string } email
+   * @param { string | number } code
+   */
+  public async verifyAccount(email: string, code: string | number) {
     if (this.utils.isEmpty(email)) throw new MissingArgumentError('email');
     if (this.utils.isEmpty(code)) throw new MissingArgumentError('code');
     return this.request.post({ method: 'verifyAccount', body: { email, code }, type: 'query'});
   }
 
-  public async verifyAccountByUser(uid: number | string) {
+  /**
+   * @description To verify the account by user
+   * @param { string | number } uid
+   */
+  public async verifyAccountByUser(uid: string | number) {
     if (this.utils.isEmpty(uid)) throw new MissingArgumentError('uid');
     return this.request.post({ method: 'verifyAccountByUser', body: { uid }, type: 'query' });
   }

@@ -65,4 +65,10 @@ describe('🤴 Member', () => {
     expect(profile).to.have.property('memberCount');
   });
 
+  it('- should be able to generate a OTP URL', async () => {
+    const url = await bread.member.genOTPUrl();
+    expect(url).to.be.a('string');
+    expect(url).to.have.string('otpauth://totp/');
+  });
+
 });
