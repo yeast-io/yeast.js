@@ -59,7 +59,7 @@ class Member extends Base {
   }
 
   /**
-   * @unimplemented This method is not implemented yet for some reason.
+   * @unimplemented This method has not yet been implemented because it is not permitted by official regulations.
    * @deprecated This method is deprecated for now.
    * @throws { UnimplementedMethodError }
    */
@@ -75,8 +75,14 @@ class Member extends Base {
     return this.request.post({ method: 'genOTPUrl' });
   }
 
-  public async getCrimeRecords() {
-    return this.request.post({ method: 'getCrimeRecords' });
+  /**
+   * @description To get the crime records of the member
+   * @param { number | string } uid
+   * @notice We don't have permission to use this method, So the result can't be predicted.
+   */
+  public async getCrimeRecords(uid: number | string) {
+    if (this.utils.isEmpty(uid)) throw new MissingArgumentError('uid');
+    return this.request.post({ method: 'getCrimeRecords', type: 'query', body: { uid } });
   }
 
   /**
@@ -104,8 +110,26 @@ class Member extends Base {
     return this.request.post<MemberProfileOutput>({ method: 'profile' , body: { uid }, type: 'form' });
   }
 
+  /**
+   * @unimplemented This method has not yet been implemented because it is not permitted by official regulations.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
+  public async queryLoginHistory() {
+    throw new UnimplementedMethodError('queryLoginHistory');
+  }
+
   public async register() {
     return this.request.post({method: 'register'});
+  }
+
+  /**
+   * @unimplemented This method has not yet been implemented because it is not permitted by official regulations.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
+  public async revokeSession() {
+    throw new UnimplementedMethodError('revokeSession');
   }
 
   public async sendEmailVerifyCode() {
@@ -142,7 +166,7 @@ class Member extends Base {
   }
 
   /**
-   * @unimplemented This method is not implemented yet for some reason.
+   * @unimplemented This method has not yet been implemented because it is not permitted by official regulations.
    * @deprecated This method is deprecated for now.
    * @throws { UnimplementedMethodError }
    */
