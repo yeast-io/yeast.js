@@ -19,7 +19,7 @@ const MEMBER_DEFINITIONS: BreadAPI[] = [
   { name: 'forgotPwdTow', path: '/api/member/forgotPwdTow' },
   { name: 'genOTPUrl', path: '/api/member/genOTPUrl' },
   { name: 'getCrimeRecords', path: '/api/member/getCrimeRecords' },
-  { name: 'getUserTorrentList', path: '/api/member/getUserTorrentList' },
+  { name: 'getUserTorrentList', path: '/api/member/getUserTorrentList', contentType: 'application/json' },
   { name: 'logout', path: '/api/member/logout' },
   { name: 'profile', path: '/api/member/profile' },
   { name: 'register', path: '/api/member/register' },

@@ -131,3 +131,102 @@ export interface MemberProfileOutput {
   blockCategories: string[];
   authorities: string[];
 }
+
+
+// **************************************** Search member torrents ****************************************
+interface SearchMemberTorrent {
+  id: string;
+  createdDate: string;
+  lastModifiedDate: string;
+  name: string;
+  smallDescr: string;
+  imdb: string;
+  imdbRating: string;
+  douban: string;
+  doubanRating: number | null;
+  dmmCode: string;
+  author: string | null;
+  category: string;
+  source: string;
+  medium: string;
+  standard: string;
+  videoCodec: string;
+  audioCodec: string;
+  team: string;
+  processing: string;
+  numfiles: string;
+  size: string;
+  tags: string;
+  labels: string;
+  msUp: number;
+  anonymous: boolean;
+  infoHash: string | null;
+  status: SearchMemberTorrentStatus;
+  editedBy: string | null;
+  editDate: string | null;
+  collection: boolean;
+  inRss: boolean;
+  canVote: boolean;
+  client: string | null;
+  imageList: string[];
+  resetBox: unknown;
+}
+
+interface SearchMemberTorrentStatus {
+  id: string;
+  createdDate: string;
+  lastModifiedDate: string;
+  pickType: string;
+  toppingLevel: number;
+  toppingEndTime: string | null;
+  discount: string;
+  discountEndTime: string | null;
+  promotion: string | null;
+  timesCompleted: string;
+  comments: string;
+  lastAction: string;
+  views: string;
+  hits: string;
+  support: number;
+  oppose: number;
+  status: string;
+  seeders: string;
+  leechers: string;
+  banned: boolean;
+  visible: boolean;
+}
+
+interface SearchMemberSnatched {
+  createdDate: string;
+  lastModifiedDate: string;
+  id: string;
+  userid: string;
+  torrent: string;
+  ip: string;
+  port: string;
+  toGo: string;
+  uploaded: string;
+  download: string;
+  uploadedReal: string;
+  downloadedReal: string;
+  seedtime: string;
+  leechtime: string;
+  timesCompleted: string;
+  lastCompleteDate: string | null;
+  lastAction: string;
+}
+
+export interface SearchMemberTorrentOutput {
+  pageNumber: string;
+  pageSize: string;
+  total: string;
+  totalPages: string;
+  data: {
+    torrent: SearchMemberTorrent;
+    snatched: SearchMemberSnatched;
+    peer: unknown;
+    seek: unknown;
+  }[]
+}
+// *********************************************** End ***************************************************
+

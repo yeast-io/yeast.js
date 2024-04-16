@@ -1,23 +1,31 @@
 import Base from './base.js';
 import { MissingArgumentError, UnimplementedMethodError } from './errors.js';
 import {
-  BaseOutput, BasesOutput, SystemRoleOutput, MemberProfileOutput
+  BaseOutput, BasesOutput, SystemRoleOutput, MemberProfileOutput,
+  SearchMemberTorrentOutput
 } from './interfaces/member/output.type.js';
 import {
-  UpdateProfileInput, UpdateSecurityInput
+  UpdateProfileInput, UpdateSecurityInput, MemberTorrentSearchInput
 } from './interfaces/member/input.type.js';
 import { Response } from './request.js';
+
+
 
 class Member extends Base {
 
   /**
    * @description To get the base information of a member
+   * @param { number | string } uid - user id
    */
   public async base(uid: number | string) {
     if (this.utils.isEmpty(uid)) throw new MissingArgumentError('uid');
     return this.request.post<BaseOutput>({ method: 'base', body: { id: uid }, type: 'query' });
   }
 
+  /**
+   * @description To get the base information of members
+   * @param { number[] | string[] } uids
+   */
   public async bases(uids: number[] | string[]) {
     if (this.utils.isEmpty(uids)) throw new MissingArgumentError('uids');
     return this.request.post<BasesOutput>({ method: 'bases', body: { ids: uids } });
@@ -50,6 +58,15 @@ class Member extends Base {
     throw new UnimplementedMethodError('changeEmailSendCode');
   }
 
+  /**
+   * @unimplemented This method is not implemented yet for some reason.
+   * @deprecated This method is deprecated for now.
+   * @throws { UnimplementedMethodError }
+   */
+  public async getSessionList() {
+    throw new UnimplementedMethodError('getSessionList');
+  }
+
   public async checkInviteCode() {
     return this.request.post({method: 'checkInviteCode'});
   }
@@ -62,8 +79,20 @@ class Member extends Base {
     return this.request.post({ method: 'getCrimeRecords' });
   }
 
-  public async getUserTorrentList() {
-    return this.request.post({method: 'getUserTorrentList'});
+  /**
+   * @description To get the user's torrent list
+   * @param options
+   * @param { number } options.userid - The user id is required
+   * @param { number } [options.pageNumber = 1] - The page number
+   * @param { number } [options.pageSize = 100] - The page size
+   * @param { MemberTorrentSearchTypes } [options.type = 'COMPLETED'] - The type of the torrent
+   */
+  public async getUserTorrentList(options: MemberTorrentSearchInput) {
+    if (this.utils.isEmpty(options)) throw new MissingArgumentError('options');
+    options.pageNumber = options.pageNumber || 1;
+    options.pageSize = options.pageSize || 100;
+    options.type = options.type || 'COMPLETED';
+    return this.request.post<SearchMemberTorrentOutput>({ method: 'getUserTorrentList', body: options });
   }
 
   /**

@@ -50,3 +50,15 @@ export interface UpdateProfileInput {
   downloadDomain?: string | null;
   blockCategories?: number[];
 }
+
+
+export type MemberTorrentSearchTypes = 'UPLOADED' | 'SEEDING' | 'LEECHING' | 'COMPLETED' | 'INCOMPLETE' | 'SEEK';
+
+export interface MemberTorrentSearchInput {
+  userid: number;
+  pageNumber?: number;
+  pageSize?: number;
+  lastId?: number;
+  keyword?: string;
+  type?: MemberTorrentSearchTypes;
+}

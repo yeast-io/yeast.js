@@ -23,6 +23,14 @@ describe('🤴 Member', () => {
     expect(bases['315125']).to.have.property('lastBrowse');
   });
 
+  it('- should be able to get the torrents of member', async () => {
+    const torrents = await bread.member.getUserTorrentList({ userid: 315125 });
+    expect(torrents).to.be.an('object');
+    expect(torrents).to.have.property('data');
+    expect(torrents.data).to.be.an('array');
+    expect(torrents.data).to.have.length.greaterThan(0);
+  });
+
   it('- should be able to update security of the member', async () => {
     const updated = await bread.member.updateSecurity({ privacy: 'LOW' });
     expect(updated).to.be.true;
