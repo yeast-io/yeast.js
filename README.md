@@ -58,7 +58,7 @@ const bread = new Bread({ key: 'YOUR KEY', url: '' });
 
 try {
   const info = await bread.member.base('your user id');
-  await bread.member.bindOTP(); // The unImplemented error will be thrown
+  await bread.member.bindOTP(); // The unimplemented error will be thrown
 } catch (err) {
   console.error(err);
 }
@@ -68,7 +68,7 @@ try {
 
 > [!TIP]
 > 
-> The APIs below are not implemented yet for some reason.
+> The APIs below have not been implemented yet, because the original documents from the official website are not clear enough.
 > 
 > The `UnimplementedMethodError` error will be thrown when you call them.
 
@@ -77,13 +77,24 @@ try {
 * bread.member.unbindOTP
 * bread.member.changeEmail
 * bread.member.changeEmailSendCode
+* bread.member.getSessionList
+* bread.member.checkInviteCode
+* bread.member.forgotPwd
+* bread.member.forgetPwdTow
+* bread.member.queryLoginHistory
+* bread.member.register
+* bread.member.revokeSession
+* bread.member.sendEmailVerifyCode
+* bread.member.sendLoginEmailVerifyCode
 * bread.member.updateLastBrowse
 
 
 ## Not allowed to access for third-party
 
 > [!IMPORTANT]
-> The APIs below are not allowed to access for third-party which means we wouldn't implement them at all.
+> To comply with the regulations of the official website, 
+> the following APIs are not allowed to be accessed by third-party applications. 
+> If you use them, you may be banned from the website. Please use them with caution.
 
 * /admin/**
 * /login
