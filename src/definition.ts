@@ -1,3 +1,5 @@
+import { DuplicateMethodError } from './errors.js';
+
 interface BreadAPI {
   name: string;
   path: string;
@@ -21,7 +23,7 @@ const SYSTEM_DEFINITIONS: BreadAPI[] = [
   { name: 'staff', path: '/api/system/staff' },
   { name: 'state', path: '/api/system/state' },
   { name: 'sysConf', path: '/api/system/sysConf' },
-  { name: 'sysConf', path: '/api/system/top' }
+  { name: 'top', path: '/api/system/top' }
 ];
 
 const LABORATORY_DEFINITIONS: BreadAPI[] = [
@@ -129,8 +131,16 @@ class Builder {
   protected collection: Map<string, BreadAPI> = new Map();
 
   constructor() {
+    const methods: string[] = [];
     for (const api of CONCRETED_DEFINITIONS) {
       this.collection.set(api.name, api);
+      methods.push(api.name);
+    }
+
+    // Check for duplicate methods
+    const duplicates = methods.filter((method, index) => methods.indexOf(method) !== index);
+    if (duplicates.length > 0) {
+      throw new DuplicateMethodError(duplicates);
     }
   }
 
