@@ -3,6 +3,10 @@ import { MissingArgumentError } from './errors.js';
 import { Response } from './request.js';
 
 
+/**
+ * @property { boolean } adultGroup - Indicates whether the torrent list is grouped by DMM.
+ * @property { boolean } adultMode - Indicates whether the adult mode is enabled.
+ */
 interface States {
   adultGroup: boolean;
   adultMode: boolean;
