@@ -2,7 +2,18 @@ interface BreadAPI {
   name: string;
   path: string;
   contentType?: string;
+  originalName?: string;
 }
+
+
+const LABORATORY_DEFINITIONS: BreadAPI[] = [
+  /**
+   * Laboratory related methods
+   */
+  // Renamed methods
+  { name: 'switch', path: '/api/laboratory/tiggerFunc', contentType: 'application/json' },
+  { name: 'state', path: '/api/laboratory/funcState' }
+];
 
 
 const MEMBER_DEFINITIONS: BreadAPI[] = [
@@ -80,11 +91,14 @@ export type MemberMethods =
   'sendPasskey' | 'sysRoleList' | 'unbindOTP' | 'updateProfile' | 'updateSecurity' |
   'verifyAccount' | 'verifyAccountByUser';
 
-export type Methods = SeedMethods | MemberMethods;
+export type LabotoraryMethods = 'tiggerFunc' | 'funcState' | 'switch' | 'state';
+
+export type Methods = SeedMethods | MemberMethods | LabotoraryMethods;
 
 const CONCRETED_DEFINITIONS: BreadAPI[] = Array.of<BreadAPI>(
   ...SEED_DEFINITIONS,
-  ...MEMBER_DEFINITIONS
+  ...MEMBER_DEFINITIONS,
+  ...LABORATORY_DEFINITIONS
 );
 
 class Builder {

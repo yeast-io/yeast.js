@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { loadConfig, addConfig, updateConfig, outputConfig } from './config.js';
 import { Buffer } from 'node:buffer';
 import Search from './search.js';
+import Member from './member.js';
 
 
 const DEFAULT_URL = Buffer.from('aHR0cHM6Ly90cC5tLXRlYW0uY2M=', 'base64').toString('utf-8');
@@ -12,14 +13,14 @@ class BuildInternalCommands {
 
     const config = program
       .command('config')
-      .description('the sub-command [config] is used to manage the configuration of M-Team');
+      .description('setup the configurations')
 
 
     config
       .command('add')
-      .description('to add the configuration of M-Team, otherwise, it will override the existing one')
-      .option('-k, --key <key>', 'to set the key of M-Team')
-      .option('-u, --url [url]', 'to set the url of M-Team', DEFAULT_URL)
+      .description('add the configuration')
+      .option('-k, --key <key>', 'set key')
+      .option('-u, --url [url]', 'set url', DEFAULT_URL)
       .action((options) => {
         if (!options.key) {
           return config.help({ error: true });
@@ -30,9 +31,9 @@ class BuildInternalCommands {
 
     config
       .command('update')
-      .description('to update the configuration of M-Team')
-      .option('-k, --key <key>', 'To set the key of M-Team')
-      .option('-u, --url [url]', 'To set the url of M-Team')
+      .description('update the configuration')
+      .option('-k, --key <key>', 'set key')
+      .option('-u, --url [url]', 'set url')
       .action((options) => {
         if (!options.key) {
           return config.help({ error: true });
@@ -43,16 +44,16 @@ class BuildInternalCommands {
 
     config
       .command('list', { isDefault: true })
-      .description('this is the default command to list the configuration of M-Team')
+      .description('show the configuration')
       .action(() => outputConfig(loadConfig()));
   }
 
   public async search(program: Command) {
     program
       .command('search')
-      .description('To list the latest movies of M-Team')
-      .option('-t, --tag <tag>', 'Only 4K | Movies | TV | Adult are supported', '4K')
-      .option('-l, --limit [limit]', 'To set a limitation of how many movies that you want to list','50')
+      .description('search medias')
+      .option('-t, --tag <tag>', 'only 4K | Movies | TV | Adult are supported', '4K')
+      .option('-l, --limit [limit]', 'set a limitation of how many movies that you want to list','50')
       .action(async (options) => {
         const tags = {
           '4k': 'normal', 'movie': 'movie',
@@ -73,10 +74,43 @@ class BuildInternalCommands {
   public async peers(program: Command) {
     program
       .command('peers <torrentId>')
-      .description('To list the peers of the torrent')
+      .description('show the peers')
       .action(async (torrentId) => {
         const search = new Search();
         await search.peers(parseInt(torrentId));
+      });
+  }
+
+
+  public async labState(program: Command) {
+    program
+      .command('lab:show')
+      .description('show the states of laboratory')
+      .action(async () => {
+        const member = new Member();
+        await member.show();
+      });
+  }
+
+  public async labSwitch(program: Command) {
+    const switcher = program
+      .command('lab:switch')
+      .description('Switch the laboratory state');
+
+
+    switcher
+      .command('on')
+      .description('turn on the laboratory state')
+      .action(async () => {
+        const member = new Member();
+        await member.switch('ON');
+      });
+
+    switcher.command('off')
+      .description('turn off the laboratory state')
+      .action(async () => {
+        const member = new Member();
+        await member.switch('OFF');
       });
   }
 }

@@ -17,6 +17,8 @@ async function boostrap (): Promise<void> {
   await builder.config(program);
   await builder.search(program);
   await builder.peers(program);
+  await builder.labState(program);
+  await builder.labSwitch(program);
 
   await program.parseAsync(process.argv);
 }

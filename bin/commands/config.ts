@@ -9,6 +9,12 @@ const HOME_DIR = join(homedir(), '.bread.js/');
 const CONFIG_FILE = join(HOME_DIR, 'config.json');
 
 
+/**
+ * @description Interface for the configuration file
+ * @interface IConfig
+ * @property {string} key - The api key
+ * @property {string} url - The api url
+ */
 interface IConfig {
   key: string;
   url: string;
