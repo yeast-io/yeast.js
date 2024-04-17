@@ -13,7 +13,7 @@ class UnimplementedMethodError extends Error {
   }
 }
 
-class DuplicateMethodError extends Error {
+class DuplicatedMethodError extends Error {
   constructor(names: string[]) {
     super(`Duplicate methods: ${names.join(', ')}`);
   }
@@ -21,5 +21,5 @@ class DuplicateMethodError extends Error {
 
 export {
   MissingArgumentError, UnimplementedMethodError,
-  DuplicateMethodError
+  DuplicatedMethodError
 }

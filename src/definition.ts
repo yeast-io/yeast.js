@@ -1,4 +1,4 @@
-import { DuplicateMethodError } from './errors.js';
+import { DuplicatedMethodError } from './errors.js';
 
 interface BreadAPI {
   name: string;
@@ -140,7 +140,7 @@ class Builder {
     // Check for duplicate methods
     const duplicates = methods.filter((method, index) => methods.indexOf(method) !== index);
     if (duplicates.length > 0) {
-      throw new DuplicateMethodError(duplicates);
+      throw new DuplicatedMethodError(duplicates);
     }
   }
 
