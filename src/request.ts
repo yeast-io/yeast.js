@@ -70,7 +70,6 @@ class Request {
    *  - [body]: The body of the request.
    *  - [headers]: The headers of the request.
    *  - [unwrap]: Whether to unwrap the response. In Default: true
-   * @return { Promise<T> }
    */
   public async post<T = Record<string, unknown>>(options: QueryOptions): Promise<T> {
     if (Object.keys(options).length <= 0) {
