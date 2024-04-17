@@ -1,3 +1,5 @@
+import { Pagination } from '../base.type.js';
+
 /**
  * @description Interface for the output of the member
  * @interface BaseOutput
@@ -216,17 +218,11 @@ interface SearchMemberSnatched {
   lastAction: string;
 }
 
-export interface SearchMemberTorrentOutput {
-  pageNumber: string;
-  pageSize: string;
-  total: string;
-  totalPages: string;
-  data: {
-    torrent: SearchMemberTorrent;
-    snatched: SearchMemberSnatched;
-    peer: unknown;
-    seek: unknown;
-  }[]
-}
+export interface SearchMemberTorrentOutput extends Pagination<{
+  torrent: SearchMemberTorrent;
+  snatched: SearchMemberSnatched;
+  peer: unknown;
+  seek: unknown;
+}> {}
 // *********************************************** End ***************************************************
 

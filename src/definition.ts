@@ -6,13 +6,31 @@ interface BreadAPI {
 }
 
 
+const SYSTEM_DEFINITIONS: BreadAPI[] = [
+  /**
+   * System related methods
+   */
+  { name: 'banlogs', path: '/api/system/banlogs' },
+  { name: 'countryList', path: '/api/system/countryList' },
+  { name: 'getConf', path: '/api/system/getConf' },
+  { name: 'hello', path: '/api/system/hello' },
+  { name: 'ip', path: '/api/system/ip' },
+  { name: 'ipASN', path: '/api/system/ipASN' },
+  { name: 'langs', path: '/api/system/langs' },
+  { name: 'news', path: '/api/system/news' },
+  { name: 'staff', path: '/api/system/staff' },
+  { name: 'state', path: '/api/system/state' },
+  { name: 'sysConf', path: '/api/system/sysConf' },
+  { name: 'sysConf', path: '/api/system/top' }
+];
+
 const LABORATORY_DEFINITIONS: BreadAPI[] = [
   /**
    * Laboratory related methods
    */
   // Renamed methods
-  { name: 'switch', path: '/api/laboratory/tiggerFunc', contentType: 'application/json' },
-  { name: 'state', path: '/api/laboratory/funcState' }
+  { name: 'tiggerFunc', path: '/api/laboratory/tiggerFunc', contentType: 'application/json' },
+  { name: 'funcState', path: '/api/laboratory/funcState' }
 ];
 
 
@@ -93,12 +111,17 @@ export type MemberMethods =
 
 export type LabotoraryMethods = 'tiggerFunc' | 'funcState' | 'switch' | 'state';
 
-export type Methods = SeedMethods | MemberMethods | LabotoraryMethods;
+export type SystemMethods =
+  'banlogs' | 'countryList' | 'getConf' | 'hello' | 'ip' | 'ipASN' |
+  'langs' | 'news' | 'staff' | 'state' | 'sysConf' | 'top';
+
+export type Methods = SeedMethods | MemberMethods | LabotoraryMethods | SystemMethods;
 
 const CONCRETED_DEFINITIONS: BreadAPI[] = Array.of<BreadAPI>(
   ...SEED_DEFINITIONS,
   ...MEMBER_DEFINITIONS,
-  ...LABORATORY_DEFINITIONS
+  ...LABORATORY_DEFINITIONS,
+  ...SYSTEM_DEFINITIONS
 );
 
 class Builder {

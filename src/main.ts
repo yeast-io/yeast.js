@@ -1,6 +1,7 @@
 import Seed from './seed.js';
 import Member from './member.js';
 import Laboratory from './laboratory.js';
+import System from './system.js';
 
 export interface BreadOptions {
   // To generate an api key, visit m-team's Laboratory page.
@@ -14,10 +15,16 @@ class Bread {
   public seed: Seed;
   public member: Member;
   public laboratory: Laboratory;
+  public system: System;
+
+
   /**
-   * @description Alias for laboratory
+   * =============================== Alias Definitions ===============================
    */
   public lab: Laboratory;
+  public sys: System;
+
+
 
   constructor(protected options: BreadOptions) {
     if (typeof options !== 'object') {
@@ -31,6 +38,7 @@ class Bread {
     this.seed = new Seed(options);
     this.member = new Member(options);
     this.lab = this.laboratory = new Laboratory(options);
+    this.sys = this.system = new System(options);
   }
 }
 

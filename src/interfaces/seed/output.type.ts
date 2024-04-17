@@ -1,3 +1,5 @@
+import { Pagination } from '../base.type.js';
+
 /**
  * @description It is a timestamp object which is related to the createdDate and lastModifiedDate
  * @interface TimestampObject
@@ -50,13 +52,7 @@ export interface SourceListOutput extends TimestampObject {
 }
 
 
-export interface SearchOutput {
-  pageNumber: number;
-  pageSize: number;
-  total: number;
-  totalPages: number;
-  data: Record<any, any>[];
-}
+export interface SearchOutput extends Pagination<Record<any, any>>{}
 
 
 // ========================     Torrent tracker history =========================
@@ -78,13 +74,8 @@ interface TorrentTrackerUserInfo {
   userid: string;
 }
 
-export interface TorrentTrackerUserHistoryOutput {
-  pageNumber: number;
-  pageSize: number;
-  total: number;
-  totalPages: number;
-  data: TorrentTrackerUserInfo[];
-}
+export interface TorrentTrackerUserHistoryOutput extends Pagination<TorrentTrackerUserInfo> {}
+
 
 /**
  * @description It's all about douban info

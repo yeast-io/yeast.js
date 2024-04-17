@@ -35,7 +35,7 @@ class Laboratory extends Base {
    */
   public async switch(options: States = { adultGroup: true, adultMode: true }) {
     if (this.utils.isEmpty(options)) throw new MissingArgumentError('options');
-    return this.request.post<Response<null>>({ method: 'switch', body: options, unwrap: false })
+    return this.request.post<Response<null>>({ method: 'tiggerFunc', body: options, unwrap: false })
       .then(this.isSuccessful.bind(this));
   }
 
@@ -44,7 +44,7 @@ class Laboratory extends Base {
    * @description Alias for `funcState`
    */
   public async state() {
-    return this.request.post<States>({ method: 'state' });
+    return this.request.post<States>({ method: 'funcState' });
   }
 }
 
