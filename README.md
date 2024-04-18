@@ -72,7 +72,8 @@ try {
 > 
 > The `UnimplementedMethodError` error will be thrown when you call them.
 
- 
+### Member
+
 * bread.member.bindOTP
 * bread.member.unbindOTP
 * bread.member.changeEmail
@@ -88,6 +89,7 @@ try {
 * bread.member.sendLoginEmailVerifyCode
 * bread.member.updateLastBrowse
 
+### System
 
 * bread.system.top
 * bread.system.getConf
