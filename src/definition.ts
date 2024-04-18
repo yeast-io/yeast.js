@@ -8,6 +8,20 @@ interface BreadAPI {
 }
 
 
+const TRACKER_DEFINITIONS: BreadAPI[] = [
+  /**
+   * Tracker related methods
+   */
+  { name: 'announce', path: '/api/announce' },
+  { name: 'scrape', path: '/api/scrape' },
+  { name: 'clientList', path: '/api/tracker/clientList' },
+  { name: 'clientTest', path: '/api/tracker/clientTest' },
+  { name: 'flush', path: '/api/tracker/flush' },
+  { name: 'mybonus', path: '/api/tracker/mybonus' },
+  { name: 'myPeerStatus', path: '/api/tracker/myPeerStatus' },
+  { name: 'queryHistory', path: '/api/tracker/queryHistory' }
+];
+
 const SYSTEM_DEFINITIONS: BreadAPI[] = [
   /**
    * System related methods
@@ -117,13 +131,20 @@ export type SystemMethods =
   'banlogs' | 'countryList' | 'getConf' | 'hello' | 'ip' | 'ipASN' |
   'langs' | 'news' | 'staff' | 'state' | 'sysConf' | 'top';
 
-export type Methods = SeedMethods | MemberMethods | LabotoraryMethods | SystemMethods;
+export type TrackerMethods =
+  'announce' | 'scrape' | 'clientList' | 'clientTest' | 'flush' | 'mybonus' |
+  'myPeerStatus' | 'queryHistory';
+
+export type Methods =
+  SeedMethods | MemberMethods | LabotoraryMethods | SystemMethods |
+  TrackerMethods;
 
 const CONCRETED_DEFINITIONS: BreadAPI[] = Array.of<BreadAPI>(
   ...SEED_DEFINITIONS,
   ...MEMBER_DEFINITIONS,
   ...LABORATORY_DEFINITIONS,
-  ...SYSTEM_DEFINITIONS
+  ...SYSTEM_DEFINITIONS,
+  ...TRACKER_DEFINITIONS
 );
 
 class Builder {
