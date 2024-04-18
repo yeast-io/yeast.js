@@ -78,34 +78,31 @@ try {
 * bread.member.unbindOTP
 * bread.member.changeEmail
 * bread.member.changeEmailSendCode
-* bread.member.getSessionList
+* <ins>bread.member.getSessionList</ins>
 * bread.member.checkInviteCode
 * bread.member.forgotPwd
 * bread.member.forgetPwdTow
-* bread.member.queryLoginHistory
+* <ins>bread.member.queryLoginHistory</ins>
 * bread.member.register
-* bread.member.revokeSession
+* <ins>bread.member.revokeSession</ins>
 * bread.member.sendEmailVerifyCode
 * bread.member.sendLoginEmailVerifyCode
-* bread.member.updateLastBrowse
+* <ins>bread.member.updateLastBrowse</ins>
 
 ### System
 
 * bread.system.top
 * bread.system.getConf
 
+### Tracker
+
+* bread.tracker.announce
+* bread.tracker.scrape
+* bread.tracker.queryHistory
+
 
 
 > [!IMPORTANT]
 > To comply with the regulations of the official website, 
-> the following APIs are not allowed to be accessed by third-party applications. 
-> If you use them, you may be banned from the website.
-
-* /admin/**
-* /login
-* /apikey/**
-* /member/updateLastBrowse
-* /member/getSessionList
-* /member/revokeSession
-* /member/queryUserLoginHistory
-* /msg/**
+> There are some APIs which are not allowed to be accessed by third-party applications. 
+> If you use them (Unimplemented Methods with underline), you may be banned from the website.
