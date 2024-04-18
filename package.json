@@ -1,7 +1,7 @@
 {
-  "name": "bread",
-  "version": "1.0.10",
-  "description": "",
+  "name": "bread.js",
+  "version": "1.0.11",
+  "description": "A library for M-Team API",
   "type": "module",
   "types": "dist/bread.d.ts",
   "main": "dist/bread.js",
