@@ -3,8 +3,8 @@
   "version": "1.0.10",
   "description": "",
   "type": "module",
-  "types": "dist/main.d.ts",
-  "main": "dist/main.js",
+  "types": "dist/bread.d.ts",
+  "main": "dist/bread.js",
   "bin": {
     "bread": "cli/bin/bread.js"
   },

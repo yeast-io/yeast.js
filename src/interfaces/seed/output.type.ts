@@ -1,36 +1,25 @@
-import { Pagination } from '../base.type.js';
-
-/**
- * @description It is a timestamp object which is related to the createdDate and lastModifiedDate
- * @interface TimestampObject
- * @property { string } createdDate - For example, '2024-04-05 22:19:31'
- * @property { string } lastModifiedDate - For example, '2024-04-05 22:19:31'
- */
-interface TimestampObject {
-  createdDate: string;
-  lastModifiedDate: string;
-}
+import { Pagination, MTeamTimestamp } from '../base.type.js';
 
 
-export interface AudioCodecListOutput extends TimestampObject {
+export interface AudioCodecListOutput extends MTeamTimestamp {
   id: string;
   order: string;
   name: string;
 }
 
-export interface VideoCodecListOutput extends TimestampObject {
+export interface VideoCodecListOutput extends MTeamTimestamp {
   id: string;
   order: string;
   name: string;
 }
 
-export interface StandardListOutput extends TimestampObject {
+export interface StandardListOutput extends MTeamTimestamp {
   id: string;
   order: string;
   name: string;
 }
 
-export interface TeamListOutput extends TimestampObject {
+export interface TeamListOutput extends MTeamTimestamp {
   id: string;
   order: string;
   name: string;
@@ -43,7 +32,7 @@ export interface CategoryListOutput {
   [key: string]: unknown;
 }
 
-export interface SourceListOutput extends TimestampObject {
+export interface SourceListOutput extends MTeamTimestamp {
   id: string;
   order: string;
   nameChs: string;
@@ -222,7 +211,7 @@ export interface IMDBInfoOutput {
 }
 
 
-export interface TorrentPeersOutput extends TimestampObject {
+export interface TorrentPeersOutput extends MTeamTimestamp {
   id: string;
   memberId: string;
   torrentId: string;
@@ -239,7 +228,7 @@ export interface TorrentPeersOutput extends TimestampObject {
   lastAction: string;
 }
 
-export interface MediumListOutput extends TimestampObject {
+export interface MediumListOutput extends MTeamTimestamp {
   id: string;
   order: string;
   nameChs: string;
@@ -248,13 +237,13 @@ export interface MediumListOutput extends TimestampObject {
 }
 
 
-export interface ProcessingListOutput extends TimestampObject {
+export interface ProcessingListOutput extends MTeamTimestamp {
   id: string;
   order: string;
   name: string;
 }
 
-interface rewardContributors extends TimestampObject {
+interface rewardContributors extends MTeamTimestamp {
   id: string;
   torrent: string;
   userid: string;
@@ -270,7 +259,7 @@ export interface TorrentRewardStatusOutput {
 }
 
 
-interface Contributors extends TimestampObject {
+interface Contributors extends MTeamTimestamp {
   id: string;
   torrent: string;
   userid: string;

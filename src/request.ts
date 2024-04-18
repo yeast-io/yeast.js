@@ -122,16 +122,16 @@ class Request {
     const timeout = this.options.timeout || DEFAULT_TIMEOUT;
     const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-    debug('POST %s', url);
+    debug('POST => %s', url);
     const response = await fetch(url, params).catch(err => {
       if (err instanceof AbortError) {
         throw new Error('Request aborted');
       }
       throw err;
     });
-    debug(response.headers.raw());
     const resp = await response.json() as Response<T>;
     clearTimeout(timeoutId);
+    debug('RESULT => %j', resp);
     return (options.unwrap ? this.unwrap<T>(resp) : resp) as T;
   }
 

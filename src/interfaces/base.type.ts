@@ -14,3 +14,15 @@ export interface Pagination<DataType> {
   totalPages: number;
   data: DataType[];
 }
+
+
+/**
+ * @description It is a timestamp object which is related to the createdDate and lastModifiedDate
+ * @interface TimestampObject
+ * @property { string } createdDate - For example, '2024-04-05 22:19:31'
+ * @property { string } lastModifiedDate - For example, '2024-04-05 22:19:31'
+ */
+export interface MTeamTimestamp {
+  createdDate: string;
+  lastModifiedDate: string;
+}

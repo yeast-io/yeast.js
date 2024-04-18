@@ -52,8 +52,9 @@ class BuildInternalCommands {
     program
       .command('search')
       .description('search medias')
-      .option('-t, --tag <tag>', 'only 4K | Movies | TV | Adult are supported', '4K')
-      .option('-l, --limit [limit]', 'set a limitation of how many movies that you want to list','50')
+      .option('-t, --tag [tag]', 'Only 4K | Movies | TV | Adult are supported', '4K')
+      .option('-l, --limit [limit]', 'Set a limitation of how many movies that you want to list','50')
+      .option('-k, --keyword [keyword]', 'Keyword for searching torrent')
       .action(async (options) => {
         const tags = {
           '4k': 'normal', 'movie': 'movie',
@@ -67,7 +68,7 @@ class BuildInternalCommands {
 
         const search = new Search();
         // @ts-expect-error . . . . . . . . . . . . .
-        await search.movies(tags[tag], parseInt(options.limit))
+        await search.movies(tags[tag], options.keyword || null, parseInt(options.limit))
       });
   }
 

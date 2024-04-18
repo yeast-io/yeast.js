@@ -1,4 +1,4 @@
-import { Pagination } from '../base.type.js';
+import { Pagination, MTeamTimestamp } from '../base.type.js';
 
 /**
  * @description Interface for the output of the member
@@ -25,9 +25,7 @@ export interface BasesOutput {
 }
 
 
-export interface SystemRoleOutput {
-  createdDate: string;
-  lastModifiedDate: string;
+export interface SystemRoleOutput extends MTeamTimestamp {
   id: string;
   nameChs: string;
   nameCht: string;
@@ -49,9 +47,7 @@ export interface SystemRoleOutput {
 
 
 // =================================== Member Profile ===================================
-interface MemberStatus {
-  createdDate: string;
-  lastModifiedDate: string;
+interface MemberStatus extends MTeamTimestamp {
   id: string;
   vip: boolean;
   vipUntil: null;
@@ -71,9 +67,7 @@ interface MemberStatus {
   lastChangePwd: null;
 }
 
-interface MemberCount {
-  createdDate: string;
-  lastModifiedDate: string;
+interface MemberCount extends MTeamTimestamp{
   id: string;
   bonus: number;
   uploaded: string;
@@ -83,10 +77,8 @@ interface MemberCount {
   uploadReset: string;
 }
 
-export interface MemberProfileOutput {
+export interface MemberProfileOutput extends MTeamTimestamp {
   id: string;
-  createdDate: string;
-  lastModifiedDate: string;
   username: string;
   email: string;
   status: string;
@@ -136,10 +128,8 @@ export interface MemberProfileOutput {
 
 
 // **************************************** Search member torrents ****************************************
-interface SearchMemberTorrent {
+interface SearchMemberTorrent extends MTeamTimestamp {
   id: string;
-  createdDate: string;
-  lastModifiedDate: string;
   name: string;
   smallDescr: string;
   imdb: string;
@@ -174,10 +164,8 @@ interface SearchMemberTorrent {
   resetBox: unknown;
 }
 
-interface SearchMemberTorrentStatus {
+interface SearchMemberTorrentStatus extends MTeamTimestamp {
   id: string;
-  createdDate: string;
-  lastModifiedDate: string;
   pickType: string;
   toppingLevel: number;
   toppingEndTime: string | null;
@@ -198,9 +186,7 @@ interface SearchMemberTorrentStatus {
   visible: boolean;
 }
 
-interface SearchMemberSnatched {
-  createdDate: string;
-  lastModifiedDate: string;
+interface SearchMemberSnatched extends MTeamTimestamp {
   id: string;
   userid: string;
   torrent: string;

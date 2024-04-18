@@ -33,8 +33,14 @@ class Search {
     }));
   }
 
-  public async movies(mode: 'normal', limit?: number) {
-    const movies = await this.seed.search({ mode, pageSize: limit, standards: ['6'] });
+  public async movies(mode: 'normal', keyword?: string | null, limit?: number) {
+    keyword = keyword || null;
+    limit = limit || 100;
+    const options: any = { mode, pageSize: limit, standards: ['6'] };
+    if (keyword) {
+      options.keyword = keyword;
+    }
+    const movies = await this.seed.search(options);
     const headers = ['ID', 'Name', 'Created Time', 'Size/Discount', 'Seeder', 'Leecher'];
     movies.data = movies.data.sort((a, b) => {
       return new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
