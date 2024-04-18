@@ -89,6 +89,10 @@ try {
 * bread.member.updateLastBrowse
 
 
+* bread.system.top
+* bread.system.getConf
+
+
 
 > [!IMPORTANT]
 > To comply with the regulations of the official website, 
