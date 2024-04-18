@@ -19,6 +19,8 @@ describe('🔩 Utils', () => {
 
     expect(isEmpty(new Map())).to.be.true;
     expect(isEmpty(new Set())).to.be.true;
+    expect(isEmpty(Buffer.from(''))).to.be.true;
+    expect(isEmpty(Buffer.from('123'))).to.be.false;
 
     const m = new Map();
     m.set('a', 1);
