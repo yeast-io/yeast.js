@@ -5,12 +5,15 @@ import {
   CreateSeekTorrentInput
 } from './interfaces/seek/input.type.js';
 
+import {
+  SeekDetailOutput
+} from './interfaces/seek/output.type.js';
 
 class Seek extends Base {
 
 
   /**
-   * @description Add more excess rewards to the torrent-seeking request
+   * @description Add more excess rewards into seeking the torrent
    * @param { string | number } seekId
    * @param { number } reward
    */
@@ -23,7 +26,7 @@ class Seek extends Base {
   }
 
   /**
-   * @description To request someone else to seed the torrent
+   * @description To request someone else to seek the torrent
    * @param options
    */
   public async create(options: CreateSeekTorrentInput) {
@@ -39,9 +42,16 @@ class Seek extends Base {
     return this.request.post<string>({ method: 'create', body: options });
   }
 
-  public async detail() {
-    return this.request.post({ method: 'seek_detail' });
+  /**
+   * @description To get the detail of the seeking torrent
+   * @param { string | number } seekId
+   */
+  public async detail(seekId: string | number) {
+    if (this.utils.isEmpty(seekId)) throw new MissingArgumentError('seekId');
+    return this.request.post<SeekDetailOutput>({ method: 'seek_detail', body: { seekId }, type: 'form' });
   }
+
+
   public async edit() {}
   public async recovery() {}
   public async search() {

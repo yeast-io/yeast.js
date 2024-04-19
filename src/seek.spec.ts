@@ -57,4 +57,37 @@ describe('🌳 Seek', () => {
     mock.restore();
   });
 
+
+  it('- should be able to get the detail of the seeking torrent', async () => {
+    const seekId = 23947;
+    // bread.seek.detail = mock(() => Promise.resolve({
+    //   submitList: {},
+    //   submitTakeIds: [],
+    //   addList: [],
+    //   detail: {
+    //     createdDate: '2024-04-20 00:35:04',
+    //     lastModifiedDate: '2024-04-20 00:35:04',
+    //     id: '23947',
+    //     title: 'Bread.js is testing to seek the torrent 2',
+    //     category: '401',
+    //     source: null,
+    //     standard: null,
+    //     imdb: null,
+    //     douban: null,
+    //     dmmCode: null,
+    //     intro: 'Bread.js is testing to seek the torrent 2',
+    //     rewardOriginal: '1000',
+    //     rewardCurrent: '1000',
+    //     take: false,
+    //     author: '315125',
+    //     comments: '0',
+    //     submitNum: '0',
+    //     takeNum: '0',
+    //     editedBy: null
+    //   }
+    // }));
+    expect(await bread.seek.detail(seekId)).to.be.an('object');
+    mock.restore();
+  });
+
 });
