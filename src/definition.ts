@@ -7,6 +7,19 @@ interface BreadAPI {
   originalName?: string;
 }
 
+const SEEK_DEFINITIONS: BreadAPI[] = [
+  /**
+   * Seek related methods
+   */
+  { name: 'create', path: '/api/seek/create', contentType: 'application/json' },
+  { name: 'addto', path: '/api/seek/addto' },
+  { name: 'seek_detail', path: '/api/seek/detail' },
+  { name: 'edit', path: '/api/seek/edit' },
+  { name: 'recovery', path: '/api/seek/recovery' },
+  { name: 'seek_search', path: '/api/seek/search' },
+  { name: 'submit', path: '/api/seek/submit' },
+  { name: 'take', path: '/api/seek/take' }
+];
 
 const TRACKER_DEFINITIONS: BreadAPI[] = [
   /**
@@ -135,16 +148,17 @@ export type TrackerMethods =
   'announce' | 'scrape' | 'clientList' | 'clientTest' | 'flush' | 'mybonus' |
   'myPeerStatus' | 'queryHistory';
 
+export type SeekMethods =
+  'create' | 'addto' | 'seek_detail' | 'edit' | 'recovery' | 'seek_search' | 'submit' | 'take';
+
 export type Methods =
   SeedMethods | MemberMethods | LabotoraryMethods | SystemMethods |
-  TrackerMethods;
+  TrackerMethods | SeekMethods;
 
 const CONCRETED_DEFINITIONS: BreadAPI[] = Array.of<BreadAPI>(
-  ...SEED_DEFINITIONS,
-  ...MEMBER_DEFINITIONS,
-  ...LABORATORY_DEFINITIONS,
-  ...SYSTEM_DEFINITIONS,
-  ...TRACKER_DEFINITIONS
+  ...SEED_DEFINITIONS, ...MEMBER_DEFINITIONS,
+  ...LABORATORY_DEFINITIONS, ...SYSTEM_DEFINITIONS,
+  ...TRACKER_DEFINITIONS, ...SEEK_DEFINITIONS
 );
 
 class Builder {
@@ -158,7 +172,7 @@ class Builder {
       methods.push(api.name);
     }
 
-    // Check for duplicate methods
+    // Check for duplicated methods
     const duplicates = methods.filter((method, index) => methods.indexOf(method) !== index);
     if (duplicates.length > 0) {
       throw new DuplicatedMethodError(duplicates);

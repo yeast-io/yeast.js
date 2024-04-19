@@ -2,6 +2,7 @@ import Seed from './seed.js';
 import Member from './member.js';
 import Laboratory from './laboratory.js';
 import System from './system.js';
+import Seek from './seek.js';
 
 export interface BreadOptions {
   // To generate an api key, visit m-team's Laboratory page.
@@ -16,6 +17,7 @@ class Bread {
   public member: Member;
   public laboratory: Laboratory;
   public system: System;
+  public seek: Seek;
 
 
   /**
@@ -37,6 +39,7 @@ class Bread {
 
     this.seed = new Seed(options);
     this.member = new Member(options);
+    this.seek = new Seek(options);
     this.lab = this.laboratory = new Laboratory(options);
     this.sys = this.system = new System(options);
   }

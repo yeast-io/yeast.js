@@ -7,7 +7,8 @@ import { RequestInit, Headers } from 'node-fetch';
 import { URL } from 'node:url';
 import { M_TEAM_API_URL } from './constant.js';
 
-const debug = Debug('bread:request');
+const requestUrl = Debug('bread:request:url');
+const result = Debug('bread:response:result');
 
 /**
  * @description This is a generic response interface of M-team's API, and you can specify the type of the data
@@ -122,7 +123,7 @@ class Request {
     const timeout = this.options.timeout || DEFAULT_TIMEOUT;
     const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-    debug('POST => %s', url);
+    requestUrl('POST => %s', url);
     const response = await fetch(url, params).catch(err => {
       if (err instanceof AbortError) {
         throw new Error('Request aborted');
@@ -131,7 +132,7 @@ class Request {
     });
     const resp = await response.json() as Response<T>;
     clearTimeout(timeoutId);
-    debug('RESULT => %j', resp);
+    result('RESULT => %j', resp);
     return (options.unwrap ? this.unwrap<T>(resp) : resp) as T;
   }
 
