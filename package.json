@@ -11,6 +11,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "node_modules/.bin/bun test",
+    "test:only": "node_modules/.bin/bun test --only",
     "build": "rm -rf ./dist/* ./cli/* && tsc -p tsconfig.json && tsc -p tsconfig.cli.json"
   },
   "dependencies": {

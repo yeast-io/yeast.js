@@ -73,7 +73,7 @@ class Request {
    *  - [unwrap]: Whether to unwrap the response. In Default: true
    */
   public async post<T = Record<string, unknown>>(options: QueryOptions): Promise<T> {
-    if (Object.keys(options).length <= 0) {
+    if (Object.keys(options || {}).length <= 0) {
       throw new Error('options must be an object of type QueryOptions');
     }
     options.unwrap = !Object.prototype.hasOwnProperty.call(options, 'unwrap') ? true : options.unwrap;
@@ -130,6 +130,8 @@ class Request {
       }
       throw err;
     });
+
+    console.info('-----------------', response);
     const resp = await response.json() as Response<T>;
     clearTimeout(timeoutId);
     result('RESULT => %j', resp);
