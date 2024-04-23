@@ -26,8 +26,8 @@ class Seek extends Base {
   }
 
   /**
-   * @description To request someone else to seek the torrent
-   * @param options
+   * @description To request someone else to seed the torrent
+   * @param { CreateSeekTorrentInput } options
    */
   public async create(options: CreateSeekTorrentInput) {
     if (this.utils.isEmpty(options)) throw new MissingArgumentError('options');
