@@ -1,8 +1,6 @@
-import Request from './request.js';
 import { describe, it } from 'bun:test';
+import Request from './request.js';
 import { expect } from 'chai';
-
-
 
 describe('🐦 Request', () => {
 

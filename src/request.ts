@@ -130,8 +130,6 @@ class Request {
       }
       throw err;
     });
-
-    console.info('-----------------', response);
     const resp = await response.json() as Response<T>;
     clearTimeout(timeoutId);
     result('RESULT => %j', resp);

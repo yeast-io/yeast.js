@@ -15,7 +15,7 @@ save = true
 
 [test]
 root = "./src"
-preload = ["./setup.mjs"]
+preload = [ "./setup.js" ]
 coverage = true
 coverageSkipTestFiles = true
 # to require 90% line-level and function-level coverage

@@ -132,7 +132,7 @@ dist
 .idea/
 
 # Environment
-setup.mjs
+setup.js
 
 # the output directory of command line interface
 cli/
