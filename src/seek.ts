@@ -8,6 +8,8 @@ import {
 import {
   SeekDetailOutput, SearchRequestOutput
 } from './interfaces/seek/output.type.js';
+import { UnimplementedMethodError } from './errors.js';
+
 
 class Seek extends Base {
 
@@ -92,7 +94,14 @@ class Seek extends Base {
   }
 
 
-  public async recovery() {}
+  /**
+   * @description This method has not been implemented yet due to the reason that the official API does not have complete documentation.
+   * @throws { UnimplementedMethodError }
+   * @deprecated
+   */
+  public async recovery() {
+    throw new UnimplementedMethodError('recovery');
+  }
 
 
   /**

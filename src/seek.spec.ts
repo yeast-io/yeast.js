@@ -144,4 +144,15 @@ describe('🌳 Seek', () => {
     mock.restore();
   });
 
+
+  it('- the unimplemented error should be thrown out when call recovery', async () => {
+
+    try {
+      await bread.seek.recovery();
+    } catch (err) {
+      expect(err).is.instanceof(Error);
+    }
+
+  });
+
 });

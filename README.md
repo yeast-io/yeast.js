@@ -101,6 +101,9 @@ try {
 * bread.tracker.queryHistory
 
 
+###
+
+* bread.seek.recovery
 
 > [!IMPORTANT]
 > To comply with the regulations of the official website, 
