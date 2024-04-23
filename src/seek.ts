@@ -2,11 +2,11 @@ import Base from './base.js';
 import { MissingArgumentError } from './errors.js';
 import { Response } from './request.js';
 import {
-  CreateSeekTorrentInput
+  CreateSeekTorrentInput, UpdateSeekTorrentInput, SearchRequestSeekingInput
 } from './interfaces/seek/input.type.js';
 
 import {
-  SeekDetailOutput
+  SeekDetailOutput, SearchRequestOutput
 } from './interfaces/seek/output.type.js';
 
 class Seek extends Base {
@@ -52,13 +52,61 @@ class Seek extends Base {
   }
 
 
-  public async edit() {}
-  public async recovery() {}
-  public async search() {
-    return this.request.post({ method: 'seek_search' });
+  /**
+   * @description To Update the request of seeking torrent
+   * @param { UpdateSeekTorrentInput } options
+   */
+  public async edit(options: UpdateSeekTorrentInput) {
+    if (this.utils.isEmpty(options)) throw new MissingArgumentError('options');
+    if (this.utils.isEmpty(options.seekId)) throw new MissingArgumentError('options.seekId');
+    if (this.utils.isEmpty(options.title)) throw new MissingArgumentError('options.title');
+    if (this.utils.isEmpty(options.intro)) throw new MissingArgumentError('options.intro');
+    if (!this.utils.has(options, 'category')) throw new MissingArgumentError('options.category');
+    if (!this.utils.has(options, 'reward')) throw new MissingArgumentError('options.reward');
+    if (!this.utils.has(options, 'dmmCode')) options.dmmCode = '';
+
+    return this.request.post<Response<null>>({ method: 'edit', body: options, unwrap: false })
+      .then(this.isSuccessful.bind(this));
   }
-  public async submit() {}
-  public async take() {}
+
+  /**
+   * @description To submit the related torrent to the seeking request
+   * @param { string | number } seekId
+   * @param { string | number } torrentId
+   */
+  public async submit(seekId: string | number, torrentId: string | number) {
+    if (this.utils.isEmpty(seekId)) throw new MissingArgumentError('seekId');
+    if (this.utils.isEmpty(torrentId)) throw new MissingArgumentError('torrentId');
+    return this.request.post<Response<null>>({
+      method: 'recovery', body: { seekId, torrentId }, type: 'form', unwrap: false
+    }).then(this.isSuccessful.bind(this));
+  }
+
+  /**
+   * @description To search the request of seeking torrent
+   */
+  public async search(options: SearchRequestSeekingInput = {} as SearchRequestSeekingInput) {
+    options.pageNumber = options.pageNumber || 1;
+    options.pageSize = options.pageSize || 100;
+    return this.request.post<SearchRequestOutput>({ method: 'seek_search' });
+  }
+
+
+  public async recovery() {}
+
+
+  /**
+   * @description To take the answer of the seeking torrent
+   * @param { string | number } seekId
+   * @param { string[] | number[] } takeIds
+   */
+  public async take(seekId: string | number, takeIds: number[] | string[]) {
+    if (this.utils.isEmpty(seekId)) throw new MissingArgumentError('seekId');
+    if (this.utils.isEmpty(takeIds)) throw new MissingArgumentError('takeIds');
+    return this.request.post<Response<null>>({
+      method: 'take', body: { seekId, takeIds }, type: 'form', unwrap: false
+    }).then(this.isSuccessful.bind(this));
+  }
 
 }
 

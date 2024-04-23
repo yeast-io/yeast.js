@@ -14,9 +14,9 @@ const SEEK_DEFINITIONS: BreadAPI[] = [
   { name: 'create', path: '/api/seek/create', contentType: 'application/json' },
   { name: 'addto', path: '/api/seek/addto' },
   { name: 'seek_detail', path: '/api/seek/detail' },
-  { name: 'edit', path: '/api/seek/edit' },
+  { name: 'edit', path: '/api/seek/edit', contentType: 'application/json' },
   { name: 'recovery', path: '/api/seek/recovery' },
-  { name: 'seek_search', path: '/api/seek/search' },
+  { name: 'seek_search', path: '/api/seek/search', contentType: 'application/json' },
   { name: 'submit', path: '/api/seek/submit' },
   { name: 'take', path: '/api/seek/take' }
 ];

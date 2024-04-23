@@ -90,4 +90,58 @@ describe('🌳 Seek', () => {
     mock.restore();
   });
 
+  it('- should be able to update the request of seeking torrent', async () => {
+
+    const now = Date.now();
+    const r = await bread.seek.edit({
+      intro: 'Bread.js is testing to seek the torrent 23 - ' + now,
+      category: 401,
+      reward: 2000,
+      seekId: 23947,
+      title: 'Bread.js is testing to seek the torrent 23 - ' + now
+    });
+    expect(r).to.be.true;
+  });
+
+  it('- should be able to submit the related torrent to the seeking request', async () => {
+
+    const seekId = 23947;
+    const torrentId = 1;
+    bread.seek.submit = mock(() => Promise.resolve(true));
+    expect(await bread.seek.submit(seekId, torrentId)).to.be.true;
+    mock.restore();
+
+  });
+
+  it('- should be able to search the request of seeking torrent', async () => {
+
+    const requests = await bread.seek.search();
+    expect(requests).to.be.an('object');
+    expect(requests.data).to.be.an('array');
+    expect(requests.data.length).to.be.greaterThan(0);
+
+  });
+
+
+  it('- should be able to take the answer of the seeking torrent', async () => {
+
+    try {
+      // @ts-ignore
+      await bread.seek.take(23947);
+    } catch (err) {
+      expect(err).is.instanceof(Error);
+    }
+
+    try {
+      // @ts-ignore
+      await bread.seek.take('23947', []);
+    } catch (err) {
+      expect(err).is.instanceof(Error);
+    }
+
+    bread.seek.take = mock(() => Promise.resolve(true));
+    expect(await bread.seek.take(23947, [1])).to.be.true;
+    mock.restore();
+  });
+
 });

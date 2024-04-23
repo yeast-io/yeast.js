@@ -19,10 +19,32 @@ export interface CreateSeekTorrentInput {
   category: number;
   reward: number;
   intro: string;
-  seekId?: number;
+  seekId?: number | string;
   source?: number;
   standard?: number;
   imdb?: string;
   douban?: string;
   dmmCode?: string;
+}
+
+
+/**
+ * Interface for updating a SeekTorrent.
+ *
+ * @interface UpdateSeekTorrentInput
+ * @extends { Exclude<CreateSeekTorrentInput, 'seekId'> }
+ * @property { number | string } seekId - The id of the torrent.
+ */
+export interface UpdateSeekTorrentInput extends Exclude<CreateSeekTorrentInput, 'seekId'> {
+  seekId: number | string;
+}
+
+
+export interface SearchRequestSeekingInput {
+  pageNumber: number;
+  pageSize: number;
+  lastId?: number;
+  keyword?: string;
+  cid?: number;
+  take?: boolean;
 }
