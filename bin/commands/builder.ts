@@ -49,7 +49,7 @@ class BuildInternalCommands {
   }
 
   public async search(program: Command) {
-    program
+    const search = program
       .command('search')
       .description('search medias')
       .option('-t, --tag [tag]', 'Only 4K | Movies | TV | Adult are supported', '4K')
@@ -69,6 +69,13 @@ class BuildInternalCommands {
         const search = new Search();
         // @ts-expect-error . . . . . . . . . . . . .
         await search.movies(tags[tag], options.keyword || null, parseInt(options.limit))
+      });
+
+    search.command('packages')
+      .description('show the packages')
+      .action(async () => {
+        const search = new Search();
+        await search.packages();
       });
   }
 

@@ -1,12 +1,22 @@
 import bytes from 'bytes';
 import Seed from '../../src/seed.js';
+import { isEmpty } from '../../src/utils.js';
 import { loadConfig } from './config.js';
-import { table } from 'table';
+import { table, Indexable, ColumnUserConfig } from 'table';
 
 
 class Search {
 
   protected readonly seed: Seed;
+  protected readonly headers = [ 'ID', 'Name', 'Created Time', 'Size/Discount', 'Seeder', 'Leecher' ];
+  protected readonly columns: Indexable<ColumnUserConfig> = [
+    { alignment: 'center', width: 8 },
+    { alignment: 'center', width: 80 },
+    { alignment: 'center', width: 22 },
+    { alignment: 'center', width: 20 },
+    { alignment: 'center', width: 8 },
+    { alignment: 'center', width: 8 },
+  ];
 
   constructor() {
     this.seed = new Seed(loadConfig());
@@ -33,6 +43,33 @@ class Search {
     }));
   }
 
+  public async packages() {
+    const mode = 'adult';
+    const results = await this.seed.search({ mode, pageSize: 15, pageNumber: 1, keyword: '' });
+    const body = (
+      results.data.map((pkg: Record<string, any>) => {
+        if (pkg.status && pkg.status.toppingLevel < 1) { return null; }
+        const ends = new Date(pkg.status.toppingEndTime).getTime();
+        const now = Date.now();
+        const diff = ends - now;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const ts = days > 0 ? `${days} days and ${hours} hours` : `${hours} hours`;
+        return [
+          pkg.id, `${pkg.name} (End In: ${ts})\n${pkg.smallDescr}`,
+          pkg.createdDate,
+          ((bytes(parseInt(pkg.size, 10),
+            { unit: 'gb'})).toUpperCase() + '/' + (pkg.status.discount || 'N/A')),
+          pkg.status.seeders, pkg.status.leechers
+        ];
+      })
+    ).filter(el => !isEmpty(el));
+
+    body.unshift(this.headers);
+
+    console.info(table(body as any, { columns: this.columns }));
+  }
+
   public async movies(mode: 'normal', keyword?: string | null, limit?: number) {
     keyword = keyword || null;
     limit = limit || 100;
@@ -41,7 +78,6 @@ class Search {
       options.keyword = keyword;
     }
     const movies = await this.seed.search(options);
-    const headers = ['ID', 'Name', 'Created Time', 'Size/Discount', 'Seeder', 'Leecher'];
     movies.data = movies.data.sort((a, b) => {
       return new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
     });
@@ -53,19 +89,9 @@ class Search {
       ];
     });
 
-    body.unshift(headers);
+    body.unshift(this.headers);
 
-    console.info(table(body, {
-      columns: [
-        // { alignment: 'center', width: 50, truncate: 50 },
-        { alignment: 'center', width: 8 },
-        { alignment: 'center', width: 65 },
-        { alignment: 'center', width: 22 },
-        { alignment: 'center', width: 20 },
-        { alignment: 'center', width: 8 },
-        { alignment: 'center', width: 8 },
-      ]
-    }));
+    console.info(table(body, { columns: this.columns }));
   }
 
 }
