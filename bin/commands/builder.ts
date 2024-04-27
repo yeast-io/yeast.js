@@ -51,7 +51,7 @@ class BuildInternalCommands {
   public async search(program: Command) {
     const search = program
       .command('search')
-      .description('search medias')
+      .description('The command "search" will help you to search the torrent')
       .option('-t, --tag [tag]', 'Only 4K | Movies | TV | Adult are supported', '4K')
       .option('-l, --limit [limit]', 'Set a limitation of how many movies that you want to list','50')
       .option('-k, --keyword [keyword]', 'Keyword for searching torrent')
@@ -72,7 +72,7 @@ class BuildInternalCommands {
       });
 
     search.command('packages')
-      .description('search big packages')
+      .description('Only output the big packages')
       .action(async () => {
         const search = new Search();
         await search.packages();
