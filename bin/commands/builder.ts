@@ -72,7 +72,7 @@ class BuildInternalCommands {
       });
 
     search.command('packages')
-      .description('show the packages')
+      .description('search big packages')
       .action(async () => {
         const search = new Search();
         await search.packages();
