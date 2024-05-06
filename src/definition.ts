@@ -7,6 +7,18 @@ interface BreadAPI {
   originalName?: string;
 }
 
+const FRIEND_DEFINITIONS: BreadAPI[] = [
+  /**
+   * Friend related methods
+   */
+  { name: 'addFriend', path: '/api/friends/addFriend', contentType: 'application/json' },
+  { name: 'addBlock', path: '/api/friends/addBlock' },
+  { name: 'getBlocks', path: '/api/friends/getBlocks' },
+  { name: 'getFriends', path: '/api/friends/getFriends' },
+  { name: 'removeBlock', path: '/api/friends/removeBlock' },
+  { name: 'removeFriend', path: '/api/friends/removeFriend' }
+];
+
 const SEEK_DEFINITIONS: BreadAPI[] = [
   /**
    * Seek related methods
@@ -151,14 +163,19 @@ export type TrackerMethods =
 export type SeekMethods =
   'create' | 'addto' | 'seek_detail' | 'edit' | 'recovery' | 'seek_search' | 'submit' | 'take';
 
+export type FriendMethods =
+  'addFriend' | 'addBlock' | 'getBlocks' | 'getFriends' | 'removeBlock' | 'removeFriend';
+
+
 export type Methods =
   SeedMethods | MemberMethods | LabotoraryMethods | SystemMethods |
-  TrackerMethods | SeekMethods;
+  TrackerMethods | SeekMethods | FriendMethods;
 
 const CONCRETED_DEFINITIONS: BreadAPI[] = Array.of<BreadAPI>(
   ...SEED_DEFINITIONS, ...MEMBER_DEFINITIONS,
   ...LABORATORY_DEFINITIONS, ...SYSTEM_DEFINITIONS,
-  ...TRACKER_DEFINITIONS, ...SEEK_DEFINITIONS
+  ...TRACKER_DEFINITIONS, ...SEEK_DEFINITIONS,
+  ...FRIEND_DEFINITIONS
 );
 
 class Builder {
