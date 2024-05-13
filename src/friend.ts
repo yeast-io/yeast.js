@@ -18,7 +18,16 @@ class Friend extends Base {
   }
 
 
-  public async addBlock() {}
+  /**
+   * @description To block someone
+   * @param { string | number } uid
+   */
+  public async addBlock(uid: string | number) {
+    if (this.utils.isEmpty(uid)) throw new MissingArgumentError('uid');
+    return this.request.post<Response<null>>({ method: 'addBlock', body: { uid }, unwrap: false })
+      .then(this.isSuccessful.bind(this));
+  }
+
   public async getBlocks() {}
   public async getFriends() {}
   public async removeBlock() {}
