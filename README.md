@@ -53,7 +53,7 @@ You can import the module in your project like this(Node.js or Typescript):
 ```javascript
 import Bread from 'bread.js';
 
-// The https://test2.m-team.* is the default value of the url if you don't provide it.
+// The https://test2.*.* is the default value of the url if you don't provide it.
 const bread = new Bread({ key: 'YOUR KEY', url: '' });
 
 try {
