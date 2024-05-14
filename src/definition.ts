@@ -13,10 +13,10 @@ const FRIEND_DEFINITIONS: BreadAPI[] = [
    */
   { name: 'addFriend', path: '/api/friends/addFriend', contentType: 'application/json' },
   { name: 'addBlock', path: '/api/friends/addBlock', contentType: 'application/json' },
-  { name: 'getBlocks', path: '/api/friends/getBlocks' },
-  { name: 'getFriends', path: '/api/friends/getFriends' },
+  { name: 'getBlocks', path: '/api/friends/getBlocks', contentType: 'application/json' },
+  { name: 'getFriends', path: '/api/friends/getFriends', contentType: 'application/json' },
   { name: 'removeBlock', path: '/api/friends/removeBlock', contentType: 'application/json' },
-  { name: 'removeFriend', path: '/api/friends/removeFriend' }
+  { name: 'removeFriend', path: '/api/friends/removeFriend', contentType: 'application/json' }
 ];
 
 const SEEK_DEFINITIONS: BreadAPI[] = [
