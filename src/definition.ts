@@ -7,6 +7,26 @@ interface BreadAPI {
   originalName?: string;
 }
 
+const FORUM_DEFINITIONS: BreadAPI[] = [
+  /**
+   * Forum related methods
+   */
+  { name: 'forums', path: '/api/forum/forums' },
+  { name: 'forumDel', path: '/api/forum/post/del' },
+  { name: 'forumDetail', path: '/api/forum/post/detail' },
+  { name: 'forumEdit', path: '/api/forum/post/edit' },
+  { name: 'forumNew', path: '/api/forum/post/new' },
+  { name: 'TopicDel', path: '/api/forum/topic/del' },
+  { name: 'topicDetail', path: '/api/forum/topic/detail' },
+  { name: 'topicEdit', path: '/api/forum/topic/edit' },
+  { name: 'topicMod', path: '/api/forum/topic/mod' },
+  { name: 'topicNew', path: '/api/forum/topic/post' },
+  { name: 'topicRedirectV2', path: '/api/forum/topic/redirectV2' },
+  { name: 'topicSearch', path: '/api/forum/topic/search' },
+  { name: 'topicViewHits', path: '/api/forum/topic/viewHits' },
+
+];
+
 const FRIEND_DEFINITIONS: BreadAPI[] = [
   /**
    * Friend related methods
@@ -166,16 +186,20 @@ export type SeekMethods =
 export type FriendMethods =
   'addFriend' | 'addBlock' | 'getBlocks' | 'getFriends' | 'removeBlock' | 'removeFriend';
 
+export type ForumMethods =
+  'forums' | 'forumDel' | 'forumDetail' | 'forumEdit' | 'forumNew' | 'TopicDel' |
+  'topicDetail' | 'topicEdit' | 'topicMod' | 'topicNew' | 'topicRedirectV2' |
+  'topicSearch' | 'topicViewHits';
 
 export type Methods =
   SeedMethods | MemberMethods | LabotoraryMethods | SystemMethods |
-  TrackerMethods | SeekMethods | FriendMethods;
+  TrackerMethods | SeekMethods | FriendMethods | ForumMethods;
 
 const CONCRETED_DEFINITIONS: BreadAPI[] = Array.of<BreadAPI>(
   ...SEED_DEFINITIONS, ...MEMBER_DEFINITIONS,
   ...LABORATORY_DEFINITIONS, ...SYSTEM_DEFINITIONS,
   ...TRACKER_DEFINITIONS, ...SEEK_DEFINITIONS,
-  ...FRIEND_DEFINITIONS
+  ...FRIEND_DEFINITIONS, ...FORUM_DEFINITIONS
 );
 
 class Builder {

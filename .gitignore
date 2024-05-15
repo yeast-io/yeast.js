@@ -136,3 +136,5 @@ setup.js
 
 # the output directory of command line interface
 cli/
+
+.fleet/

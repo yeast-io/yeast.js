@@ -4,6 +4,7 @@ import Laboratory from './laboratory.js';
 import System from './system.js';
 import Seek from './seek.js';
 import Friend from './friend.js';
+import Forum from './forum.js';
 
 export interface BreadOptions {
   // To generate an api key, visit m-team's Laboratory page.
@@ -20,6 +21,7 @@ class Bread {
   public system: System;
   public seek: Seek;
   public friend: Friend;
+  public forum: Forum;
 
 
   /**
@@ -45,6 +47,7 @@ class Bread {
     this.lab = this.laboratory = new Laboratory(options);
     this.sys = this.system = new System(options);
     this.friend = new Friend(options);
+    this.forum = new Forum(options);
   }
 }
 
