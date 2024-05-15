@@ -8,5 +8,9 @@ describe.only('📚 Forum', () => {
   it('should be able to list forums', async () => {
     const resp = await bread.forum.forums();
     console.info(resp);
+
+    // equivalent
+    await bread.forum.topic.search({ forumId: 10 });
+    await bread.forum.topicSearch({ forumId: 10 });
   });
 });

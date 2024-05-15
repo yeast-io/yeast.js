@@ -22,7 +22,7 @@ const FORUM_DEFINITIONS: BreadAPI[] = [
   { name: 'topicMod', path: '/api/forum/topic/mod' },
   { name: 'topicNew', path: '/api/forum/topic/post' },
   { name: 'topicRedirectV2', path: '/api/forum/topic/redirectV2' },
-  { name: 'topicSearch', path: '/api/forum/topic/search' },
+  { name: 'topicSearch', path: '/api/forum/topic/search', contentType: 'application/json' },
   { name: 'topicViewHits', path: '/api/forum/topic/viewHits' },
 
 ];
