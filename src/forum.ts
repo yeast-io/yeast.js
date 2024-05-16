@@ -49,7 +49,6 @@ class Topic extends Base {
 
   /**
    * @description This is an unimplemented method due to the official website didn't provide documentation properly.
-   * @deprecated
    * @throws { UnimplementedMethodError }
    * @alias topicDel
    */
@@ -78,12 +77,22 @@ class Topic extends Base {
 
   }
 
-  public topicMod() {
-    console.log('topicMod');
+  /**
+   * @description This is an unimplemented method due to the official website didn't provide documentation properly.
+   * @throws { UnimplementedMethodError }
+   * @alias topicMod
+   */
+  public modify() {
+    throw new UnimplementedMethodError('topicMod');
   }
 
-  public topicRedirectV2() {
-    console.log('topicRedirectV2');
+  /**
+   * @description This is an unimplemented method due to the official website didn't provide documentation properly.
+   * @throws { UnimplementedMethodError }
+   * @alias topicRedirectV2
+   */
+  public redirect() {
+    throw new UnimplementedMethodError('topicRedirectV2');
   }
 
   /**
@@ -130,7 +139,6 @@ class Forum extends Base {
   public readonly topicNew: (options: CreateTopicInput) => Promise<string>;
   /**
    * @see Topic.delete
-   * @deprecated
    */
   public readonly topicDel: () => void;
   /**
@@ -145,6 +153,14 @@ class Forum extends Base {
    * @see Topic.edit
    */
   public readonly topicEdit: (options: TopicEditInput) => Promise<boolean>;
+  /**
+   * @see Topic.modify
+   */
+  public readonly topicMod: () => void;
+  /**
+   * @see Topic.redirect
+   */
+  public readonly topicRedirectV2: () => void;
 
 
   /**
@@ -155,6 +171,14 @@ class Forum extends Base {
    * @see Forum.forumEdit
    */
   public readonly edit: typeof this.forumEdit;
+  /**
+   * @see Forum.forumDel
+   */
+  public readonly delete: typeof this.forumDel;
+  /**
+   * @see Forum.forumDetail
+   */
+  public readonly detail: typeof this.forumDetail;
 
 
   constructor(protected options: RequestOptions ) {
@@ -166,9 +190,13 @@ class Forum extends Base {
     this.topicDetail = this.topic.detail.bind(this.topic);
     this.topicViewHits = this.topic.viewHits.bind(this.topic);
     this.topicEdit = this.topic.edit.bind(this.topic);
+    this.topicMod = this.topic.modify.bind(this.topic);
+    this.topicRedirectV2 = this.topic.redirect.bind(this.topic);
 
     this.post = this.forumNew.bind(this);
     this.edit = this.forumEdit.bind(this);
+    this.delete = this.forumDel.bind(this);
+    this.detail = this.forumDetail.bind(this);
   }
 
   /**
@@ -184,8 +212,8 @@ class Forum extends Base {
 
   /**
    * @description This is an unimplemented method due to the official website didn't provide documentation properly.
-   * @deprecated
    * @throws { UnimplementedMethodError }
+   * @alias Forum.delete
    */
   public async forumDel() {
     throw new UnimplementedMethodError('forumDel');
@@ -193,8 +221,8 @@ class Forum extends Base {
 
   /**
    * @description This is an unimplemented method due to the official website didn't provide documentation properly.
-   * @deprecated
    * @throws { UnimplementedMethodError }
+   * @alias Forum.detail
    */
   public async forumDetail() {
     throw new UnimplementedMethodError('forumDetail');
