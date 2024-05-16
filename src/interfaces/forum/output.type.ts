@@ -1,10 +1,10 @@
-import { MTeamTimestamp } from '../base.type.js';
+import { Pagination, MTeamTimestamp } from '../base.type.js';
+
 
 interface PricingStrategy {
   createTopicPrice: string;
   replyTopicPrice: string;
   managerFree: boolean;
-  
 }
 
 export interface ForumListOutput extends MTeamTimestamp {
@@ -66,4 +66,43 @@ export interface OverForumListOutput extends MTeamTimestamp {
   order: string;
   name: string;
   description: string;
+}
+
+
+interface TopicLastPost extends MTeamTimestamp {
+  id: string;
+  fid: string | null;
+  tid: string | null;
+  author: string;
+  authorId: string;
+  editDate: string | null;
+}
+
+interface SearchTopics extends MTeamTimestamp {
+  id: string;
+  forumId: string;
+  subject: string;
+  sticky: number;
+  hlcolor: string;
+  locked: boolean;
+  firstPost: string;
+  views: string;
+  author: string;
+  commentCount: string;
+  lastPost: TopicLastPost;
+}
+
+export interface SearchTopicsOutput extends Pagination<SearchTopics> {}
+
+export interface TopicDetailOutput extends MTeamTimestamp {
+  id: string;
+  forumId: string;
+  topicId: string;
+  authorId: string;
+  author: string;
+  body: string;
+  oriBody: string;
+  editBy: string | null;
+  editById: string | null;
+  editDate: string | null;
 }

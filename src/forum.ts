@@ -1,10 +1,14 @@
 import Base from './base.js';
 import { 
-  ForumListOutput, LastPostOutput, OverForumListOutput
+  ForumListOutput, LastPostOutput, OverForumListOutput,
+  SearchTopicsOutput, TopicDetailOutput
 } from './interfaces/forum/output.type.js';
-import { SearchTopicsInput } from './interfaces/forum/input.type.js';
-import { RequestOptions } from './request.js';
-import { MissingArgumentError } from './errors.js';
+import {
+  SearchTopicInput, CreateTopicInput, TopicDetailInput,
+  TopicEditInput, PostMessageToTopicInput, EditPostedMessageInput
+} from './interfaces/forum/input.type.js';
+import { RequestOptions, Response } from './request.js';
+import { MissingArgumentError, UnimplementedMethodError } from './errors.js';
 
 
 class Topic extends Base {
@@ -13,24 +17,69 @@ class Topic extends Base {
     super(options);
   }
 
-  public TopicDel() {
-    console.log('TopicDel');
+  /**
+   * @description Create a new topic in a forum
+   * @param { CreateTopicInput } options
+   * @returns { Promise<string> } tid
+   * @alias topicNew
+   */
+  public async create(options: CreateTopicInput): Promise<string> {
+    if (this.utils.isEmpty(options)) throw new MissingArgumentError('options');
+    if (!this.utils.has(options, 'fid')) throw new MissingArgumentError('options.fid');
+    if (!this.utils.has(options, 'subject')) throw new MissingArgumentError('options.subject');
+    if (!this.utils.has(options, 'body')) throw new MissingArgumentError('options.body');
+    return this.request.post<string>({ method: 'topicNew', body: options, type: 'body'});
   }
 
-  public topicDetail() {
-    console.log('topicDetail');
+  /**
+   * @description To edit the topic
+   * @param { TopicEditInput } options - The options to edit the topic
+   * @returns { Promise<boolean> } `true` is successful, otherwise `false`
+   * @alias topicEdit
+   */
+  public async edit(options: TopicEditInput): Promise<boolean> {
+    if (this.utils.isEmpty(options)) throw new MissingArgumentError('options');
+    if (!this.utils.has(options, 'fid')) throw new MissingArgumentError('options.fid');
+    if (!this.utils.has(options, 'tid')) throw new MissingArgumentError('options.tid');
+    if (!this.utils.has(options, 'subject')) throw new MissingArgumentError('options.subject');
+    if (!this.utils.has(options, 'body')) throw new MissingArgumentError('options.body');
+    return this.request.post<Response<null>>({ method: 'topicEdit', body: options, type: 'body', unwrap: false })
+      .then(this.isSuccessful.bind(this));
   }
 
-  public topicEdit() {
-    console.log('topicEdit');
+  /**
+   * @description This is an unimplemented method due to the official website didn't provide documentation properly.
+   * @deprecated
+   * @throws { UnimplementedMethodError }
+   * @alias topicDel
+   */
+  public async delete() {
+    throw new UnimplementedMethodError('topicDel');
+  }
+
+  /**
+   * @description Get details of a topic by tid
+   * @param { TopicDetailInput } options
+   * @returns { Promise<TopicDetailOutput> }
+   * @alias topicDetail
+   */
+  public async detail(options: TopicDetailInput): Promise<TopicDetailOutput> {
+    if (this.utils.isEmpty(options)) throw new MissingArgumentError('options');
+    if (!this.utils.has(options, 'tid')) throw new MissingArgumentError('options.tid');
+    return this.request.post<TopicDetailOutput>({
+      method: 'topicDetail',
+      body: {
+        tid: options.tid,
+        pageNumber: options.pageNumber || 1,
+        pageSize: options.pageSize || 100
+      },
+      type: 'body'
+    });
+
   }
 
   public topicMod() {
     console.log('topicMod');
-  }
-
-  public topicNew() {
-    console.log('topicNew');
   }
 
   public topicRedirectV2() {
@@ -38,16 +87,17 @@ class Topic extends Base {
   }
 
   /**
-   * @description Search topics from a forum by forumId
-   * @param { SearchTopicsInput } options
+   * @description Search topics from a forum by forumId | fid
+   * @param { SearchTopicInput } options - The options to search topics
+   * @returns { Promise<SearchTopicsOutput> } - The search results
    */
-  public async search(options: SearchTopicsInput) {
+  public async search(options: SearchTopicInput): Promise<SearchTopicsOutput> {
     if (this.utils.isEmpty(options)) throw new MissingArgumentError('options');
-    if (!this.utils.has(options, 'forumId')) throw new MissingArgumentError('options.forumId');
-    return this.request.post<{ topicList: any[] }>({
+    if (!this.utils.has(options, 'fid')) throw new MissingArgumentError('options.fid');
+    return this.request.post<SearchTopicsOutput>({
       method: 'topicSearch',
       body: {
-        fid: options.forumId,
+        fid: options.fid,
         pageNumber: options.pageNumber || 1,
         pageSize: options.pageSize || 100
       },
@@ -55,8 +105,14 @@ class Topic extends Base {
     });
   }
 
-  public topicViewHits() {
-    console.log('topicViewHits');
+  /**
+   * @description To view the topic hits by tid
+   * @param { string | number } tid
+   * @returns { Promise<number | string> } - The number of hits
+   */
+  public async viewHits(tid: string | number): Promise<number | string> {
+    if (this.utils.isEmpty(tid)) throw new MissingArgumentError('tid');
+    return this.request.post<number | string>({ method: 'topicViewHits', body: { tid }, type: 'form' });
   }
 }
 
@@ -64,12 +120,55 @@ class Topic extends Base {
 class Forum extends Base {
 
   public readonly topic: Topic;
-  public readonly topicSearch: (options: SearchTopicsInput) => Promise<{ topicList: any[] }>;
+  /**
+   * @see Topic.search
+   */
+  public readonly topicSearch: (options: SearchTopicInput) => Promise<SearchTopicsOutput>;
+  /**
+   * @see Topic.create
+   */
+  public readonly topicNew: (options: CreateTopicInput) => Promise<string>;
+  /**
+   * @see Topic.delete
+   * @deprecated
+   */
+  public readonly topicDel: () => void;
+  /**
+   * @see Topic.detail
+   */
+  public readonly topicDetail: (options: TopicDetailInput) => Promise<TopicDetailOutput>;
+  /**
+   * @see Topic.viewHits
+   */
+  public readonly topicViewHits: (tid: string | number) => Promise<number | string>;
+  /**
+   * @see Topic.edit
+   */
+  public readonly topicEdit: (options: TopicEditInput) => Promise<boolean>;
+
+
+  /**
+   * @see Forum.forumNew
+   */
+  public readonly post: typeof this.forumNew;
+  /**
+   * @see Forum.forumEdit
+   */
+  public readonly edit: typeof this.forumEdit;
+
 
   constructor(protected options: RequestOptions ) {
     super(options);
     this.topic = new Topic(options);
     this.topicSearch = this.topic.search.bind(this.topic);
+    this.topicNew = this.topic.create.bind(this.topic);
+    this.topicDel = this.topic.delete.bind(this.topic);
+    this.topicDetail = this.topic.detail.bind(this.topic);
+    this.topicViewHits = this.topic.viewHits.bind(this.topic);
+    this.topicEdit = this.topic.edit.bind(this.topic);
+
+    this.post = this.forumNew.bind(this);
+    this.edit = this.forumEdit.bind(this);
   }
 
   /**
@@ -83,23 +182,53 @@ class Forum extends Base {
     }>({ method: 'forums' });
   }
 
-  public forumDel() {
-      console.log('forumDel');
+  /**
+   * @description This is an unimplemented method due to the official website didn't provide documentation properly.
+   * @deprecated
+   * @throws { UnimplementedMethodError }
+   */
+  public async forumDel() {
+    throw new UnimplementedMethodError('forumDel');
   }
 
-  public forumDetail() {
-      console.log('forumDetail');
+  /**
+   * @description This is an unimplemented method due to the official website didn't provide documentation properly.
+   * @deprecated
+   * @throws { UnimplementedMethodError }
+   */
+  public async forumDetail() {
+    throw new UnimplementedMethodError('forumDetail');
   }
 
-  public forumEdit() {
-      console.log('forumEdit');
+  /**
+   * @description To edit the posted message in the topic
+   * @param { EditPostedMessageInput } options - The options to edit the posted message
+   * @returns { Promise<boolean> } `true` is successful, otherwise `false`
+   * @alias Forum.edit
+   */
+  public async forumEdit(options: EditPostedMessageInput): Promise<boolean> {
+    if (this.utils.isEmpty(options)) throw new MissingArgumentError('options');
+    if (!this.utils.has(options, 'fid')) throw new MissingArgumentError('options.fid');
+    if (!this.utils.has(options, 'tid')) throw new MissingArgumentError('options.tid');
+    if (!this.utils.has(options, 'pid')) throw new MissingArgumentError('options.pid');
+    if (!this.utils.has(options, 'body')) throw new MissingArgumentError('options.body');
+    return this.request.post<Response<null>>({ method: 'forumEdit', body: options, type: 'body', unwrap: false })
+      .then(this.isSuccessful.bind(this));
   }
 
-  public forumNew() {
-      console.log('forumNew');
+  /**
+   * @description Post a new message to the topic
+   * @param { PostMessageToTopicInput } options - The options to post a message to the topic
+   * @returns { Promise<string> } pid - You can use it to edit or other operations
+   * @alias Forum.post
+   */
+  public async forumNew(options: PostMessageToTopicInput): Promise<string> {
+    if (this.utils.isEmpty(options)) throw new MissingArgumentError('options');
+    if (!this.utils.has(options, 'fid')) throw new MissingArgumentError('options.fid');
+    if (!this.utils.has(options, 'tid')) throw new MissingArgumentError('options.tid');
+    if (!this.utils.has(options, 'body')) throw new MissingArgumentError('options.body');
+    return this.request.post<string>({ method: 'forumNew', body: options, type: 'body' });
   }
-
-
 }
 
 
