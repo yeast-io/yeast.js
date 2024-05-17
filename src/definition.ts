@@ -7,6 +7,13 @@ interface BreadAPI {
   originalName?: string;
 }
 
+const RSS_DEFINITIONS: BreadAPI[] = [
+  /**
+   * RSS related methods
+   */
+  { name: 'genlink', path: '/api/rss/genlink', contentType: 'application/json' }
+];
+
 const FORUM_DEFINITIONS: BreadAPI[] = [
   /**
    * Forum related methods
@@ -191,15 +198,18 @@ export type ForumMethods =
   'topicDetail' | 'topicEdit' | 'topicMod' | 'topicNew' | 'topicRedirectV2' |
   'topicSearch' | 'topicViewHits';
 
+export type RssMethods = 'genlink';
+
 export type Methods =
   SeedMethods | MemberMethods | LabotoraryMethods | SystemMethods |
-  TrackerMethods | SeekMethods | FriendMethods | ForumMethods;
+  TrackerMethods | SeekMethods | FriendMethods | ForumMethods | RssMethods;
 
 const CONCRETED_DEFINITIONS: BreadAPI[] = Array.of<BreadAPI>(
   ...SEED_DEFINITIONS, ...MEMBER_DEFINITIONS,
   ...LABORATORY_DEFINITIONS, ...SYSTEM_DEFINITIONS,
   ...TRACKER_DEFINITIONS, ...SEEK_DEFINITIONS,
-  ...FRIEND_DEFINITIONS, ...FORUM_DEFINITIONS
+  ...FRIEND_DEFINITIONS, ...FORUM_DEFINITIONS,
+  ...RSS_DEFINITIONS
 );
 
 class Builder {
