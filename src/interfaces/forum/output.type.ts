@@ -94,7 +94,8 @@ interface SearchTopics extends MTeamTimestamp {
 
 export interface SearchTopicsOutput extends Pagination<SearchTopics> {}
 
-export interface TopicDetailOutput extends MTeamTimestamp {
+
+interface Comment extends MTeamTimestamp {
   id: string;
   forumId: string;
   topicId: string;
@@ -105,4 +106,21 @@ export interface TopicDetailOutput extends MTeamTimestamp {
   editBy: string | null;
   editById: string | null;
   editDate: string | null;
+}
+
+interface Comments extends Pagination<Comment> {}
+
+export interface TopicDetailOutput extends MTeamTimestamp {
+  id: string;
+  forumId: string;
+  subject: string;
+  sticky: number;
+  hlcolor: string;
+  locked: boolean;
+  firstPost: string;
+  lastPost: string;
+  views: string;
+  author: string;
+  commentCount: string;
+  comments: Comments;
 }

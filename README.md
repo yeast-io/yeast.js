@@ -105,6 +105,16 @@ try {
 
 * bread.seek.recovery
 
+### Forum
+
+* bread.forum.forumDel
+* bread.forum.forumDetail
+* bread.forum.topicDel **OR** bread.forum.topic.delete
+* bread.forum.topicMod **OR** bread.forum.topic.modify
+* bread.forum.topicRedirectV2 **OR** bread.forum.topic.redirect
+
+
+
 > [!IMPORTANT]
 > To comply with the regulations of the official website, 
 > There are some APIs which are not allowed to be accessed by third-party applications. 

@@ -206,7 +206,7 @@ class Forum extends Base {
     return this.request.post<{
       forumsList: ForumListOutput[];
       lastPost: LastPostOutput;
-      overForumList: OverForumListOutput[];
+      overForumsList: OverForumListOutput[];
     }>({ method: 'forums' });
   }
 
