@@ -7,6 +7,14 @@ interface BreadAPI {
   originalName?: string;
 }
 
+const SUBTITLE_DEFINITIONS: BreadAPI[] = [
+  /**
+   * Subtitle related methods
+   */
+  { name: 'subtitleLangs', path: '/api/subtitle/langs' },
+  { name: 'subtitleSearch', path: '/api/subtitle/search' }
+];
+
 const RSS_DEFINITIONS: BreadAPI[] = [
   /**
    * RSS related methods
@@ -200,16 +208,19 @@ export type ForumMethods =
 
 export type RssMethods = 'genlink';
 
+export type SubtitleMethods = 'subtitleLangs' | 'subtitleSearch';
+
 export type Methods =
   SeedMethods | MemberMethods | LabotoraryMethods | SystemMethods |
-  TrackerMethods | SeekMethods | FriendMethods | ForumMethods | RssMethods;
+  TrackerMethods | SeekMethods | FriendMethods | ForumMethods | RssMethods |
+  SubtitleMethods;
 
 const CONCRETED_DEFINITIONS: BreadAPI[] = Array.of<BreadAPI>(
   ...SEED_DEFINITIONS, ...MEMBER_DEFINITIONS,
   ...LABORATORY_DEFINITIONS, ...SYSTEM_DEFINITIONS,
   ...TRACKER_DEFINITIONS, ...SEEK_DEFINITIONS,
   ...FRIEND_DEFINITIONS, ...FORUM_DEFINITIONS,
-  ...RSS_DEFINITIONS
+  ...RSS_DEFINITIONS, ...SUBTITLE_DEFINITIONS
 );
 
 class Builder {
