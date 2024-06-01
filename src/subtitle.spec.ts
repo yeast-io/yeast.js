@@ -32,4 +32,9 @@ describe('🎬 Subtitle Unit Test', () => {
     const uri = await bread.subtitle.genlink(subtitle.id);
     expect(uri).to.be.a('string').and.not.empty;
   });
+
+  it('should be able to get the list of subtitles for a torrent', async () => {
+    const subtitles = await bread.subtitle.list('766793');
+    expect(subtitles).to.be.an('array').and.length.greaterThan(0);
+  });
 });

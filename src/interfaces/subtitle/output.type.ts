@@ -12,7 +12,7 @@ export interface SubtitleLangOutput extends MTeamTimestamp {
 }
 
 
-interface SubtitleProps extends MTeamTimestamp {
+export interface SubtitleProps extends MTeamTimestamp {
   id: string;
   torrent: string;
   name: string;

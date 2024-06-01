@@ -1,13 +1,18 @@
 import Base from './base.js';
 import { RequestOptions } from './request.js';
-import { SubtitleLangOutput, SubtitleSearchOutput } from './interfaces/subtitle/output.type.js';
+import {
+  SubtitleLangOutput, SubtitleSearchOutput,
+  SubtitleProps
+} from './interfaces/subtitle/output.type.js';
 import { SubtitleSearchInput } from './interfaces/subtitle/input.type.js';
+import { MissingArgumentError } from './errors.js';
 
 class Subtitle extends Base {
 
   public readonly subtitleSearch: (options: SubtitleSearchInput) => Promise<SubtitleSearchOutput>;
   public readonly subtitleLangs: () => Promise<SubtitleLangOutput[]>;
   public readonly subtitleGenlink: (subtitleId: string | number) => Promise<string>;
+  public readonly subtitleList: (torrentId: string | number) => Promise<SubtitleProps[]>;
 
   constructor(protected options: RequestOptions) {
     super(options);
@@ -15,6 +20,7 @@ class Subtitle extends Base {
     this.subtitleSearch = this.search.bind(this);
     this.subtitleLangs = this.langs.bind(this);
     this.subtitleGenlink = this.genlink.bind(this);
+    this.subtitleList = this.list.bind(this);
   }
 
 
@@ -51,6 +57,21 @@ class Subtitle extends Base {
     return this.request.post<SubtitleLangOutput[]>({ method: 'subtitleLangs' });
   }
 
+
+  /**
+   * @description To get the list of subtitles for the given torrentId
+   * @param { string | number } torrentId
+   * @alias subtitleList
+   */
+  public async list(torrentId: string | number) {
+    if (this.utils.isEmpty(torrentId)) {
+      throw new MissingArgumentError('torrentId');
+    }
+
+    return this.request.post<SubtitleProps[]>({
+      method: 'subtitleList', body: { id: torrentId }, type: 'form'
+    });
+  }
 }
 
 export default Subtitle;
