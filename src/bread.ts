@@ -6,6 +6,7 @@ import Seek from './seek.js';
 import Friend from './friend.js';
 import Forum from './forum.js';
 import ReallySimpleSyndication from './rss.js';
+import Subtitle from './subtitle.js';
 
 export interface BreadOptions {
   // To generate an api key, visit m-team's Laboratory page.
@@ -24,6 +25,7 @@ class Bread {
   public friend: Friend;
   public forum: Forum;
   public rss: ReallySimpleSyndication;
+  public subtitle: Subtitle;
 
 
   /**
@@ -51,6 +53,7 @@ class Bread {
     this.friend = new Friend(options);
     this.forum = new Forum(options);
     this.rss = new ReallySimpleSyndication(options);
+    this.subtitle = new Subtitle(options);
   }
 }
 

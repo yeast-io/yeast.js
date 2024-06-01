@@ -12,7 +12,7 @@ const SUBTITLE_DEFINITIONS: BreadAPI[] = [
    * Subtitle related methods
    */
   { name: 'subtitleLangs', path: '/api/subtitle/langs' },
-  { name: 'subtitleSearch', path: '/api/subtitle/search' }
+  { name: 'subtitleSearch', path: '/api/subtitle/search', contentType: 'application/json' }
 ];
 
 const RSS_DEFINITIONS: BreadAPI[] = [
