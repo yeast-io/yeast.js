@@ -14,7 +14,8 @@ const SUBTITLE_DEFINITIONS: BreadAPI[] = [
   { name: 'subtitleLangs', path: '/api/subtitle/langs' },
   { name: 'subtitleSearch', path: '/api/subtitle/search', contentType: 'application/json' },
   { name: 'subtitleGenlink', path: '/api/subtitle/genlink', contentType: 'application/json' },
-  { name: 'subtitleList', path: '/api/subtitle/list', contentType: 'application/json' }
+  { name: 'subtitleList', path: '/api/subtitle/list', contentType: 'application/json' },
+  { name: 'subtitleUpload', path: '/api/subtitle/upload' }
 ];
 
 const RSS_DEFINITIONS: BreadAPI[] = [
@@ -212,7 +213,7 @@ export type RssMethods = 'genlink';
 
 export type SubtitleMethods =
   'subtitleLangs' | 'subtitleSearch' | 'subtitleGenlink' |
-  'subtitleList';
+  'subtitleList' | 'subtitleUpload';
 
 export type Methods =
   SeedMethods | MemberMethods | LabotoraryMethods | SystemMethods |

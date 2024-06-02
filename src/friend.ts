@@ -12,7 +12,9 @@ class Friend extends Base {
    */
   public async addFriend(friendId: string | number) {
     if (this.utils.isEmpty(friendId)) throw new MissingArgumentError('friendId');
-    const options: QueryOptions = { method: 'addFriend', body: { friendId }, type: 'form', unwrap: false };
+    const options: QueryOptions = {
+      method: 'addFriend', body: { friendId }, type: 'form', unwrap: false
+    };
     return this.request.post<Response<null>>(options).then(this.isSuccessful.bind(this));
   }
 

@@ -1,6 +1,7 @@
-import { describe, it, jest } from 'bun:test';
+import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import Bread from './bread.js';
+import sinon from 'sinon';
 
 
 
@@ -28,14 +29,15 @@ describe('📚 Forum', () => {
   });
 
   it('should be able to create a new topic', async () => {
-    bread.forum.topic.create = jest.fn(async () => '62705');
+    const stub = sinon.stub(bread.forum.topic, 'create').callsFake(async () => '62705');
     const topicId = await bread.forum.topic.create({
       fid: 10,
       body: 'TEST:Hello, World!',
       subject: 'TEST:Hello, World!'
     });
     expect(topicId).to.be.a('string');
-    jest.restoreAllMocks();
+    expect(stub.calledOnce).to.be.true;
+    stub.restore();
   });
 
   it('should be able to edit a topic', async () => {

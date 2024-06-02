@@ -1,4 +1,4 @@
-import { describe, it } from 'bun:test';
+import { describe, it } from 'mocha';
 import Request from './request.js';
 import { expect } from 'chai';
 

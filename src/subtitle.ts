@@ -1,11 +1,12 @@
 import Base from './base.js';
-import { RequestOptions } from './request.js';
+import { RequestOptions, Response } from './request.js';
 import {
   SubtitleLangOutput, SubtitleSearchOutput,
   SubtitleProps
 } from './interfaces/subtitle/output.type.js';
-import { SubtitleSearchInput } from './interfaces/subtitle/input.type.js';
+import { SubtitleSearchInput, SubtitleUploadInput } from './interfaces/subtitle/input.type.js';
 import { MissingArgumentError } from './errors.js';
+import { createReadStream } from 'node:fs';
 
 class Subtitle extends Base {
 
@@ -13,6 +14,7 @@ class Subtitle extends Base {
   public readonly subtitleLangs: () => Promise<SubtitleLangOutput[]>;
   public readonly subtitleGenlink: (subtitleId: string | number) => Promise<string>;
   public readonly subtitleList: (torrentId: string | number) => Promise<SubtitleProps[]>;
+  public readonly subtitleUpload: (options: SubtitleUploadInput) => Promise<boolean>;
 
   constructor(protected options: RequestOptions) {
     super(options);
@@ -21,6 +23,7 @@ class Subtitle extends Base {
     this.subtitleLangs = this.langs.bind(this);
     this.subtitleGenlink = this.genlink.bind(this);
     this.subtitleList = this.list.bind(this);
+    this.subtitleUpload = this.upload.bind(this);
   }
 
 
@@ -71,6 +74,39 @@ class Subtitle extends Base {
     return this.request.post<SubtitleProps[]>({
       method: 'subtitleList', body: { id: torrentId }, type: 'form'
     });
+  }
+
+  /**
+   * @description To upload a subtitle for a given torrent
+   * @param { SubtitleUploadInput } options
+   * @alias subtitleUpload
+   */
+  public async upload(options: SubtitleUploadInput) {
+    if (this.utils.isEmpty(options.torrent)) {
+      throw new MissingArgumentError('torrent');
+    }
+
+    if (this.utils.isEmpty(options.title)) {
+      throw new MissingArgumentError('title');
+    }
+
+    if (!this.utils.isValidSubtitlePath(options.file)) {
+      throw new ReferenceError(`${options.file}`);
+    }
+
+    const params = {
+      torrent: options.torrent,
+      title: options.title,
+      lang: options.lang || '6', // English,
+      anonymous: options.anonymous || true
+    };
+
+    const file = createReadStream(options.file);
+
+    return this.request.post<Response<null>>({
+      method: 'subtitleUpload', body: params, type: 'form', unwrap: false,
+      uploadFile: { key: 'file', file }
+    }).then(this.isSuccessful.bind(this));
   }
 }
 

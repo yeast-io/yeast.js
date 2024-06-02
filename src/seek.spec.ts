@@ -1,8 +1,8 @@
 import Bread from './bread.js';
-import { describe, it, mock } from 'bun:test';
+import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { CreateSeekTorrentInput } from './interfaces/seek/input.type.js';
-
+import sinon from 'sinon';
 
 describe('🌳 Seek', () => {
 
@@ -12,9 +12,9 @@ describe('🌳 Seek', () => {
   it('- should be able to add more excess rewards to the torrent-seeking request', async () => {
     const seekId = 23943;
     const reward = 100;
-    bread.seek.addTo = mock(() => Promise.resolve(true));
+    sinon.stub(bread.seek, 'addTo').callsFake(async () => true);
     expect(await bread.seek.addTo(seekId, reward)).to.be.true;
-    mock.restore();
+    sinon.restore();
   });
 
 
@@ -49,12 +49,12 @@ describe('🌳 Seek', () => {
       expect(err).is.instanceof(Error);
     }
 
-    bread.seek.create = mock(() => Promise.resolve('23943'));
+    sinon.stub(bread.seek, 'create').callsFake(async () => '23943');
     options['intro'] = 'Bread.js is testing to seek the torrent 2';
     const seekId = await bread.seek.create(options);
     expect(seekId).to.be.a('string');
     expect(parseInt(seekId, 10)).to.be.a('number');
-    mock.restore();
+    sinon.restore();
   });
 
 
@@ -87,7 +87,6 @@ describe('🌳 Seek', () => {
     //   }
     // }));
     expect(await bread.seek.detail(seekId)).to.be.an('object');
-    mock.restore();
   });
 
   it('- should be able to update the request of seeking torrent', async () => {
@@ -107,10 +106,9 @@ describe('🌳 Seek', () => {
 
     const seekId = 23947;
     const torrentId = 1;
-    bread.seek.submit = mock(() => Promise.resolve(true));
+    sinon.stub(bread.seek, 'submit').callsFake(async () => true);
     expect(await bread.seek.submit(seekId, torrentId)).to.be.true;
-    mock.restore();
-
+    sinon.restore();
   });
 
   it('- should be able to search the request of seeking torrent', async () => {
@@ -139,9 +137,9 @@ describe('🌳 Seek', () => {
       expect(err).is.instanceof(Error);
     }
 
-    bread.seek.take = mock(() => Promise.resolve(true));
+    sinon.stub(bread.seek, 'take').callsFake(async () => true);
     expect(await bread.seek.take(23947, [1])).to.be.true;
-    mock.restore();
+    sinon.restore();
   });
 
 

@@ -1,11 +1,13 @@
 import fetch from 'node-fetch';
 import Debug from 'debug';
 import Builder from './definition.js';
+import FormData from 'form-data';
 import { Methods } from './definition.js';
-import { AbortError, FormData } from 'node-fetch';
-import { RequestInit, Headers } from 'node-fetch';
+import { AbortError } from 'node-fetch';
+import { RequestInit } from 'node-fetch';
 import { URL } from 'node:url';
 import { M_TEAM_API_URL } from './constant.js';
+import { ReadStream } from 'node:fs';
 
 const requestUrl = Debug('bread:request:url');
 const result = Debug('bread:response:result');
@@ -45,6 +47,7 @@ export interface QueryOptions {
   body?: { [key: string]: any };
   headers?: { [key: string]: string };
   unwrap?: boolean;
+  uploadFile?: { key: string, file: ReadStream };
 }
 
 const DEFAULT_TIMEOUT = 10000;
@@ -82,9 +85,7 @@ class Request {
       throw new Error(`Method ${options.method} not found`);
     }
 
-    const headers = new Headers(
-      Object.assign({ 'x-api-key': this.options.key }, options.headers || {})
-    );
+    const headers: any = { 'x-api-key': this.options.key, ...(options.headers || {})};
 
     /**
      * @Warning:
@@ -98,23 +99,25 @@ class Request {
      * https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
      */
     if (options.type !== 'form') {
-      headers.set('Content-Type', iba.contentType || DEFAULT_CONTENT_TYPE);
+      headers['Content-Type'] = iba.contentType || DEFAULT_CONTENT_TYPE;
     }
 
     const params: RequestInit = { method: 'POST', headers };
 
-    let url;
+    let url = this.canonical(iba.path);
     if (options.type === 'query') {
       const query = new URLSearchParams(options.body).toString();
       url = this.canonical(`${iba.path}?${query}`);
     } else if (options.type === 'form') {
-      url = this.canonical(iba.path);
-      params.body = new FormData();
-      for (const key in options.body) {
-        params.body.append(key, options.body[key]);
+      const form = new FormData();
+      if (options.uploadFile) {
+        form.append(options.uploadFile.key, options.uploadFile.file);
       }
+      for (const key in options.body) {
+        form.append(key, String(options.body[key]));
+      }
+      params.body = form;
     } else {
-      url = this.canonical(iba.path);
       params.body = JSON.stringify(options.body || {});
     }
 

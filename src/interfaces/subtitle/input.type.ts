@@ -7,3 +7,11 @@ export interface SubtitleSearchInput {
   keyword?: string;
   langId?: string | number;
 }
+
+export interface SubtitleUploadInput {
+  torrent: string | number;
+  title: string;
+  file: string;
+  anonymous?: boolean;
+  lang?: string | number;
+}

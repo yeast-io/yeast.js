@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs';
+
 
 /**
  * Check if the object has the key
@@ -36,3 +38,20 @@ export const isEmpty = (value: Mixed): boolean => {
 
   throw new Error('Unsupported type');
 }
+
+
+/**
+ * @description Check if the path is a valid subtitle path
+ * @param { string } path
+ * @returns { boolean }
+ */
+export const isValidSubtitlePath = (path: string): boolean => {
+  if (!path) return false;
+  const extensions = ['.srt', '.ssa', '.ass', '.vtt', '.smi' ];
+  if (!existsSync(path)) return false;
+  for (const ext of extensions) {
+    if (path.endsWith(ext)) return true;
+  }
+
+  return false;
+};
