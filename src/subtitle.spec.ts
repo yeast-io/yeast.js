@@ -4,7 +4,7 @@ import { describe, it } from 'mocha';
 import sinon from 'sinon';
 
 
-describe.only('🎬 Subtitle Unit Test', () => {
+describe('🎬 Subtitle Unit Test', () => {
 
   const bread = new Bread({ key: process.env.M_TEAM_API_KEY as string });
 
