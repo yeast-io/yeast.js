@@ -1,12 +1,21 @@
 import { homedir } from 'node:os';
 import { join } from 'node:path';
-import { exists, mkdir, writeFile } from 'node:fs/promises';
+import { access, mkdir, writeFile } from 'node:fs/promises';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { table } from 'table';
 import chalk from 'chalk';
 
 const HOME_DIR = join(homedir(), '.bread.js/');
 const CONFIG_FILE = join(HOME_DIR, 'config.json');
+
+const exists = async (path: string) => {
+  try {
+    await access(path);
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
 
 
 /**
