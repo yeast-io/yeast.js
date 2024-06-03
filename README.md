@@ -83,22 +83,22 @@ try {
 * yeast.member.forgotPwd
 * yeast.member.forgetPwdTow
 * <ins>yeast.member.queryLoginHistory</ins>
-* bread.member.register
+* yeast.member.register
 * <ins>bread.member.revokeSession</ins>
-* bread.member.sendEmailVerifyCode
-* bread.member.sendLoginEmailVerifyCode
-* <ins>bread.member.updateLastBrowse</ins>
+* yeast.member.sendEmailVerifyCode
+* yeast.member.sendLoginEmailVerifyCode
+* <ins>yeast.member.updateLastBrowse</ins>
 
 ### System
 
-* bread.system.top
-* bread.system.getConf
+* yeast.system.top
+* yeast.system.getConf
 
 ### Tracker
 
-* bread.tracker.announce
-* bread.tracker.scrape
-* bread.tracker.queryHistory
+* yeast.tracker.announce
+* yeast.tracker.scrape
+* yeast.tracker.queryHistory
 
 
 ### Seek
@@ -107,11 +107,11 @@ try {
 
 ### Forum
 
-* bread.forum.forumDel
-* bread.forum.forumDetail
-* bread.forum.topicDel **OR** bread.forum.topic.delete
-* bread.forum.topicMod **OR** bread.forum.topic.modify
-* bread.forum.topicRedirectV2 **OR** bread.forum.topic.redirect
+* yeast.forum.forumDel
+* yeast.forum.forumDetail
+* yeast.forum.topicDel **OR** yeast.forum.topic.delete
+* yeast.forum.topicMod **OR** yeast.forum.topic.modify
+* yeast.forum.topicRedirectV2 **OR** yeast.forum.topic.redirect
 
 
 
