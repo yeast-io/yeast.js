@@ -11,8 +11,6 @@ async function boostrap (): Promise<void> {
 
   program.name('yeast');
   program.description('yeast.js is an easy-to-use tool for M-Team.');
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  program.version(require('../package.json').version);
 
   await builder.config(program);
   await builder.search(program);

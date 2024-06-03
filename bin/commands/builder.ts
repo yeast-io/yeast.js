@@ -20,7 +20,7 @@ class BuildInternalCommands {
       .command('add')
       .description('add the configuration')
       .option('-k, --key <key>', 'set key')
-      .option('-u, --url [url]', 'set url', DEFAULT_URL)
+      .option('-u, --url [url]', 'set url')
       .action((options) => {
         if (!options.key) {
           return config.help({ error: true });

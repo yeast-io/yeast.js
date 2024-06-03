@@ -10,6 +10,7 @@
   },
   "scripts": {
     "lint": "eslint .",
+    "cli": "NODE_NO_WARNINGS=1 node --loader ts-node/esm bin/yeast.ts",
     "test": "NODE_NO_WARNINGS=1 node_modules/.bin/mocha --require setup.js",
     "build": "rm -rf ./dist/* ./cli/* && tsc -p tsconfig.json && tsc -p tsconfig.cli.json",
     "prepare": "husky",
@@ -28,7 +29,7 @@
     "@types/chai": "^4.3.14",
     "@types/debug": "^4.1.12",
     "@types/mocha": "^10.0.6",
-    "@types/node": "^20.12.2",
+    "@types/node": "^20.14.0",
     "@types/sinon": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "@typescript-eslint/parser": "^7.5.0",
@@ -40,7 +41,7 @@
     "sinon": "^18.0.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.7.1",
-    "typescript": "^5.4.3",
+    "typescript": "^5.4.5",
     "typescript-eslint": "^7.4.0"
   },
   "keywords": [],
