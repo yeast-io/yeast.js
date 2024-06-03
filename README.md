@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="250" height="250" src="https://github.com/danielsss/bread/blob/main/docs/images/logo.png">
+  <img width="250" height="250" src="https://github.com/danielsss/yeast.js/blob/main/docs/images/logo.png">
 </p>
 <h1 align="center">yeast.js</h1>
 
