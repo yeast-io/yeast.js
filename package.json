@@ -43,6 +43,13 @@
     "typescript-eslint": "^7.4.0"
   },
   "keywords": [],
+  "files": [
+    "dist",
+    "cli",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
   "author": "danielsss",
   "license": "MIT"
 }
