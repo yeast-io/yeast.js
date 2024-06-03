@@ -8,14 +8,14 @@ import Forum from './forum.js';
 import ReallySimpleSyndication from './rss.js';
 import Subtitle from './subtitle.js';
 
-export interface BreadOptions {
+export interface YeastOptions {
   // To generate an api key, visit m-team's Laboratory page.
   key: string;
   // Example: https://m-*.*/**. Default is test environment of m-team.
   url?: string;
 }
 
-class Bread {
+class Yeast {
 
   public seed: Seed;
   public member: Member;
@@ -36,7 +36,7 @@ class Bread {
 
 
 
-  constructor(protected options: BreadOptions) {
+  constructor(protected options: YeastOptions) {
     if (typeof options !== 'object') {
       throw new Error('options must be an object of type BreadOptions');
     }
@@ -57,6 +57,6 @@ class Bread {
   }
 }
 
-export default Bread;
+export default Yeast;
 
 

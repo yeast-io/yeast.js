@@ -9,8 +9,8 @@ async function boostrap (): Promise<void> {
   const program = new Command();
   const builder = new BuildInternalCommands();
 
-  program.name('bread');
-  program.description('bread.js is an easy-to-use tool for M-Team.');
+  program.name('yeast');
+  program.description('yeast.js is an easy-to-use tool for M-Team.');
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   program.version(require('../package.json').version);
 

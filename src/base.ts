@@ -2,7 +2,7 @@ import Request from './request.js';
 import * as utils from './utils.js';
 import Debug from 'debug';
 
-const debug = Debug('bread:base');
+const debug = Debug('yeast:base');
 
 class Base {
 

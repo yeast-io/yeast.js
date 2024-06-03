@@ -9,8 +9,8 @@ import { URL } from 'node:url';
 import { M_TEAM_API_URL } from './constant.js';
 import { ReadStream } from 'node:fs';
 
-const requestUrl = Debug('bread:request:url');
-const result = Debug('bread:response:result');
+const requestUrl = Debug('yeast:request:url');
+const result = Debug('yeast:response:result');
 
 /**
  * @description This is a generic response interface of M-team's API, and you can specify the type of the data

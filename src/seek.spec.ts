@@ -1,4 +1,4 @@
-import Bread from './bread.js';
+import Yeast from './yeast';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { CreateSeekTorrentInput } from './interfaces/seek/input.type.js';
@@ -6,14 +6,14 @@ import sinon from 'sinon';
 
 describe('🌳 Seek', () => {
 
-  const bread = new Bread({ key: process.env.M_TEAM_API_KEY as string });
+  const yeast = new Yeast({ key: process.env.M_TEAM_API_KEY as string });
 
 
   it('- should be able to add more excess rewards to the torrent-seeking request', async () => {
     const seekId = 23943;
     const reward = 100;
-    sinon.stub(bread.seek, 'addTo').callsFake(async () => true);
-    expect(await bread.seek.addTo(seekId, reward)).to.be.true;
+    sinon.stub(yeast.seek, 'addTo').callsFake(async () => true);
+    expect(await yeast.seek.addTo(seekId, reward)).to.be.true;
     sinon.restore();
   });
 
@@ -22,21 +22,21 @@ describe('🌳 Seek', () => {
 
     const options: CreateSeekTorrentInput = <CreateSeekTorrentInput>{};
     try {
-      await bread.seek.create(options);
+      await yeast.seek.create(options);
     } catch (err) {
       expect(err).is.instanceof(Error);
     }
 
     options['title'] = 'Bread.js is testing to seek the torrent 2';
     try {
-      await bread.seek.create(options);
+      await yeast.seek.create(options);
     } catch (err) {
       expect(err).is.instanceof(Error);
     }
 
     options['category'] = 401;
     try {
-      await bread.seek.create(options);
+      await yeast.seek.create(options);
     } catch (err) {
       expect(err).is.instanceof(Error);
     }
@@ -44,14 +44,14 @@ describe('🌳 Seek', () => {
     options['reward'] = 1000;
 
     try {
-      await bread.seek.create(options);
+      await yeast.seek.create(options);
     } catch (err) {
       expect(err).is.instanceof(Error);
     }
 
-    sinon.stub(bread.seek, 'create').callsFake(async () => '23943');
+    sinon.stub(yeast.seek, 'create').callsFake(async () => '23943');
     options['intro'] = 'Bread.js is testing to seek the torrent 2';
-    const seekId = await bread.seek.create(options);
+    const seekId = await yeast.seek.create(options);
     expect(seekId).to.be.a('string');
     expect(parseInt(seekId, 10)).to.be.a('number');
     sinon.restore();
@@ -60,7 +60,7 @@ describe('🌳 Seek', () => {
 
   it('- should be able to get the detail of the seeking torrent', async () => {
     const seekId = 23947;
-    // bread.seek.detail = mock(() => Promise.resolve({
+    // yeast.seek.detail = mock(() => Promise.resolve({
     //   submitList: {},
     //   submitTakeIds: [],
     //   addList: [],
@@ -86,13 +86,13 @@ describe('🌳 Seek', () => {
     //     editedBy: null
     //   }
     // }));
-    expect(await bread.seek.detail(seekId)).to.be.an('object');
+    expect(await yeast.seek.detail(seekId)).to.be.an('object');
   });
 
   it('- should be able to update the request of seeking torrent', async () => {
 
     const now = Date.now();
-    const r = await bread.seek.edit({
+    const r = await yeast.seek.edit({
       intro: 'Bread.js is testing to seek the torrent 23 - ' + now,
       category: 401,
       reward: 2000,

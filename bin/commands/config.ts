@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { table } from 'table';
 import chalk from 'chalk';
 
-const HOME_DIR = join(homedir(), '.bread.js/');
+const HOME_DIR = join(homedir(), '.yeast.js/');
 const CONFIG_FILE = join(HOME_DIR, 'config.json');
 
 const exists = async (path: string) => {

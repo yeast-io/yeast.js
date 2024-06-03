@@ -1,26 +1,26 @@
 <p align="center">
   <img width="250" height="250" src="https://github.com/danielsss/bread/blob/main/docs/images/logo.png">
 </p>
-<h1 align="center">bread.js</h1>
+<h1 align="center">yeast.js</h1>
 
 <p align="center">
   <a href="https://www.typescriptlang.org/" target="_blank"><img src="https://forthebadge.com/images/badges/made-with-typescript.svg"></a>
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/bread.js" target="_blank"><img src="https://img.shields.io/npm/v/bread.js?style=for-the-badge"></a>
-  <a href="https://www.npmjs.com/package/bread.js" target="_blank"><img src="https://img.shields.io/npm/dt/bread.js?style=for-the-badge"></a>
+  <a href="https://www.npmjs.com/package/yeast.js" target="_blank"><img src="https://img.shields.io/npm/v/yeast.js?style=for-the-badge"></a>
+  <a href="https://www.npmjs.com/package/yeast.js" target="_blank"><img src="https://img.shields.io/npm/dt/yeast.js?style=for-the-badge"></a>
 </p>
 
 
-The bread.js is a library that provides a simple way to access the `M-Team` API.
+The yeast.js is a library that provides a simple way to access the `M-Team` API.
 You can use it to get the information of the user, the torrent, the forum, and so on.
 
 
 We've also provided the `cli` command to help you get what you want in an advanced way.
 
 
-## Usage of bread.js
+## Usage of yeast.js
 
 
 
@@ -33,17 +33,17 @@ We've also provided the `cli` command to help you get what you want in an advanc
 You can install the module via `bun` or `pnpm` and so on:
 
 ```bash
-pnpm i bread.js
+pnpm add yeast.js
 ```
 
 Or you can install it globally to use the `cli` command:
 
 ```bash
-pnpm i -g bread.js
+pnpm i -g yeast.js
 
 
-# Then you can use the `bread` command to get the information you want.
-bread member base 1
+# Then you can use the `yeast` command to get the information you want.
+yeast member base 1
 ```
 
 ### Import
@@ -51,14 +51,14 @@ bread member base 1
 You can import the module in your project like this(Node.js or Typescript):
 
 ```javascript
-import Bread from 'bread.js';
+import Yeast from 'yeast.js';
 
 // The https://test2.*.* is the default value of the url if you don't provide it.
-const bread = new Bread({ key: 'YOUR KEY', url: '' });
+const yeast = new Yeast({ key: 'YOUR KEY', url: '' });
 
 try {
-  const info = await bread.member.base('your user id');
-  await bread.member.bindOTP(); // The unimplemented error will be thrown
+  const info = await yeast.member.base('your user id');
+  await yeast.member.bindOTP(); // The unimplemented error will be thrown
 } catch (err) {
   console.error(err);
 }
@@ -74,15 +74,15 @@ try {
 
 ### Member
 
-* bread.member.bindOTP
-* bread.member.unbindOTP
-* bread.member.changeEmail
-* bread.member.changeEmailSendCode
-* <ins>bread.member.getSessionList</ins>
-* bread.member.checkInviteCode
-* bread.member.forgotPwd
-* bread.member.forgetPwdTow
-* <ins>bread.member.queryLoginHistory</ins>
+* yeast.member.bindOTP
+* yeast.member.unbindOTP
+* yeast.member.changeEmail
+* yeast.member.changeEmailSendCode
+* <ins>yeast.member.getSessionList</ins>
+* yeast.member.checkInviteCode
+* yeast.member.forgotPwd
+* yeast.member.forgetPwdTow
+* <ins>yeast.member.queryLoginHistory</ins>
 * bread.member.register
 * <ins>bread.member.revokeSession</ins>
 * bread.member.sendEmailVerifyCode
