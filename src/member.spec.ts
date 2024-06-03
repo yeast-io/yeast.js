@@ -1,4 +1,4 @@
-import Yeast from './yeast';
+import Yeast from './yeast.js';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { has } from './utils.js';
@@ -66,7 +66,7 @@ describe('🤴 Member', () => {
   });
 
   it('- should be able to generate a OTP URL', async () => {
-    const url = await bread.member.genOTPUrl();
+    const url = await yeast.member.genOTPUrl();
     expect(url).to.be.a('string');
     expect(url).to.have.string('otpauth://totp/');
   });

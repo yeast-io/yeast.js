@@ -1,5 +1,5 @@
 import { describe, it } from 'mocha';
-import Yeast from './yeast';
+import Yeast from './yeast.js';
 import { expect } from 'chai';
 
 

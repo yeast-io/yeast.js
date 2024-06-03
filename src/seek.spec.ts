@@ -1,4 +1,4 @@
-import Yeast from './yeast';
+import Yeast from './yeast.js';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { CreateSeekTorrentInput } from './interfaces/seek/input.type.js';
@@ -106,14 +106,14 @@ describe('🌳 Seek', () => {
 
     const seekId = 23947;
     const torrentId = 1;
-    sinon.stub(bread.seek, 'submit').callsFake(async () => true);
-    expect(await bread.seek.submit(seekId, torrentId)).to.be.true;
+    sinon.stub(yeast.seek, 'submit').callsFake(async () => true);
+    expect(await yeast.seek.submit(seekId, torrentId)).to.be.true;
     sinon.restore();
   });
 
   it('- should be able to search the request of seeking torrent', async () => {
 
-    const requests = await bread.seek.search();
+    const requests = await yeast.seek.search();
     expect(requests).to.be.an('object');
     expect(requests.data).to.be.an('array');
     expect(requests.data.length).to.be.greaterThan(0);
@@ -125,20 +125,20 @@ describe('🌳 Seek', () => {
 
     try {
       // @ts-ignore
-      await bread.seek.take(23947);
+      await yeast.seek.take(23947);
     } catch (err) {
       expect(err).is.instanceof(Error);
     }
 
     try {
       // @ts-ignore
-      await bread.seek.take('23947', []);
+      await yeast.seek.take('23947', []);
     } catch (err) {
       expect(err).is.instanceof(Error);
     }
 
-    sinon.stub(bread.seek, 'take').callsFake(async () => true);
-    expect(await bread.seek.take(23947, [1])).to.be.true;
+    sinon.stub(yeast.seek, 'take').callsFake(async () => true);
+    expect(await yeast.seek.take(23947, [1])).to.be.true;
     sinon.restore();
   });
 
@@ -146,7 +146,7 @@ describe('🌳 Seek', () => {
   it('- the unimplemented error should be thrown out when call recovery', async () => {
 
     try {
-      await bread.seek.recovery();
+      await yeast.seek.recovery();
     } catch (err) {
       expect(err).is.instanceof(Error);
     }
