@@ -84,7 +84,7 @@ try {
 * yeast.member.forgetPwdTow
 * <ins>yeast.member.queryLoginHistory</ins>
 * yeast.member.register
-* <ins>bread.member.revokeSession</ins>
+* <ins>yeast.member.revokeSession</ins>
 * yeast.member.sendEmailVerifyCode
 * yeast.member.sendLoginEmailVerifyCode
 * <ins>yeast.member.updateLastBrowse</ins>
@@ -103,7 +103,7 @@ try {
 
 ### Seek
 
-* bread.seek.recovery
+* yeast.seek.recovery
 
 ### Forum
 
