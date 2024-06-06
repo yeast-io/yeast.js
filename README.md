@@ -60,7 +60,7 @@ try {
 
 ```javascript
 const Yeast = require('yeast.js');
-
+const yeast = new Yeast({ key: 'YOUR KEY', url: '' });
 try {
   const info = await yeast.member.base('$userId');
   await yeast.member.bindOTP(); // The unimplemented error will be thrown
