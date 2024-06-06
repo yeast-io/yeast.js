@@ -51,6 +51,7 @@ const yeast = new Yeast({ key: 'YOUR KEY', url: '' });
 try {
   const info = await yeast.member.base('$userId');
   await yeast.member.bindOTP(); // The unimplemented error will be thrown
+  const seeds = await yeast.seed.search({ mode: 'adult' });
 } catch (err) {
   console.error(err);
 }
