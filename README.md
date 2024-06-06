@@ -17,7 +17,7 @@ The yeast.js is a library that provides a simple way to access the `M-Team` API.
 You can use it to get the information of the user, the torrent, the forum, and so on.
 
 
-We've also provided the `cli` command to help you get what you want in an advanced way.
+We've also provided the `cli` command to help you get what you want in an advanced way. Please, [click here](./docs/cli.md) for more information
 
 
 ## Usage of yeast.js
@@ -36,16 +36,6 @@ You can install the module via `bun` or `pnpm` and so on:
 pnpm add yeast.js
 ```
 
-Or you can install it globally to use the `cli` command:
-
-```bash
-pnpm i -g yeast.js
-
-
-# Then you can use the `yeast` command to get the information you want.
-yeast member base 1
-```
-
 ### Import
 
 You can import the module in your project like this(Node.js or Typescript):
@@ -57,12 +47,26 @@ import Yeast from 'yeast.js';
 const yeast = new Yeast({ key: 'YOUR KEY', url: '' });
 
 try {
-  const info = await yeast.member.base('your user id');
+  const info = await yeast.member.base('$userId');
   await yeast.member.bindOTP(); // The unimplemented error will be thrown
 } catch (err) {
   console.error(err);
 }
 ```
+
+## Implemented APIs 
+
+* Forum
+* Friend
+* Laboratory
+* Member
+* RSS
+* Seed
+* Seek
+* Subtitle
+* System
+* Tracker
+
 
 ## Unimplemented APIs
 
