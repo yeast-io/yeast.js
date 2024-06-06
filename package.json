@@ -1,6 +1,6 @@
 {
   "name": "yeast.js",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "A library for M-Team API",
   "type": "module",
   "types": "dist/yeast.d.ts",
