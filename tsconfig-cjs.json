@@ -1,9 +1,29 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist/cjs",
-    "declaration": true,
     "module": "CommonJS",
-    "target": "ES2022"
-  }
+    "target": "ES2022",
+    "declaration": true,
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "noUnusedLocals": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "sourceMap": false,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "strictBindCallApply": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "lib": ["ESNext"]
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "exclude": [ "**/node_modules/**", "**/dist/**", "**/**.spec.ts", "**/bin/**"]
 }
