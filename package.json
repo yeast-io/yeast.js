@@ -5,6 +5,14 @@
   "type": "module",
   "types": "dist/yeast.d.ts",
   "main": "dist/yeast.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/yeast.d.ts",
+      "import": "./dist/esm/yeast.js",
+      "require": "./dist/cjs/yeast.js",
+      "default": "./dist/esm/yeast.js"
+    }
+  },
   "bin": {
     "yeast": "cli/bin/yeast.js"
   },
@@ -12,9 +20,13 @@
     "lint": "eslint .",
     "cli": "NODE_NO_WARNINGS=1 node --loader ts-node/esm bin/yeast.ts",
     "test": "NODE_NO_WARNINGS=1 node_modules/.bin/mocha --require setup.js",
-    "build": "rm -rf ./dist/* ./cli/* && tsc -p tsconfig.json && tsc -p tsconfig.cli.json",
+    "clean": "rm -rf ./dist/*",
+    "build": "pnpm run build:esm && pnpm run build:cjs && pnpm run build:types",
+    "build:esm": "tsc --project ./tsconfig-esm.json",
+    "build:cjs": "tsc --project ./tsconfig-cjs.json",
+    "build:types": "tsc --project ./tsconfig-types.json",
     "prepare": "husky",
-    "release": "pnpm run build && pnpm version patch && pnpm publish"
+    "release": "pnpm run clean && pnpm @build && pnpm version patch && pnpm publish"
   },
   "dependencies": {
     "bytes": "^3.1.2",
@@ -30,6 +42,7 @@
     "@types/debug": "^4.1.12",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.14.0",
+    "@types/node-fetch": "^2.6.11",
     "@types/sinon": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "@typescript-eslint/parser": "^7.5.0",

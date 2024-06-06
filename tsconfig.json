@@ -1,9 +1,5 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
-    "lib": ["ES2023", "ESNext"],
-    "target": "ESNext",
-    "moduleResolution": "NodeNext",
     "declaration": true,
     "noImplicitAny": true,
     "preserveConstEnums": true,
@@ -20,7 +16,9 @@
     "strictPropertyInitialization": true,
     "strictBindCallApply": true,
     "noImplicitThis": true,
-    "alwaysStrict": true
+    "alwaysStrict": true,
+    "lib": ["ESNext"],
+    "target": "ESNext"
   },
   "ts-node": {
     "esm": true,

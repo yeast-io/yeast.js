@@ -36,15 +36,30 @@ You can install the module via `bun` or `pnpm` and so on:
 pnpm add yeast.js
 ```
 
-### Import
+### Usage
+
+##### ES Module
 
 You can import the module in your project like this(Node.js or Typescript):
 
-```javascript
+```typescript
 import Yeast from 'yeast.js';
 
 // The https://test2.*.* is the default value of the url if you don't provide it.
 const yeast = new Yeast({ key: 'YOUR KEY', url: '' });
+
+try {
+  const info = await yeast.member.base('$userId');
+  await yeast.member.bindOTP(); // The unimplemented error will be thrown
+} catch (err) {
+  console.error(err);
+}
+```
+
+##### CommonJS
+
+```javascript
+const Yeast = require('yeast.js');
 
 try {
   const info = await yeast.member.base('$userId');
