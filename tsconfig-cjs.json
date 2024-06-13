@@ -7,7 +7,7 @@
     "preserveConstEnums": true,
     "noUnusedLocals": true,
     "rootDir": "./src",
-    "outDir": "./dist",
+    "outDir": "./dist/cjs",
     "sourceMap": false,
     "strict": true,
     "esModuleInterop": true,
