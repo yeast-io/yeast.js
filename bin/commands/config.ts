@@ -1,7 +1,7 @@
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { access, mkdir, writeFile } from 'node:fs/promises';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { table } from 'table';
 import chalk from 'chalk';
 
@@ -42,6 +42,9 @@ export const initialize = async () => {
 
 
 export const addConfig = (key: string, url: string) => {
+  if (existsSync(CONFIG_FILE)) {
+    return updateConfig(key, url);
+  }
   writeFileSync(CONFIG_FILE, JSON.stringify({ key, url }), 'utf-8');
   outputConfig(loadConfig());
 }

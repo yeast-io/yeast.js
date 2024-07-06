@@ -14,12 +14,12 @@ class BuildInternalCommands {
 
     const config = program
       .command('config')
-      .description('setup the configurations')
+      .description('setup config')
 
 
     config
       .command('add')
-      .description('add the configuration')
+      .description('add config')
       .option('-k, --key <key>', 'set key')
       .option('-u, --url [url]', 'set url')
       .action((options) => {
