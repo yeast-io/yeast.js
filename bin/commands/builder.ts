@@ -5,7 +5,8 @@ import Search from './search.js';
 import Member from './member.js';
 
 
-const DEFAULT_URL = Buffer.from('aHR0cHM6Ly90cC5tLXRlYW0uY2M=', 'base64').toString('utf-8');
+const ENCODED_URL = 'aHR0cHM6Ly9hcGkubS10ZWFtLmNj';
+const DEFAULT_URL = Buffer.from(ENCODED_URL, 'base64').toString('utf-8');
 
 class BuildInternalCommands {
 
@@ -67,8 +68,7 @@ class BuildInternalCommands {
 
 
         const search = new Search();
-        // @ts-expect-error . . . . . . . . . . . . .
-        await search.movies(tags[tag], options.keyword || null, parseInt(options.limit))
+        await search.movies(tags[tag] as any, options.keyword || null, parseInt(options.limit))
       });
 
     search.command('packages')

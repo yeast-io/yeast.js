@@ -3,7 +3,7 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "declaration": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "preserveConstEnums": true,
     "noUnusedLocals": true,
     "rootDir": "./src",
