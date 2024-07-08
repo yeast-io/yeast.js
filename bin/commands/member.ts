@@ -1,14 +1,14 @@
 import Laboratory from '../../src/laboratory.js';
-import { loadConfig } from './config.js';
 import { table } from 'table';
+import { IConfig } from './config.js';
 
 
 class Member {
 
   protected readonly lab: Laboratory;
 
-  constructor() {
-    this.lab = new Laboratory(loadConfig());
+  constructor(protected config: IConfig) {
+    this.lab = new Laboratory(config);
   }
 
 

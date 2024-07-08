@@ -1,56 +1,56 @@
-import { Command } from 'commander';
-import { loadConfig, addConfig, updateConfig, outputConfig } from './config.js';
-import { Buffer } from 'node:buffer';
 import Search from './search.js';
 import Member from './member.js';
+import { Command } from 'commander';
+import { Config } from './config.js';
 
-
-const ENCODED_URL = 'aHR0cHM6Ly9hcGkubS10ZWFtLmNj';
-const DEFAULT_URL = Buffer.from(ENCODED_URL, 'base64').toString('utf-8');
+const config = new Config();
+const search = new Search(config.loadConfig());
+const member = new Member(config.loadConfig());
 
 class BuildInternalCommands {
 
   public async config(program: Command) {
 
-    const config = program
+    const cmd = program
       .command('config')
       .description('setup config')
 
 
-    config
-      .command('add')
-      .description('add config')
+    cmd
+      .command('site')
+      .description('add site config')
       .option('-k, --key <key>', 'set key')
       .option('-u, --url [url]', 'set url')
       .action((options) => {
         if (!options.key) {
-          return config.help({ error: true });
+          return cmd.help({ error: true });
         }
 
-        addConfig(options.key, options.url);
+        config.site(options.key, options.url).save();
       });
 
-    config
-      .command('update')
-      .description('update the configuration')
-      .option('-k, --key <key>', 'set key')
-      .option('-u, --url [url]', 'set url')
+    cmd
+      .command('bittorrent')
+      .description('add bittorrent config')
+      .option('-u, --username <username>', 'set username')
+      .option('-p, --password <password>', 'set password')
+      .option('-l, --url [url]', 'set url')
       .action((options) => {
-        if (!options.key) {
-          return config.help({ error: true });
+        if (!options.username || !options.password) {
+          return cmd.help({ error: true });
         }
 
-        updateConfig(options.key, options.url || DEFAULT_URL);
+        config.bittorrent(options.username, options.password, options.url).save();
       });
 
-    config
+    cmd
       .command('list', { isDefault: true })
       .description('show the configuration')
-      .action(() => outputConfig(loadConfig()));
+      .action(() => config.show());
   }
 
   public async search(program: Command) {
-    const search = program
+    const cmd = program
       .command('search')
       .description('The command "search" will help you to search the torrent')
       .option('-t, --tag [tag]', 'Only 4K | Movies | TV | Adult are supported', '4K')
@@ -66,15 +66,12 @@ class BuildInternalCommands {
           return program.outputHelp({ error: true });
         }
 
-
-        const search = new Search();
         await search.movies(tags[tag] as any, options.keyword || null, parseInt(options.limit))
       });
 
-    search.command('packages')
+    cmd.command('packages')
       .description('Only output the big packages')
       .action(async () => {
-        const search = new Search();
         await search.packages();
       });
   }
@@ -84,7 +81,6 @@ class BuildInternalCommands {
       .command('peers <torrentId>')
       .description('show the peers')
       .action(async (torrentId) => {
-        const search = new Search();
         await search.peers(parseInt(torrentId));
       });
   }
@@ -95,29 +91,25 @@ class BuildInternalCommands {
       .command('lab:show')
       .description('show the states of laboratory')
       .action(async () => {
-        const member = new Member();
         await member.show();
       });
   }
 
   public async labSwitch(program: Command) {
-    const switcher = program
+    const cmd = program
       .command('lab:switch')
       .description('Switch the laboratory state');
 
 
-    switcher
-      .command('on')
+    cmd.command('on')
       .description('turn on the laboratory state')
       .action(async () => {
-        const member = new Member();
         await member.switch('ON');
       });
 
-    switcher.command('off')
+    cmd.command('off')
       .description('turn off the laboratory state')
       .action(async () => {
-        const member = new Member();
         await member.switch('OFF');
       });
   }

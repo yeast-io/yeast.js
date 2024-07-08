@@ -1,8 +1,9 @@
+// @ts-ignore
 import bytes from 'bytes';
 import Seed from '../../src/seed.js';
 import { isEmpty } from '../../src/utils.js';
-import { loadConfig } from './config.js';
 import { table, Indexable, ColumnUserConfig } from 'table';
+import { IConfig } from './config.js';
 
 
 class Search {
@@ -18,8 +19,8 @@ class Search {
     { alignment: 'center', width: 8 },
   ];
 
-  constructor() {
-    this.seed = new Seed(loadConfig());
+  constructor(protected config: IConfig) {
+    this.seed = new Seed(config);
   }
 
   public async peers(torrentId: number) {

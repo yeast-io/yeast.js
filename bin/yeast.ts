@@ -2,10 +2,8 @@
 
 import BuildInternalCommands from './commands/builder.js';
 import { Command } from 'commander';
-import { initialize } from './commands/config.js';
 
 async function boostrap (): Promise<void> {
-  await initialize();
   const program = new Command();
   const builder = new BuildInternalCommands();
 

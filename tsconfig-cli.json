@@ -1,9 +1,30 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
+    "module": "NodeNext",
+    "lib": ["ES2023", "ESNext"],
+    "target": "ESNext",
     "moduleResolution": "NodeNext",
-    "esModuleInterop": false,
+    "declaration": true,
+    "noImplicitAny": false,
+    "preserveConstEnums": true,
+    "noUnusedLocals": true,
     "rootDir": ".",
     "outDir": "./cli",
-  }
+    "sourceMap": false,
+    "strict": true,
+    "esModuleInterop": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "strictBindCallApply": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "exclude": [ "**/node_modules/**", "**/dist/**", "**/**.spec.ts"]
 }
