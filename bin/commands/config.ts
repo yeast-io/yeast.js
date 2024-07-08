@@ -29,12 +29,13 @@ export class Config {
 
   public map: IConfig;
 
+  private loaded: boolean = false;
+
   constructor() {
     this.map = {
       key: '', url: '',
       bittorrent: { username: '', password: '', url: '' }
     };
-    this.initialize();
   }
 
   public site(key: string, url: string) {
@@ -58,17 +59,27 @@ export class Config {
   }
 
   public loadConfig() {
+    if (this.loaded) {
+      return this.map;
+    }
     const m = readFileSync(CONFIG_FILE, 'utf-8');
+    this.loaded = true;
     return JSON.parse(m);
   }
 
-  protected initialize() {
+  public initialize() {
     if (existsSync(CONFIG_FILE)) {
       this.map = this.loadConfig();
     } else {
-      // create config file
       writeFileSync(CONFIG_FILE, JSON.stringify(this.map), 'utf-8');
     }
+  }
+
+  public check() {
+    if (!this.map.key || !this.map.url) {
+      return new Error('Please setup the config first.');
+    }
+    return null;
   }
 
 }

@@ -3,11 +3,23 @@ import Member from './member.js';
 import { Command } from 'commander';
 import { Config } from './config.js';
 
-const config = new Config();
-const search = new Search(config.loadConfig());
-const member = new Member(config.loadConfig());
+
+interface IClient {
+  search: Search;
+  member: Member;
+  config: Config;
+}
+
 
 class BuildInternalCommands {
+
+  protected instance: IClient = {} as IClient;
+
+  constructor(protected configInstance: Config) {
+    this.instance.config = configInstance;
+    this.instance.search = new Search(this.instance.config.loadConfig());
+    this.instance.member = new Member(this.instance.config.loadConfig());
+  }
 
   public async config(program: Command) {
 
@@ -26,7 +38,7 @@ class BuildInternalCommands {
           return cmd.help({ error: true });
         }
 
-        config.site(options.key, options.url).save();
+        this.instance.config.site(options.key, options.url).save();
       });
 
     cmd
@@ -40,23 +52,28 @@ class BuildInternalCommands {
           return cmd.help({ error: true });
         }
 
-        config.bittorrent(options.username, options.password, options.url).save();
+        this.instance.config.bittorrent(options.username, options.password, options.url).save();
       });
 
     cmd
       .command('list', { isDefault: true })
       .description('show the configuration')
-      .action(() => config.show());
+      .action(() => this.instance.config.show());
   }
 
   public async search(program: Command) {
     const cmd = program
       .command('search')
-      .description('The command "search" will help you to search the torrent')
+      .description('to help you to search the torrents')
       .option('-t, --tag [tag]', 'Only 4K | Movies | TV | Adult are supported', '4K')
       .option('-l, --limit [limit]', 'Set a limitation of how many movies that you want to list','50')
       .option('-k, --keyword [keyword]', 'Keyword for searching torrent')
       .action(async (options) => {
+        const err = this.instance.config.check();
+        if (err) {
+          console.error(err);
+          return program.outputHelp({ error: true });
+        }
         const tags = {
           '4k': 'normal', 'movie': 'movie',
           'tv': 'tvshow', 'adult': 'adult'
@@ -66,13 +83,18 @@ class BuildInternalCommands {
           return program.outputHelp({ error: true });
         }
 
-        await search.movies(tags[tag] as any, options.keyword || null, parseInt(options.limit))
+        await this.instance.search.movies(tags[tag] as any, options.keyword || null, parseInt(options.limit))
       });
 
     cmd.command('packages')
-      .description('Only output the big packages')
+      .description('only output the big packages')
       .action(async () => {
-        await search.packages();
+        const err = this.instance.config.check();
+        if (err) {
+          console.error(err);
+          return program.outputHelp({ error: true });
+        }
+        await this.instance.search.packages();
       });
   }
 
@@ -81,7 +103,12 @@ class BuildInternalCommands {
       .command('peers <torrentId>')
       .description('show the peers')
       .action(async (torrentId) => {
-        await search.peers(parseInt(torrentId));
+        const err = this.instance.config.check();
+        if (err) {
+          console.error(err);
+          return program.outputHelp({ error: true });
+        }
+        await this.instance.search.peers(parseInt(torrentId));
       });
   }
 
@@ -89,28 +116,43 @@ class BuildInternalCommands {
   public async labState(program: Command) {
     program
       .command('lab:show')
-      .description('show the states of laboratory')
+      .description('show the state of laboratory')
       .action(async () => {
-        await member.show();
+        const err = this.instance.config.check();
+        if (err) {
+          console.error(err);
+          return program.outputHelp({ error: true });
+        }
+        await this.instance.member.show();
       });
   }
 
   public async labSwitch(program: Command) {
     const cmd = program
       .command('lab:switch')
-      .description('Switch the laboratory state');
+      .description('switch the laboratory state');
 
 
     cmd.command('on')
       .description('turn on the laboratory state')
       .action(async () => {
-        await member.switch('ON');
+        const err = this.instance.config.check();
+        if (err) {
+          console.error(err);
+          return program.outputHelp({ error: true });
+        }
+        await this.instance.member.switch('ON');
       });
 
     cmd.command('off')
       .description('turn off the laboratory state')
       .action(async () => {
-        await member.switch('OFF');
+        const err = this.instance.config.check();
+        if (err) {
+          console.error(err);
+          return program.outputHelp({ error: true });
+        }
+        await this.instance.member.switch('OFF');
       });
   }
 }
