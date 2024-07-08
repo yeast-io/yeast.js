@@ -138,3 +138,6 @@ setup.js
 cli/
 
 .fleet/
+
+src/**/*.js
+src/**/*.d.ts

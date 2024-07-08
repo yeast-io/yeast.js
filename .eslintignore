@@ -4,3 +4,5 @@ node_modules/
 
 cli/
 
+src/**/*.js
+src/**/*.d.ts
