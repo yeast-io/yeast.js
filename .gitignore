@@ -139,3 +139,6 @@ setup.js
 
 src/**/*.js
 src/**/*.d.ts
+
+packages/**/*.js
+packages/**/*.d.ts
