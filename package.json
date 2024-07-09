@@ -13,9 +13,6 @@
       "default": "./dist/esm/yeast.js"
     }
   },
-  "bin": {
-    "yeast": "cli/bin/yeast.js"
-  },
   "scripts": {
     "lint": "eslint .",
     "test": "NODE_NO_WARNINGS=1 node_modules/.bin/mocha --require setup.js",
