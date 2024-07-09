@@ -1,0 +1,26 @@
+{
+  "name": "cli",
+  "version": "1.0.10",
+  "description": "The command-line interface for the project",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "yeast": "dist/yeast.js"
+  },
+  "scripts": {
+    "cli": "NODE_NO_WARNINGS=1 node --loader ts-node/esm ./yeast.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:cli": "rm -rf ./dist/*  && tsc --project ./tsconfig.json"
+  },
+  "dependencies": {
+    "@ctrl/qbittorrent": "^8.1.0",
+    "yeast.js": "^1.0.16"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
+  },
+  "keywords": [],
+  "author": "danielsss",
+  "license": "MIT"
+}

@@ -82,6 +82,16 @@ export class Config {
     return null;
   }
 
+  public checkBittorrent() {
+    if (!this.map.bittorrent?.username || !this.map.bittorrent?.password) {
+      return new Error('Please setup the bittorrent config first.');
+    }
+
+    if (!this.map.bittorrent?.url) {
+      return new Error('Please setup the bittorrent url first.');
+    }
+  }
+
 }
 
 

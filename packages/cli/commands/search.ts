@@ -1,14 +1,14 @@
 // @ts-ignore
 import bytes from 'bytes';
-import Seed from '../../src/seed.js';
-import { isEmpty } from '../../src/utils.js';
+import Yeast from 'yeast.js';
+import { isEmpty } from '../utils.js';
 import { table, Indexable, ColumnUserConfig } from 'table';
 import { IConfig } from './config.js';
 
 
 class Search {
 
-  protected readonly seed: Seed;
+  protected readonly yeast: Yeast;
   protected readonly headers = [ 'ID', 'Name', 'Created Time', 'Size/Discount', 'Seeder', 'Leecher' ];
   protected readonly columns: Indexable<ColumnUserConfig> = [
     { alignment: 'center', width: 8 },
@@ -20,17 +20,17 @@ class Search {
   ];
 
   constructor(protected config: IConfig) {
-    this.seed = new Seed(config);
+    this.yeast = new Yeast(config);
   }
 
   public async peers(torrentId: number) {
-    const peers = await this.seed.peers(torrentId);
+    const peers = await this.yeast.seed.peers(torrentId);
     const headers = [ 'Seeder', 'Leecher' ];
     let seeder = 0, leecher = 0;
     for (const peer of peers) {
       if (peer.left === '0') {
         seeder++;
-        continue
+        continue;
       }
 
       leecher++;
@@ -46,7 +46,7 @@ class Search {
 
   public async packages() {
     const mode = 'adult';
-    const results = await this.seed.search({ mode, pageSize: 15, pageNumber: 1, keyword: '' });
+    const results = await this.yeast.seed.search({ mode, pageSize: 15, pageNumber: 1, keyword: '' });
     const body = (
       results.data.map((pkg: Record<string, any>) => {
         if (pkg.status && pkg.status.toppingLevel < 1) { return null; }
@@ -78,7 +78,7 @@ class Search {
     if (keyword) {
       options.keyword = keyword;
     }
-    const movies = await this.seed.search(options);
+    const movies = await this.yeast.seed.search(options);
     movies.data = movies.data.sort((a, b) => {
       return new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
     });

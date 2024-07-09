@@ -18,14 +18,12 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "cli": "NODE_NO_WARNINGS=1 node --loader ts-node/esm bin/yeast.ts",
     "test": "NODE_NO_WARNINGS=1 node_modules/.bin/mocha --require setup.js",
     "clean": "rm -rf ./dist/*",
     "build:esm": "tsc --project ./tsconfig-esm.json",
     "build:cjs": "tsc --project ./tsconfig-cjs.json",
     "build:types": "tsc --project ./tsconfig-types.json",
-    "build:cli": "rm -rf ./cli/*  && tsc --project ./tsconfig-cli.json",
-    "build": "pnpm run clean && pnpm run build:esm && pnpm run build:cjs && pnpm run build:types && pnpm run build:cli",
+    "build": "pnpm run clean && pnpm run build:esm && pnpm run build:cjs && pnpm run build:types",
     "prepare": "husky",
     "release": "pnpm run build && pnpm version patch && pnpm publish"
   },

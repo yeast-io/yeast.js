@@ -1,5 +1,6 @@
 import Search from './search.js';
 import Member from './member.js';
+import Bittorrent from './bittorrent.js';
 import { Command } from 'commander';
 import { Config } from './config.js';
 
@@ -8,6 +9,7 @@ interface IClient {
   search: Search;
   member: Member;
   config: Config;
+  bittorrent: Bittorrent;
 }
 
 
@@ -19,6 +21,7 @@ class BuildInternalCommands {
     this.instance.config = configInstance;
     this.instance.search = new Search(this.instance.config.loadConfig());
     this.instance.member = new Member(this.instance.config.loadConfig());
+    this.instance.bittorrent = new Bittorrent(this.instance.config.loadConfig());
   }
 
   public async config(program: Command) {
@@ -153,6 +156,20 @@ class BuildInternalCommands {
           return program.outputHelp({ error: true });
         }
         await this.instance.member.switch('OFF');
+      });
+  }
+
+  public async bittorrent(program: Command) {
+    program
+      .command('qbittorrent <torrentId>')
+      .description('add the torrent to the qbittorrent server')
+      .action(async (torrentId) => {
+        const err = this.instance.config.checkBittorrent();
+        if (err) {
+          console.error(err);
+          return program.outputHelp({ error: true });
+        }
+        await this.instance.bittorrent.add(torrentId);
       });
   }
 }

@@ -19,6 +19,7 @@ async function boostrap (): Promise<void> {
   await builder.peers(program);
   await builder.labState(program);
   await builder.labSwitch(program);
+  await builder.bittorrent(program);
 
   if (!process.argv.slice(2).length) {
     return program.outputHelp({ error: false });

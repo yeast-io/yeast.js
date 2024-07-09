@@ -9,7 +9,7 @@
     "preserveConstEnums": true,
     "noUnusedLocals": true,
     "rootDir": ".",
-    "outDir": "./cli",
+    "outDir": "./dist",
     "sourceMap": false,
     "strict": true,
     "esModuleInterop": false,

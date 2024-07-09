@@ -25,5 +25,5 @@
     "esm": true,
     "experimentalSpecifierResolution": "node"
   },
-  "exclude": [ "**/node_modules/**", "**/dist/**", "**/**.spec.ts", "**/bin/**"]
+  "exclude": [ "**/node_modules/**", "**/dist/**", "**/**.spec.ts", "**/bin/**", "**/packages/**" ]
 }
