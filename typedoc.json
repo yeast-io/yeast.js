@@ -1,0 +1,7 @@
+{
+  "tsconfig": "tsconfig.json",
+  "out": "docs/pages",
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "hideGenerator": true
+}

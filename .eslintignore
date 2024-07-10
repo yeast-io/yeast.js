@@ -6,3 +6,5 @@ cli/
 
 src/**/*.js
 src/**/*.d.ts
+
+docs/

@@ -142,3 +142,5 @@ src/**/*.d.ts
 
 packages/**/*.js
 packages/**/*.d.ts
+
+docs/pages/

@@ -83,6 +83,8 @@ try {
 * System
 * Tracker
 
+[Full API definitions](https://yeast.vercel.app): https://yeast.vercel.app 
+
 
 ## Unimplemented APIs
 
