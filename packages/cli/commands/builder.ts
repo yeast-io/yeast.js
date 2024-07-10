@@ -160,9 +160,12 @@ class BuildInternalCommands {
   }
 
   public async bittorrent(program: Command) {
-    program
-      .command('qbittorrent <torrentId>')
+    const cmd = program
+      .command('qbittorrent')
       .description('add the torrent to the qbittorrent server')
+
+    cmd
+      .command('add <torrentId>')
       .action(async (torrentId) => {
         const err = this.instance.config.checkBittorrent();
         if (err) {
