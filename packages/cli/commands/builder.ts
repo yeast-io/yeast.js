@@ -35,7 +35,7 @@ class BuildInternalCommands {
       .command('site')
       .description('add site config')
       .option('-k, --key <key>', 'set key')
-      .option('-u, --url [url]', 'set url')
+      .option('-u, --url <url>', 'set url')
       .action((options) => {
         if (!options.key) {
           return cmd.help({ error: true });
@@ -49,7 +49,7 @@ class BuildInternalCommands {
       .description('add bittorrent config')
       .option('-u, --username <username>', 'set username')
       .option('-p, --password <password>', 'set password')
-      .option('-l, --url [url]', 'set url')
+      .option('-l, --url <url>', 'set url')
       .action((options) => {
         if (!options.username || !options.password) {
           return cmd.help({ error: true });
@@ -68,9 +68,9 @@ class BuildInternalCommands {
     const cmd = program
       .command('search')
       .description('to help you to search the torrents')
-      .option('-t, --tag [tag]', 'Only 4K | Movies | TV | Adult are supported', '4K')
-      .option('-l, --limit [limit]', 'Set a limitation of how many movies that you want to list','50')
-      .option('-k, --keyword [keyword]', 'Keyword for searching torrent')
+      .option('-t, --tag [tag]', 'only "4K | Movies | TV | Adult" are supported', '4K')
+      .option('-l, --limit [limit]', 'set a limitation of how many movies that you want to list','50')
+      .option('-k, --keyword [keyword]', 'keyword for searching torrent')
       .action(async (options) => {
         const err = this.instance.config.check();
         if (err) {
@@ -166,13 +166,14 @@ class BuildInternalCommands {
 
     cmd
       .command('add <torrentId>')
-      .action(async (torrentId) => {
+      .option('-d, --destination [path]', 'the destination in where torrents exactly store')
+      .action(async (torrentId, options) => {
         const err = this.instance.config.checkBittorrent();
         if (err) {
           console.error(err);
           return program.outputHelp({ error: true });
         }
-        await this.instance.bittorrent.add(torrentId);
+        await this.instance.bittorrent.add(torrentId, options.path);
       });
   }
 }

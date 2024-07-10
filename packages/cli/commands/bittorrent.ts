@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import Yeast from 'yeast.js';
 import { IConfig } from './config.js';
-import { QBittorrent } from '@ctrl/qbittorrent';
+import { QBittorrent, AddTorrentOptions } from '@ctrl/qbittorrent';
 import chalk from 'chalk';
 
 class Bittorrent {
@@ -19,11 +19,14 @@ class Bittorrent {
     this.yeast = new Yeast(this.config);
   }
 
-  public async add(torrentId: number) {
-    // const preference = await this.qBittorrent.getPreferences();
+  public async add(torrentId: number, destination?: string) {
     const url = await this.yeast.seed.genDlToken(torrentId);
     const buf = await this.downloadTorrent(url, torrentId);
-    const isAdded = await this.qBittorrent.addTorrent(buf);
+    const options: AddTorrentOptions = {} as AddTorrentOptions;
+    if (destination) {
+      options.savepath = destination;
+    }
+    const isAdded = await this.qBittorrent.addTorrent(buf, options);
     console.info(
       chalk.yellow(torrentId),
       isAdded ? chalk.green('Succeeds') : chalk.red('Fails')
