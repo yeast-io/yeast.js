@@ -64,5 +64,13 @@
     "package.json"
   ],
   "author": "danielsss",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yeast-io/yeast.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yeast-io/yeast.js/issues"
+  },
+  "homepage": "https://github.com/yeast-io/yeast.js#readme",
   "license": "MIT"
 }
