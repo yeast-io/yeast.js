@@ -166,14 +166,14 @@ class BuildInternalCommands {
 
     cmd
       .command('add <torrentId>')
-      .option('-d, --destination [path]', 'the destination in where torrents exactly store')
+      .option('-d, --destination [destination]', 'the destination in where torrents exactly store')
       .action(async (torrentId, options) => {
         const err = this.instance.config.checkBittorrent();
         if (err) {
           console.error(err);
           return program.outputHelp({ error: true });
         }
-        await this.instance.bittorrent.add(torrentId, options.path);
+        await this.instance.bittorrent.add(torrentId, options.destination);
       });
   }
 }
