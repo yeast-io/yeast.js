@@ -17,6 +17,9 @@ importers:
       commander:
         specifier: ^12.0.0
         version: 12.0.0
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4(supports-color@8.1.1)
       form-data:
         specifier: ^4.0.0
         version: 4.0.0
@@ -57,9 +60,6 @@ importers:
       chai:
         specifier: ^5.1.0
         version: 5.1.0
-      debug:
-        specifier: ^4.3.4
-        version: 4.3.4(supports-color@8.1.1)
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
